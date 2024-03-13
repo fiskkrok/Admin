@@ -1,0 +1,122 @@
+[
+    {
+        "courseId": 1,
+        "courseCode": "MATH200",
+        "courseName": "History of Art",
+        "credits": 5
+    },
+    {
+        "courseId": 2,
+        "courseCode": "CS101",
+        "courseName": "Introduction to Astronomy",
+        "credits": 0
+    },
+    {
+        "courseId": 3,
+        "courseCode": "HIST300",
+        "courseName": "Fashion Design Fundamentals",
+        "credits": 0
+    },
+    {
+        "courseId": 4,
+        "courseCode": "CHEM250",
+        "courseName": "Introduction to Astronomy",
+        "credits": 3
+    },
+    {
+        "courseId": 5,
+        "courseCode": "PHYS150",
+        "courseName": "Creative Writing Workshop",
+        "credits": 9
+    },
+    {
+        "courseId": 6,
+        "courseCode": "CHEM250",
+        "courseName": "Digital Marketing Strategies",
+        "credits": 3
+    },
+    {
+        "courseId": 7,
+        "courseCode": "PHYS150",
+        "courseName": "Nutrition and Wellness",
+        "credits": 2
+    },
+    {
+        "courseId": 8,
+        "courseCode": "MATH200",
+        "courseName": "Public Speaking 101",
+        "credits": 1
+    },
+    {
+        "courseId": 9,
+        "courseCode": "BUS220",
+        "courseName": "Fashion Design Fundamentals",
+        "credits": 3
+    },
+    {
+        "courseId": 10,
+        "courseCode": "SOC101",
+        "courseName": "Introduction to Psychology",
+        "credits": 10
+    },
+    {
+        "courseId": 11,
+        "courseCode": "ENG102",
+        "courseName": "Introduction to Astronomy",
+        "credits": 1
+    },
+    {
+        "courseId": 12,
+        "courseCode": "HIST300",
+        "courseName": "Environmental Science",
+        "credits": 6
+    },
+    {
+        "courseId": 13,
+        "courseCode": "PHYS150",
+        "courseName": "Digital Marketing Strategies",
+        "credits": 10
+    },
+    {
+        "courseId": 14,
+        "courseCode": "PHYS150",
+        "courseName": "Public Speaking 101",
+        "credits": 3
+    },
+    {
+        "courseId": 15,
+        "courseCode": "PSYCH210",
+        "courseName": "Introduction to Psychology",
+        "credits": 0
+    },
+    {
+        "courseId": 16,
+        "courseCode": "BUS220",
+        "courseName": "Nutrition and Wellness",
+        "credits": 9
+    },
+    {
+        "courseId": 17,
+        "courseCode": "ART110",
+        "courseName": "Advanced Calculus",
+        "credits": 10
+    },
+    {
+        "courseId": 18,
+        "courseCode": "CHEM250",
+        "courseName": "Nutrition and Wellness",
+        "credits": 3
+    },
+    {
+        "courseId": 19,
+        "courseCode": "CS101",
+        "courseName": "Nutrition and Wellness",
+        "credits": 6
+    },
+    {
+        "courseId": 20,
+        "courseCode": "CS101",
+        "courseName": "Environmental Science",
+        "credits": 0
+    }
+]

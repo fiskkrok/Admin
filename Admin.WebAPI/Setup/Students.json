@@ -1,0 +1,402 @@
+[
+    {
+        "studentId": 1,
+        "firstName": "Clemmie",
+        "lastName": "Wulfinger",
+        "dateOfBirth": "11/17/1996",
+        "email": "cwulfinger0@amazon.co.jp",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 2,
+        "firstName": "Nana",
+        "lastName": "Denziloe",
+        "dateOfBirth": "2/18/1998",
+        "email": "ndenziloe1@tuttocitta.it",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 3,
+        "firstName": "Kris",
+        "lastName": "De Filippo",
+        "dateOfBirth": "1/17/2005",
+        "email": "kdefilippo2@ucoz.ru",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 4,
+        "firstName": "George",
+        "lastName": "Benit",
+        "dateOfBirth": "2/14/1995",
+        "email": "gbenit3@upenn.edu",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 5,
+        "firstName": "Sherlock",
+        "lastName": "Foxon",
+        "dateOfBirth": "5/12/2007",
+        "email": "sfoxon4@ning.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 6,
+        "firstName": "Dino",
+        "lastName": "Malinowski",
+        "dateOfBirth": "7/1/1997",
+        "email": "dmalinowski5@hubpages.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 7,
+        "firstName": "Ellynn",
+        "lastName": "Berk",
+        "dateOfBirth": "5/18/2008",
+        "email": "eberk6@fda.gov",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 8,
+        "firstName": "Zola",
+        "lastName": "Hardes",
+        "dateOfBirth": "12/12/2009",
+        "email": "zhardes7@linkedin.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 9,
+        "firstName": "Alane",
+        "lastName": "Crampsey",
+        "dateOfBirth": "5/14/2003",
+        "email": "acrampsey8@hud.gov",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 10,
+        "firstName": "Anna-maria",
+        "lastName": "Maccree",
+        "dateOfBirth": "1/11/2006",
+        "email": "amaccree9@lycos.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 11,
+        "firstName": "Gael",
+        "lastName": "Pyrah",
+        "dateOfBirth": "7/29/2003",
+        "email": "gpyraha@wired.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 12,
+        "firstName": "Aloin",
+        "lastName": "Turtle",
+        "dateOfBirth": "5/12/2005",
+        "email": "aturtleb@mtv.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 13,
+        "firstName": "Val",
+        "lastName": "Caudell",
+        "dateOfBirth": "12/13/2003",
+        "email": "vcaudellc@dailymotion.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 14,
+        "firstName": "Darda",
+        "lastName": "Dybald",
+        "dateOfBirth": "11/3/2009",
+        "email": "ddybaldd@slate.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 15,
+        "firstName": "Florian",
+        "lastName": "Dublin",
+        "dateOfBirth": "5/17/1997",
+        "email": "fdubline@twitpic.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 16,
+        "firstName": "Waldon",
+        "lastName": "Breeze",
+        "dateOfBirth": "7/17/2003",
+        "email": "wbreezef@livejournal.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 17,
+        "firstName": "Ray",
+        "lastName": "Clardge",
+        "dateOfBirth": "11/20/1999",
+        "email": "rclardgeg@webeden.co.uk",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 18,
+        "firstName": "Lia",
+        "lastName": "Hunnisett",
+        "dateOfBirth": "6/5/2003",
+        "email": "lhunnisetth@wix.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 19,
+        "firstName": "Devy",
+        "lastName": "Boniface",
+        "dateOfBirth": "11/11/1997",
+        "email": "dbonifacei@vistaprint.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 20,
+        "firstName": "Grayce",
+        "lastName": "Bloschke",
+        "dateOfBirth": "10/18/2005",
+        "email": "gbloschkej@hostgator.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 21,
+        "firstName": "Wait",
+        "lastName": "Silversmid",
+        "dateOfBirth": "8/15/1996",
+        "email": "wsilversmidk@yolasite.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 22,
+        "firstName": "Monica",
+        "lastName": "Alberts",
+        "dateOfBirth": "7/22/1997",
+        "email": "malbertsl@twitpic.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 23,
+        "firstName": "Verena",
+        "lastName": "Moverley",
+        "dateOfBirth": "12/27/1999",
+        "email": "vmoverleym@nbcnews.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 24,
+        "firstName": "Salli",
+        "lastName": "MacGinley",
+        "dateOfBirth": "6/12/1999",
+        "email": "smacginleyn@weibo.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 25,
+        "firstName": "Damaris",
+        "lastName": "Feron",
+        "dateOfBirth": "2/1/2002",
+        "email": "dferono@com.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 26,
+        "firstName": "Freddy",
+        "lastName": "Wensley",
+        "dateOfBirth": "10/10/1996",
+        "email": "fwensleyp@mail.ru",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 27,
+        "firstName": "Stephani",
+        "lastName": "Huggens",
+        "dateOfBirth": "9/25/1999",
+        "email": "shuggensq@cocolog-nifty.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 28,
+        "firstName": "Kat",
+        "lastName": "Felgat",
+        "dateOfBirth": "10/7/2000",
+        "email": "kfelgatr@go.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 29,
+        "firstName": "Karyn",
+        "lastName": "Gardener",
+        "dateOfBirth": "8/4/1998",
+        "email": "kgardeners@godaddy.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 30,
+        "firstName": "Risa",
+        "lastName": "Thackston",
+        "dateOfBirth": "11/6/2004",
+        "email": "rthackstont@bbb.org",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 31,
+        "firstName": "Stacey",
+        "lastName": "Blackmore",
+        "dateOfBirth": "6/18/2004",
+        "email": "sblackmoreu@ycombinator.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 32,
+        "firstName": "Katya",
+        "lastName": "Newton",
+        "dateOfBirth": "5/11/2001",
+        "email": "knewtonv@merriam-webster.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 33,
+        "firstName": "Rasla",
+        "lastName": "Smithyman",
+        "dateOfBirth": "1/31/2000",
+        "email": "rsmithymanw@washingtonpost.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 34,
+        "firstName": "Morly",
+        "lastName": "Kaspar",
+        "dateOfBirth": "6/20/2004",
+        "email": "mkasparx@symantec.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 35,
+        "firstName": "Eamon",
+        "lastName": "Whitehouse",
+        "dateOfBirth": "8/29/2006",
+        "email": "ewhitehousey@joomla.org",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 36,
+        "firstName": "Ebonee",
+        "lastName": "Longfut",
+        "dateOfBirth": "12/6/1994",
+        "email": "elongfutz@flavors.me",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 37,
+        "firstName": "Cordey",
+        "lastName": "Beves",
+        "dateOfBirth": "9/10/2004",
+        "email": "cbeves10@google.nl",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 38,
+        "firstName": "Dieter",
+        "lastName": "Barkess",
+        "dateOfBirth": "7/26/2001",
+        "email": "dbarkess11@amazonaws.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 39,
+        "firstName": "Eve",
+        "lastName": "de Courcy",
+        "dateOfBirth": "8/13/2008",
+        "email": "edecourcy12@sciencedirect.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 40,
+        "firstName": "Brion",
+        "lastName": "Massimo",
+        "dateOfBirth": "2/22/2008",
+        "email": "bmassimo13@tamu.edu",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 41,
+        "firstName": "Carita",
+        "lastName": "Brolly",
+        "dateOfBirth": "6/18/2002",
+        "email": "cbrolly14@skyrock.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 42,
+        "firstName": "Mia",
+        "lastName": "Kohrsen",
+        "dateOfBirth": "5/20/1994",
+        "email": "mkohrsen15@nyu.edu",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 43,
+        "firstName": "Dov",
+        "lastName": "Morgon",
+        "dateOfBirth": "5/5/2002",
+        "email": "dmorgon16@nature.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 44,
+        "firstName": "Edgar",
+        "lastName": "Gallehawk",
+        "dateOfBirth": "1/3/1997",
+        "email": "egallehawk17@alexa.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 45,
+        "firstName": "Clarabelle",
+        "lastName": "Fawthrop",
+        "dateOfBirth": "1/9/2008",
+        "email": "cfawthrop18@fema.gov",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 46,
+        "firstName": "Lonna",
+        "lastName": "Hemstead",
+        "dateOfBirth": "8/11/2007",
+        "email": "lhemstead19@xrea.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 47,
+        "firstName": "Ivonne",
+        "lastName": "Musso",
+        "dateOfBirth": "4/11/1998",
+        "email": "imusso1a@youku.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 48,
+        "firstName": "Rolfe",
+        "lastName": "Morston",
+        "dateOfBirth": "11/16/2000",
+        "email": "rmorston1b@usatoday.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 49,
+        "firstName": "Oriana",
+        "lastName": "Ewen",
+        "dateOfBirth": "2/3/2001",
+        "email": "oewen1c@slate.com",
+        "enrollmentDate": "3/12/2024"
+    },
+    {
+        "studentId": 50,
+        "firstName": "Allina",
+        "lastName": "Brockhurst",
+        "dateOfBirth": "3/31/2000",
+        "email": "abrockhurst1d@youku.com",
+        "enrollmentDate": "3/12/2024"
+    }
+]

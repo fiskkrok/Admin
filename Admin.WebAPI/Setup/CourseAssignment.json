@@ -1,0 +1,122 @@
+[
+    {
+        "assignmentId": 1,
+        "facultyId": 1,
+        "courseId": 1,
+        "assignmentType": "Group Projects"
+    },
+    {
+        "assignmentId": 2,
+        "facultyId": 2,
+        "courseId": 2,
+        "assignmentType": "Short Essays"
+    },
+    {
+        "assignmentId": 3,
+        "facultyId": 3,
+        "courseId": 3,
+        "assignmentType": "Design a Conference"
+    },
+    {
+        "assignmentId": 4,
+        "facultyId": 4,
+        "courseId": 4,
+        "assignmentType": "Group Projects"
+    },
+    {
+        "assignmentId": 5,
+        "facultyId": 5,
+        "courseId": 5,
+        "assignmentType": "Short Essays"
+    },
+    {
+        "assignmentId": 6,
+        "facultyId": 6,
+        "courseId": 6,
+        "assignmentType": "Group Projects"
+    },
+    {
+        "assignmentId": 7,
+        "facultyId": 7,
+        "courseId": 7,
+        "assignmentType": "Blog Writing"
+    },
+    {
+        "assignmentId": 8,
+        "facultyId": 8,
+        "courseId": 8,
+        "assignmentType": "Group Projects"
+    },
+    {
+        "assignmentId": 9,
+        "facultyId": 9,
+        "courseId": 9,
+        "assignmentType": "Blog Writing"
+    },
+    {
+        "assignmentId": 10,
+        "facultyId": 10,
+        "courseId": 10,
+        "assignmentType": "Short Essays"
+    },
+    {
+        "assignmentId": 11,
+        "facultyId": 11,
+        "courseId": 11,
+        "assignmentType": "Reflective Journals"
+    },
+    {
+        "assignmentId": 12,
+        "facultyId": 12,
+        "courseId": 12,
+        "assignmentType": "Blog Writing"
+    },
+    {
+        "assignmentId": 13,
+        "facultyId": 13,
+        "courseId": 13,
+        "assignmentType": "Visual Analysis"
+    },
+    {
+        "assignmentId": 14,
+        "facultyId": 14,
+        "courseId": 14,
+        "assignmentType": "Blog Writing"
+    },
+    {
+        "assignmentId": 15,
+        "facultyId": 15,
+        "courseId": 15,
+        "assignmentType": "Visual Analysis"
+    },
+    {
+        "assignmentId": 16,
+        "facultyId": 16,
+        "courseId": 16,
+        "assignmentType": "Reflective Journals"
+    },
+    {
+        "assignmentId": 17,
+        "facultyId": 17,
+        "courseId": 17,
+        "assignmentType": "Blog Writing"
+    },
+    {
+        "assignmentId": 18,
+        "facultyId": 18,
+        "courseId": 18,
+        "assignmentType": "Short Essays"
+    },
+    {
+        "assignmentId": 19,
+        "facultyId": 19,
+        "courseId": 19,
+        "assignmentType": "Design a Conference"
+    },
+    {
+        "assignmentId": 20,
+        "facultyId": 20,
+        "courseId": 20,
+        "assignmentType": "Research Papers"
+    }
+]

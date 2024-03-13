@@ -1,0 +1,122 @@
+[
+    {
+        "facultyId": 1,
+        "firstName": "Ty",
+        "lastName": "Tyndall",
+        "department": "Training"
+    },
+    {
+        "facultyId": 2,
+        "firstName": "Dona",
+        "lastName": "Howatt",
+        "department": "Services"
+    },
+    {
+        "facultyId": 3,
+        "firstName": "Ariel",
+        "lastName": "Schmuhl",
+        "department": "Training"
+    },
+    {
+        "facultyId": 4,
+        "firstName": "Esther",
+        "lastName": "Ollin",
+        "department": "Services"
+    },
+    {
+        "facultyId": 5,
+        "firstName": "Dwain",
+        "lastName": "Chalcroft",
+        "department": "Research and Development"
+    },
+    {
+        "facultyId": 6,
+        "firstName": "Cori",
+        "lastName": "Krink",
+        "department": "Business Development"
+    },
+    {
+        "facultyId": 7,
+        "firstName": "Christyna",
+        "lastName": "Gobeaux",
+        "department": "Training"
+    },
+    {
+        "facultyId": 8,
+        "firstName": "Page",
+        "lastName": "Balint",
+        "department": "Product Management"
+    },
+    {
+        "facultyId": 9,
+        "firstName": "Aggy",
+        "lastName": "Wilmore",
+        "department": "Accounting"
+    },
+    {
+        "facultyId": 10,
+        "firstName": "Bianca",
+        "lastName": "Paudin",
+        "department": "Training"
+    },
+    {
+        "facultyId": 11,
+        "firstName": "Norbie",
+        "lastName": "Saw",
+        "department": "Support"
+    },
+    {
+        "facultyId": 12,
+        "firstName": "Poul",
+        "lastName": "Lyfield",
+        "department": "Legal"
+    },
+    {
+        "facultyId": 13,
+        "firstName": "Kane",
+        "lastName": "Rallinshaw",
+        "department": "Legal"
+    },
+    {
+        "facultyId": 14,
+        "firstName": "Velma",
+        "lastName": "Bernakiewicz",
+        "department": "Training"
+    },
+    {
+        "facultyId": 15,
+        "firstName": "Alysa",
+        "lastName": "Olekhov",
+        "department": "Sales"
+    },
+    {
+        "facultyId": 16,
+        "firstName": "Esdras",
+        "lastName": "Redemile",
+        "department": "Support"
+    },
+    {
+        "facultyId": 17,
+        "firstName": "Philbert",
+        "lastName": "McLaverty",
+        "department": "Sales"
+    },
+    {
+        "facultyId": 18,
+        "firstName": "Lonee",
+        "lastName": "Skelbeck",
+        "department": "Business Development"
+    },
+    {
+        "facultyId": 19,
+        "firstName": "Rollo",
+        "lastName": "Veltmann",
+        "department": "Sales"
+    },
+    {
+        "facultyId": 20,
+        "firstName": "Nikolos",
+        "lastName": "Murdy",
+        "department": "Research and Development"
+    }
+]
