@@ -42,7 +42,7 @@ public class Student : BaseEntity, IAggregateRoot
         _enrollment = new List<Enrollment>();
     }
 
-    public Student(int studentId, string firstName, string lastName, DateTime dateOfBirth, string email,
+    public Student(int studentId, string firstName, string lastName, DateOnly dateOfBirth, string email,
         Address address)
     {
         StudentId = studentId;
@@ -64,7 +64,7 @@ public class Student : BaseEntity, IAggregateRoot
         _enrollment.Remove(enrollment);
     }
 
-    public void UpdateStudent(int studentId, string firstName, string lastName, DateTime dateOfBirth, string email,
+    public void UpdateStudent(int studentId, string firstName, string lastName, DateOnly? dateOfBirth, string email,
         Address address)
     {
         StudentId = studentId;
