@@ -14,13 +14,13 @@ public class EnrollmentEntityTypeConfiguration : IEntityTypeConfiguration<Enroll
 {
     public void Configure(EntityTypeBuilder<Enrollment> entity)
     {
-        entity.HasKey(e => e.EnrollmentId).HasName("PK__Enrollme__7F6877FB5B9B0E72");
+        entity.HasKey(e => e.EnrollmentId);
 
         entity.Property(e => e.EnrollmentId).ValueGeneratedNever();
 
-        entity.HasOne(d => d.Course).WithMany(p => p.Enrollments).HasConstraintName("FK__Enrollmen__Cours__4E88ABD4");
+        entity.HasOne(d => d.Course).WithMany(p => p.Enrollments);
 
-        entity.HasOne(d => d.Student).WithMany(p => p.Enrollments).HasConstraintName("FK__Enrollmen__Stude__4D94879B");
+        entity.HasOne(d => d.Student).WithMany(p => p.Enrollments);
 
     }
 }

@@ -14,7 +14,7 @@ public class CourseEntityTypeConfiguration : IEntityTypeConfiguration<Course>
 {
     public void Configure(EntityTypeBuilder<Course> courseConfiguration)
     {
-        courseConfiguration.HasKey(e => e.CourseId).HasName("PK__Courses__C92D7187028BC775");
+        courseConfiguration.HasKey(e => e.CourseId);
         courseConfiguration.Property(e => e.CourseId).ValueGeneratedNever();
     }
 }

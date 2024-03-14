@@ -14,7 +14,7 @@ public class FacultyEntityTypeConfiguration : IEntityTypeConfiguration<Faculty>
 {
     public void Configure(EntityTypeBuilder<Faculty> entity)
     {
-        entity.HasKey(e => e.FacultyId).HasName("PK__Faculty__306F636E67296B45");
+        entity.HasKey(e => e.FacultyId);
 
         entity.Property(e => e.FacultyId).ValueGeneratedNever();
     }

@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Admin.Infrastructure.Migrations
+namespace Admin.Infrastructure.Migrations.MyNewFolder
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class MyNewMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,7 @@ namespace Admin.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Courses__C92D7187028BC775", x => x.CourseId);
+                    table.PrimaryKey("PK_Courses", x => x.CourseId);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,7 +39,7 @@ namespace Admin.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Faculty__306F636E67296B45", x => x.FacultyId);
+                    table.PrimaryKey("PK_Faculties", x => x.FacultyId);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,7 +62,7 @@ namespace Admin.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Students__32C52A79F8B9A6C6", x => x.StudentId);
+                    table.PrimaryKey("PK_Students", x => x.StudentId);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,14 +77,14 @@ namespace Admin.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__CourseAs__32499E571698A95E", x => x.AssignmentId);
+                    table.PrimaryKey("PK_CourseAssignments", x => x.AssignmentId);
                     table.ForeignKey(
-                        name: "FK__CourseAss__Cours__5441852A",
+                        name: "FK_CourseAssignments_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "CourseId");
                     table.ForeignKey(
-                        name: "FK__CourseAss__Facul__534D60F1",
+                        name: "FK_CourseAssignments_Faculties_FacultyId",
                         column: x => x.FacultyId,
                         principalTable: "Faculties",
                         principalColumn: "FacultyId");
@@ -102,14 +102,14 @@ namespace Admin.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Enrollme__7F6877FB5B9B0E72", x => x.EnrollmentId);
+                    table.PrimaryKey("PK_Enrollments", x => x.EnrollmentId);
                     table.ForeignKey(
-                        name: "FK__Enrollmen__Cours__4E88ABD4",
+                        name: "FK_Enrollments_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "CourseId");
                     table.ForeignKey(
-                        name: "FK__Enrollmen__Stude__4D94879B",
+                        name: "FK_Enrollments_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId");

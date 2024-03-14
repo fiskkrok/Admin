@@ -9,20 +9,16 @@ using Admin.Domain.SeedWork;
 namespace Admin.Application.AggregateModels.FacultyAggregate;
 
 
-public partial class Faculty : BaseEntity, IAggregateRoot
+public class Faculty(int facultyId, string? firstName, string? lastName, string? department)
+    : BaseEntity, IAggregateRoot
 {
-    public int FacultyId { get; set; }
-    public string? FirstName { get; set; }
+    public int FacultyId { get; init; } = facultyId;
+    public string? FirstName { get; set; } = firstName;
 
-    public string? LastName { get; set; }
-    public string? Department { get; set; }
-    public virtual ICollection<CourseAssignment> CourseAssignments { get; set; } = new List<CourseAssignment>();
-
-    public Faculty(int facultyId, string? firstName, string? lastName, string? department)
+    public string? LastName { get; set; } = lastName;
+    public string? Department { get; set; } = department;
+    public virtual ICollection<CourseAssignment> CourseAssignments { get; init; } = new List<CourseAssignment>
     {
-        FacultyId = facultyId;
-        FirstName = firstName;
-        LastName = lastName;
-        Department = department;
-    }
+        Capacity = 0
+    };
 }

@@ -9,41 +9,33 @@ using Admin.Domain.SeedWork;
 
 namespace Admin.Application.AggregateModels.CourseAggregate;
 
-public class Course : BaseEntity, IAggregateRoot
+public class Course(
+    int courseId,
+    string description,
+    string courseName,
+    string courseCode,
+    int credits)
+    : BaseEntity, IAggregateRoot
 {
     //[Key]
     //[Column("CourseID")]
-    public int CourseId { get; set; }
+    public int CourseId { get; set; } = courseId;
 
     //[StringLength(10)]
     //[Unicode(false)]
-    public string? CourseCode { get; set; }
+    public string? CourseCode { get; set; } = courseCode;
 
     //[StringLength(100)]
     //[Unicode(false)]
-    public string? CourseName { get; set; }
+    public string? CourseName { get; set; } = courseName;
 
-    public int Credits { get; set; }
+    public int Credits { get; set; } = credits;
 
-    public string Description { get; set; }
+    public string Description { get; init; } = description ?? string.Empty;
 
     //[InverseProperty("Course")]
     public virtual ICollection<CourseAssignment> CourseAssignments { get; set; } = new List<CourseAssignment>();
 
     //[InverseProperty("Course")]
     public virtual ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
-
-    public Course(int courseId,
-        
-        string description,
-        string courseName,
-        string courseCode,
-        int credits)
-    {
-        CourseId = courseId;
-        Description = description;
-        CourseName = courseName;
-        CourseCode = courseCode;
-        Credits = credits;
-    }
 }

@@ -9,21 +9,26 @@ using Admin.Domain.SeedWork;
 
 namespace Admin.Application.AggregateModels.CourseAssignmentAggregate;
 
-public partial class CourseAssignment : BaseEntity, IAggregateRoot
+public class CourseAssignment(
+    int assignmentId,
+    int? facultyId,
+    int? courseId,
+    string? assignmentType)
+    : BaseEntity, IAggregateRoot
 {
     //[Key]
     //[Column("AssignmentID")]
-    public int AssignmentId { get; set; }
+    public int AssignmentId { get; set; } = assignmentId;
 
     //[Column("FacultyID")]
-    public int? FacultyId { get; set; }
+    public int? FacultyId { get; set; } = facultyId;
 
     //[Column("CourseID")]
-    public int? CourseId { get; set; }
+    public int? CourseId { get; set; } = courseId;
 
     //[StringLength(50)]
     //[Unicode(false)]
-    public string? AssignmentType { get; set; }
+    public string? AssignmentType { get; set; } = assignmentType;
 
     //[ForeignKey("CourseId")]
     //[InverseProperty("CourseAssignments")]
@@ -32,15 +37,4 @@ public partial class CourseAssignment : BaseEntity, IAggregateRoot
     //[ForeignKey("FacultyId")]
     //[InverseProperty("CourseAssignments")]
     public virtual Faculty? Faculty { get; set; }
-
-    public CourseAssignment(int assignmentId,
-        int? facultyId,
-        int? courseId,
-        string? assignmentType)
-    {
-        AssignmentId = assignmentId;
-        FacultyId = facultyId;
-        CourseId = courseId;
-        AssignmentType = assignmentType;
-    }
 }

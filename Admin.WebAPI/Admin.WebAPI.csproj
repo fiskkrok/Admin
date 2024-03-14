@@ -8,33 +8,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Setup\CourseAssignment.json" />
-    <Content Remove="Setup\Courses.json" />
-    <Content Remove="Setup\Enrollment.json" />
-    <Content Remove="Setup\Faculties.json" />
-    <Content Remove="Setup\Students.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Setup\CourseAssignment.json" />
-    <None Include="Setup\Courses.json" />
-    <None Include="Setup\Enrollment.json" />
-    <None Include="Setup\Faculties.json" />
-    <None Include="Setup\Students.json" />
+    <Compile Remove="Setup\**" />
+    <Content Remove="Setup\**" />
+    <EmbeddedResource Remove="Setup\**" />
+    <None Remove="Setup\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="FastEndpoints" Version="5.23.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0-preview.1.24081.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.1.24081.2" />
-	    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.0-preview.1.24081.5" />
-	    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.1.24081.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.1.24081.2">
+    <PackageReference Include="FastEndpoints" Version="5.23.0.6-beta" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0-preview.2.24128.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.2.24128.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+	    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
+	    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.2.24128.4">
 	    <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0-preview.1.24112.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0-preview.2.24158.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 </ItemGroup>
 

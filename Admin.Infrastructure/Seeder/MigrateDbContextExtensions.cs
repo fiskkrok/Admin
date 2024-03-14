@@ -20,7 +20,6 @@ internal static class MigrateDbContextExtensions
         where TContext : DbContext
     {
         // Enable migration tracing
-        //services.AddOpenTelemetry().WithTracing(tracing => tracing.AddSource(ActivitySourceName));
 
         return services.AddHostedService(sp => new MigrationHostedService<TContext>(sp, seeder));
     }
@@ -46,15 +45,18 @@ internal static class MigrateDbContextExtensions
         {
             logger.LogInformation("Migrating database associated with context {DbContextName}", typeof(TContext).Name);
 
-            var strategy = context.Database.CreateExecutionStrategy();
+            if (context != null)
+            {
+                var strategy = context.Database.CreateExecutionStrategy();
 
-            await strategy.ExecuteAsync(() => InvokeSeeder(seeder, context, scopeServices));
+                await strategy.ExecuteAsync(() => InvokeSeeder(seeder, context, scopeServices));
+            }
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An error occurred while migrating the database used on context {DbContextName}", typeof(TContext).Name);
 
-            activity.SetExceptionTags(ex);
+            activity?.SetExceptionTags(ex);
 
             throw;
         }
@@ -72,7 +74,7 @@ internal static class MigrateDbContextExtensions
         }
         catch (Exception ex)
         {
-            activity.SetExceptionTags(ex);
+            activity?.SetExceptionTags(ex);
 
             throw;
         }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Admin.Application.AggregateModels.EnrollmentAggregate;
 using Admin.Application.SeedWork;
 using Admin.Domain.SeedWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Application.AggregateModels.StudentAggregate;
 
@@ -18,17 +19,15 @@ public class Student : BaseEntity, IAggregateRoot
 
     public string? FirstName { get; set; }
 
-    //[StringLength(50)]
-    //[Unicode(false)]
+    [StringLength(50)]
+    [Unicode(false)]
     public string? LastName { get; set; }
 
     public DateOnly? DateOfBirth { get; set; }
     public StudentStatus StudentStatus { get; set; }
-    //[StringLength(100)]
-    //[Unicode(false)]
+    [StringLength(100)]
+    [Unicode(false)]
     public string? Email { get; set; }
-
-
 
     public DateOnly? EnrollmentDate { get; set; }
     // DDD Patterns comment
@@ -43,7 +42,7 @@ public class Student : BaseEntity, IAggregateRoot
         _enrollment = new List<Enrollment>();
     }
 
-    public Student(int studentId, string firstName, string lastName, DateOnly dateOfBirth, string email,
+    public Student(int studentId, string firstName, string lastName, DateTime dateOfBirth, string email,
         Address address)
     {
         StudentId = studentId;
@@ -65,7 +64,7 @@ public class Student : BaseEntity, IAggregateRoot
         _enrollment.Remove(enrollment);
     }
 
-    public void UpdateStudent(int studentId, string firstName, string lastName, DateOnly dateOfBirth, string email,
+    public void UpdateStudent(int studentId, string firstName, string lastName, DateTime dateOfBirth, string email,
         Address address)
     {
         StudentId = studentId;

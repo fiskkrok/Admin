@@ -14,7 +14,7 @@ public class StudentEntityTypeConfiguration : IEntityTypeConfiguration<Student>
 {
     public void Configure(EntityTypeBuilder<Student> entity)
     {
-        entity.HasKey(e => e.StudentId).HasName("PK__Students__32C52A79F8B9A6C6");
+        entity.HasKey(e => e.StudentId);
 
         entity.Property(e => e.StudentId).ValueGeneratedNever();
 

@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Admin.Infrastructure.Migrations
+namespace Admin.Infrastructure.Migrations.MyNewFolder
 {
     [DbContext(typeof(AdminDbContext))]
-    [Migration("20240313072946_Initial")]
-    partial class Initial
+    [Migration("20240313183243_MyNewMigration")]
+    partial class MyNewMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0-preview.1.24081.2")
+                .HasAnnotation("ProductVersion", "9.0.0-preview.2.24128.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -46,8 +46,7 @@ namespace Admin.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.HasKey("CourseId")
-                        .HasName("PK__Courses__C92D7187028BC775");
+                    b.HasKey("CourseId");
 
                     b.ToTable("Courses");
                 });
@@ -69,8 +68,7 @@ namespace Admin.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.HasKey("AssignmentId")
-                        .HasName("PK__CourseAs__32499E571698A95E");
+                    b.HasKey("AssignmentId");
 
                     b.HasIndex("CourseId");
 
@@ -96,8 +94,7 @@ namespace Admin.Infrastructure.Migrations
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
-                    b.HasKey("EnrollmentId")
-                        .HasName("PK__Enrollme__7F6877FB5B9B0E72");
+                    b.HasKey("EnrollmentId");
 
                     b.HasIndex("CourseId");
 
@@ -123,8 +120,7 @@ namespace Admin.Infrastructure.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FacultyId")
-                        .HasName("PK__Faculty__306F636E67296B45");
+                    b.HasKey("FacultyId");
 
                     b.ToTable("Faculties");
                 });
@@ -155,8 +151,7 @@ namespace Admin.Infrastructure.Migrations
                     b.Property<int>("StudentStatus")
                         .HasColumnType("int");
 
-                    b.HasKey("StudentId")
-                        .HasName("PK__Students__32C52A79F8B9A6C6");
+                    b.HasKey("StudentId");
 
                     b.ToTable("Students");
                 });
@@ -165,13 +160,11 @@ namespace Admin.Infrastructure.Migrations
                 {
                     b.HasOne("Admin.Application.AggregateModels.CourseAggregate.Course", "Course")
                         .WithMany("CourseAssignments")
-                        .HasForeignKey("CourseId")
-                        .HasConstraintName("FK__CourseAss__Cours__5441852A");
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("Admin.Application.AggregateModels.FacultyAggregate.Faculty", "Faculty")
                         .WithMany("CourseAssignments")
-                        .HasForeignKey("FacultyId")
-                        .HasConstraintName("FK__CourseAss__Facul__534D60F1");
+                        .HasForeignKey("FacultyId");
 
                     b.Navigation("Course");
 
@@ -182,13 +175,11 @@ namespace Admin.Infrastructure.Migrations
                 {
                     b.HasOne("Admin.Application.AggregateModels.CourseAggregate.Course", "Course")
                         .WithMany("Enrollments")
-                        .HasForeignKey("CourseId")
-                        .HasConstraintName("FK__Enrollmen__Cours__4E88ABD4");
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("Admin.Application.AggregateModels.StudentAggregate.Student", "Student")
                         .WithMany("Enrollments")
-                        .HasForeignKey("StudentId")
-                        .HasConstraintName("FK__Enrollmen__Stude__4D94879B");
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Course");
 

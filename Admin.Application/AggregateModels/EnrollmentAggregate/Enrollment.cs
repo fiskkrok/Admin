@@ -9,19 +9,20 @@ using Admin.Domain.SeedWork;
 
 namespace Admin.Application.AggregateModels.EnrollmentAggregate;
 
-public partial class Enrollment : BaseEntity, IAggregateRoot
+public class Enrollment(int enrollmentId, int? studentId, int? courseId, DateOnly? enrollmentDate)
+    : BaseEntity, IAggregateRoot
 {
     //[Key]
     //[Column("EnrollmentID")]
-    public int EnrollmentId { get; set; }
+    public int EnrollmentId { get; set; } = enrollmentId;
 
     //[Column("StudentID")]
-    public int? StudentId { get; set; }
+    public int? StudentId { get; set; } = studentId;
 
     //[Column("CourseID")]
-    public int? CourseId { get; set; }
+    public int? CourseId { get; set; } = courseId;
 
-    public DateOnly? EnrollmentDate { get; set; }
+    public DateOnly? EnrollmentDate { get; set; } = enrollmentDate;
 
     //[ForeignKey("CourseId")]
     //[InverseProperty("Enrollments")]
@@ -30,12 +31,4 @@ public partial class Enrollment : BaseEntity, IAggregateRoot
     //[ForeignKey("StudentId")]
     //[InverseProperty("Enrollments")]
     public virtual Student? Student { get; set; }
-
-    public Enrollment(int enrollmentId, int? studentId, int? courseId, DateOnly? enrollmentDate)
-    {
-        EnrollmentId = enrollmentId;
-        StudentId = studentId;
-        CourseId = courseId;
-        EnrollmentDate = enrollmentDate;
-    }
 }

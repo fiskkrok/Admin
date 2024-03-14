@@ -24,9 +24,10 @@ public class AdminDbContext : DbContext
         : base(options)
     {
         
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        Mediator1 = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
-    private readonly IMediator _mediator;
+
+    public IMediator Mediator1 { get; }
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<CourseAssignment> CourseAssignments { get; set; }
@@ -39,23 +40,19 @@ public class AdminDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
+        if (optionsBuilder.IsConfigured) return;
+        SqlConnectionStringBuilder builder = new()
         {
-            SqlConnectionStringBuilder builder = new();
-            builder.DataSource = "FISKKROK\\SQLEXPRESS"; // "ServerName\InstanceName" e.g. @".\sqlexpress"
-            builder.InitialCatalog = "AdminSystem";
-            builder.TrustServerCertificate = true;
-            builder.MultipleActiveResultSets = true;
+            DataSource = "FISKKROK\\SQLEXPRESS",
+            InitialCatalog = "AdminSystem",
+            TrustServerCertificate = true,
+            MultipleActiveResultSets = true,
             // Because we want to fail faster. Default is 15 seconds.
-            builder.ConnectTimeout = 3;
-            // If using Windows Integrated authentication.
-            builder.IntegratedSecurity = true;
-            // If using SQL Server authentication.
-            // builder.UserID = Environment.GetEnvironmentVariable("MY_SQL_USR");
-            // builder.Password = Environment.GetEnvironmentVariable("MY_SQL_PWD");
-            optionsBuilder.UseSqlServer(builder.ConnectionString)
-                .EnableSensitiveDataLogging();
-        }
+            ConnectTimeout = 15,
+            IntegratedSecurity = true
+        };
+        optionsBuilder.UseSqlServer(builder.ConnectionString)
+            .EnableSensitiveDataLogging();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

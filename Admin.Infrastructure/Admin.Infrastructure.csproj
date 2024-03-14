@@ -13,24 +13,26 @@
     <None Remove="Migrations\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="Migrations\20240313183243_MyNewMigration.cs" />
+    <Compile Include="Migrations\20240313183243_MyNewMigration.Designer.cs" />
+    <Compile Include="Migrations\AdminDbContextModelSnapshot.cs" />
+  </ItemGroup>
+
   <ItemGroup>      
-	  <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
-	  <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="7.0.1" />
-	  <PackageReference Include="Duende.IdentityServer.EntityFramework" Version="7.0.1" />
-	  <PackageReference Include="Duende.IdentityServer.Storage" Version="7.0.1" />
-	  <PackageReference Include="Duende.IdentityServer" Version="7.0.1" />
-	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.1.24081.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-preview.1.24081.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.1.24081.2">
+	  <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />      
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.2.24128.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0-preview.1.24081.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.1.24081.2">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0-preview.2.24128.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.2.24128.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.0-preview.1.24080.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.0-preview.2.24128.5" />
     <PackageReference Include="OpenTelemetry" Version="1.7.0" />
   </ItemGroup>
 
