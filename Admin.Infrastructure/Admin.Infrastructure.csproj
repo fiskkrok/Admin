@@ -7,18 +7,6 @@
     <UserSecretsId>197ce6da-520b-41d6-854d-f286905fb40f</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <None Remove="Migrations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Migrations\20240313183243_MyNewMigration.cs" />
-    <Compile Include="Migrations\20240313183243_MyNewMigration.Designer.cs" />
-    <Compile Include="Migrations\AdminDbContextModelSnapshot.cs" />
-  </ItemGroup>
-
   <ItemGroup>      
 	  <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />      
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />

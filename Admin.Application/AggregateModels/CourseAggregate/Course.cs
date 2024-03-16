@@ -6,6 +6,7 @@ using Admin.Application.AggregateModels.CourseAssignmentAggregate;
 using Admin.Application.AggregateModels.EnrollmentAggregate;
 using Admin.Application.SeedWork;
 using Admin.Domain.SeedWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Application.AggregateModels.CourseAggregate;
 
@@ -17,25 +18,26 @@ public class Course(
     int credits)
     : BaseEntity, IAggregateRoot
 {
-    //[Key]
-    //[Column("CourseID")]
-    public int CourseId { get; set; } = courseId;
 
-    //[StringLength(10)]
-    //[Unicode(false)]
+    [Column("CourseID")]
+    public int CourseId { get; init; } = courseId;
+
+    [StringLength(10)]
+    [Unicode(false)]
     public string? CourseCode { get; set; } = courseCode;
 
-    //[StringLength(100)]
-    //[Unicode(false)]
+    [StringLength(100)]
+    [Unicode(false)]
     public string? CourseName { get; set; } = courseName;
 
     public int Credits { get; set; } = credits;
 
     public string Description { get; init; } = description ?? string.Empty;
 
-    //[InverseProperty("Course")]
-    public virtual ICollection<CourseAssignment> CourseAssignments { get; set; } = new List<CourseAssignment>();
+    [InverseProperty("Course")]
+    public virtual IEnumerable<CourseAssignment> CourseAssignments { get;  } = new List<CourseAssignment>();
 
-    //[InverseProperty("Course")]
-    public virtual ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+    [InverseProperty("Course")]
+    public virtual IEnumerable<Enrollment> Enrollments { get; } = new List<Enrollment>();
+
 }

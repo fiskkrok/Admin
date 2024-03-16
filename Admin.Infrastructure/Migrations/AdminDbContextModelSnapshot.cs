@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Admin.Infrastructure.Migrations.MyNewFolder
+namespace Admin.Infrastructure.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
     partial class AdminDbContextModelSnapshot : ModelSnapshot
@@ -24,14 +24,25 @@ namespace Admin.Infrastructure.Migrations.MyNewFolder
 
             modelBuilder.Entity("Admin.Application.AggregateModels.CourseAggregate.Course", b =>
                 {
-                    b.Property<int>("CourseId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("CourseCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int")
+                        .HasColumnName("CourseID");
 
                     b.Property<string>("CourseName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("Credits")
                         .HasColumnType("int");
@@ -40,32 +51,41 @@ namespace Admin.Infrastructure.Migrations.MyNewFolder
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("CourseId");
+                    b.HasAlternateKey("CourseId");
 
                     b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("Admin.Application.AggregateModels.CourseAssignmentAggregate.CourseAssignment", b =>
                 {
-                    b.Property<int>("AssignmentId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AssignmentId")
+                        .HasColumnType("int")
+                        .HasColumnName("AssignmentID");
 
                     b.Property<string>("AssignmentType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int?>("CourseId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CourseID");
 
                     b.Property<int?>("FacultyId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("FacultyID");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("AssignmentId");
+                    b.HasAlternateKey("AssignmentId");
 
                     b.HasIndex("CourseId");
 
@@ -76,22 +96,30 @@ namespace Admin.Infrastructure.Migrations.MyNewFolder
 
             modelBuilder.Entity("Admin.Application.AggregateModels.EnrollmentAggregate.Enrollment", b =>
                 {
-                    b.Property<int>("EnrollmentId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int?>("CourseId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CourseID");
 
                     b.Property<DateOnly?>("EnrollmentDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<int>("EnrollmentId")
+                        .HasColumnType("int")
+                        .HasColumnName("EnrollmentID");
 
                     b.Property<int?>("StudentId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("StudentID");
 
-                    b.HasKey("EnrollmentId");
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("EnrollmentId");
 
                     b.HasIndex("CourseId");
 
@@ -102,30 +130,44 @@ namespace Admin.Infrastructure.Migrations.MyNewFolder
 
             modelBuilder.Entity("Admin.Application.AggregateModels.FacultyAggregate.Faculty", b =>
                 {
-                    b.Property<int>("FacultyId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int")
+                        .HasColumnName("FacultyID");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("FacultyId");
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("FacultyId");
 
                     b.ToTable("Faculties");
                 });
 
             modelBuilder.Entity("Admin.Application.AggregateModels.StudentAggregate.Student", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly?>("DateOfBirth")
                         .HasColumnType("date");
@@ -141,18 +183,20 @@ namespace Admin.Infrastructure.Migrations.MyNewFolder
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentStatus")
                         .HasColumnType("int");
 
-                    b.HasKey("StudentId");
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("StudentId");
 
                     b.ToTable("Students");
                 });

@@ -9,11 +9,11 @@ using Admin.Domain.SeedWork;
 namespace Admin.Application.AggregateModels.StudentAggregate;
 public class Address : ValueObject
 {
-    public string Street { get; private set; }
-    public string City { get; private set; }
-    public string State { get; private set; }
-    public string Country { get; private set; }
-    public string ZipCode { get; private set; }
+    public string Street { get; }
+    public string City { get; }
+    public string State { get; }
+    public string Country { get; }
+    public string ZipCode { get; }
 #pragma warning disable CS8618
     public Address() { }
 

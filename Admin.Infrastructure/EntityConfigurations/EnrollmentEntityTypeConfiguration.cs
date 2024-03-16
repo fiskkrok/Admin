@@ -14,7 +14,11 @@ public class EnrollmentEntityTypeConfiguration : IEntityTypeConfiguration<Enroll
 {
     public void Configure(EntityTypeBuilder<Enrollment> entity)
     {
-        entity.HasKey(e => e.EnrollmentId);
+        entity.HasKey(b => b.Id);
+
+        entity.Property(b => b.Id)
+            .ValueGeneratedOnAdd(); // Configure EF to auto-generate Id values
+        entity.HasAlternateKey(e => e.EnrollmentId);
 
         entity.Property(e => e.EnrollmentId).ValueGeneratedNever();
 

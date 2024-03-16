@@ -13,7 +13,11 @@ public class CourseAssignmentEntityTypeConfiguration : IEntityTypeConfiguration<
 {
     public void Configure(EntityTypeBuilder<CourseAssignment> entity)
     {
-        entity.HasKey(e => e.AssignmentId);
+        entity.HasKey(b => b.Id);
+
+        entity.Property(b => b.Id)
+            .ValueGeneratedOnAdd(); // Configure EF to auto-generate Id values
+        entity.HasAlternateKey(e => e.AssignmentId);
 
         entity.Property(e => e.AssignmentId).ValueGeneratedNever();
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Runtime.InteropServices;
 using Admin.Application.AggregateModels.EnrollmentAggregate;
 using Admin.Application.SeedWork;
 using Admin.Domain.SeedWork;
@@ -46,6 +46,11 @@ public class Student : BaseEntity, IAggregateRoot
         Email = email;
         Address = address;
         _enrollment = new List<Enrollment>();
+        // Ensure the student is active by default
+        StudentStatus = StudentStatus.Active;
+        // Ensure the enrollment date is set to the current date by default
+        EnrollmentDate = DateOnly.FromDateTime(DateTime.Now);
+
     }
 
     // Parameterless constructor for EF and deserialization
@@ -53,8 +58,10 @@ public class Student : BaseEntity, IAggregateRoot
     {
         _enrollment = new List<Enrollment>();
         // Initialize Address with default non-null values
-        Address = new Address("Default Street", "Default City", "Default State", "Default Country", "Default ZipCode");
+      Address = new Address("123 Main St", "Anytown", "WA", "USA", "12345");
+
     }
+
 
     public void AddEnrollment(Enrollment enrollment)
     {
@@ -80,4 +87,6 @@ public class Student : BaseEntity, IAggregateRoot
     {
         // Implementation here
     }
+    
+
 }

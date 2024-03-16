@@ -12,23 +12,26 @@ namespace Admin.Application.AggregateModels.EnrollmentAggregate;
 public class Enrollment(int enrollmentId, int? studentId, int? courseId, DateOnly? enrollmentDate)
     : BaseEntity, IAggregateRoot
 {
-    //[Key]
-    //[Column("EnrollmentID")]
+
+    [Column("EnrollmentID")]
     public int EnrollmentId { get; set; } = enrollmentId;
 
-    //[Column("StudentID")]
+    [Column("StudentID")]
     public int? StudentId { get; set; } = studentId;
 
-    //[Column("CourseID")]
+    [Column("CourseID")]
     public int? CourseId { get; set; } = courseId;
+
 
     public DateOnly? EnrollmentDate { get; set; } = enrollmentDate;
 
-    //[ForeignKey("CourseId")]
-    //[InverseProperty("Enrollments")]
+    [ForeignKey("CourseId")]
+    [InverseProperty("Enrollments")]
     public virtual Course? Course { get; set; }
 
-    //[ForeignKey("StudentId")]
-    //[InverseProperty("Enrollments")]
+    [ForeignKey("StudentId")]
+    [InverseProperty("Enrollments")]
     public virtual Student? Student { get; set; }
+
+  
 }
