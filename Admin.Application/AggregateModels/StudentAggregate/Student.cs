@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Admin.Application.AggregateModels.EnrollmentAggregate;
 using Admin.Application.SeedWork;
 using Admin.Domain.SeedWork;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Application.AggregateModels.StudentAggregate;
 
 public class Student : BaseEntity, IAggregateRoot
 {
-    //[Key]
-    //[Column("StudentID")]
     public int StudentId { get; set; }
     [Required]
-    public Address Address { get; private set; }
+    public Address Address { get; set; } // Ensure there's a setter
 
     public string? FirstName { get; set; }
 
@@ -25,25 +25,19 @@ public class Student : BaseEntity, IAggregateRoot
 
     public DateOnly? DateOfBirth { get; set; }
     public StudentStatus StudentStatus { get; set; }
+
     [StringLength(100)]
     [Unicode(false)]
     public string? Email { get; set; }
 
     public DateOnly? EnrollmentDate { get; set; }
-    // DDD Patterns comment
-    // Using a private collection field, better for DDD Aggregate's encapsulation
-    // so OrderItems cannot be added from "outside the AggregateRoot" directly to the collection,
-    // but only through the method OrderAggregateRoot.AddOrderItem() which includes behavior.
-    private readonly List<Enrollment> _enrollment;
-    //[InverseProperty("Student")]
-    public IReadOnlyCollection<Enrollment> Enrollments => _enrollment.AsReadOnly();
-    protected Student()
-    {
-        _enrollment = new List<Enrollment>();
-    }
 
-    public Student(int studentId, string firstName, string lastName, DateOnly dateOfBirth, string email,
-        Address address)
+    private readonly List<Enrollment> _enrollment;
+
+    public IReadOnlyCollection<Enrollment> Enrollments => _enrollment.AsReadOnly();
+
+    // This constructor is for initial creation and other domain-specific operations
+    public Student(int studentId, string firstName, string lastName, DateOnly dateOfBirth, string email, Address address)
     {
         StudentId = studentId;
         FirstName = firstName;
@@ -52,6 +46,14 @@ public class Student : BaseEntity, IAggregateRoot
         Email = email;
         Address = address;
         _enrollment = new List<Enrollment>();
+    }
+
+    // Parameterless constructor for EF and deserialization
+    public Student()
+    {
+        _enrollment = new List<Enrollment>();
+        // Initialize Address with default non-null values
+        Address = new Address("Default Street", "Default City", "Default State", "Default Country", "Default ZipCode");
     }
 
     public void AddEnrollment(Enrollment enrollment)
@@ -64,8 +66,7 @@ public class Student : BaseEntity, IAggregateRoot
         _enrollment.Remove(enrollment);
     }
 
-    public void UpdateStudent(int studentId, string firstName, string lastName, DateOnly? dateOfBirth, string email,
-        Address address)
+    public void UpdateStudent(int studentId, string firstName, string lastName, DateOnly? dateOfBirth, string email, Address address)
     {
         StudentId = studentId;
         FirstName = firstName;
@@ -77,6 +78,6 @@ public class Student : BaseEntity, IAggregateRoot
 
     public void SetActiveStatus()
     {
-        
+        // Implementation here
     }
 }

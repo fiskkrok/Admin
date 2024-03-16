@@ -71,8 +71,8 @@ public static class StudentEndpoints
         var dto = new StudentRecord
         (
             StudentId: newStudent.StudentId,
-            FirstName: newStudent.FirstName,
-            LastName: newStudent.LastName,
+            FirstName: newStudent.FirstName ?? "noName",
+            LastName: newStudent.LastName ?? "noName",
             DateOfBirth: newStudent.DateOfBirth,
             Email: newStudent.Email,
             EnrollmentDate: newStudent.EnrollmentDate

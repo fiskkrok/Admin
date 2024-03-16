@@ -5,47 +5,89 @@
     "lastName": "Wulfinger",
     "dateOfBirth": "1996/11/17",
     "email": "cwulfinger0@amazon.co.jp",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 2,
     "firstName": "Nana",
     "lastName": "Denziloe",
-    "dateOfBirth": "1998/2/18",
+    "dateOfBirth": "1998/02/18",
     "email": "ndenziloe1@tuttocitta.it",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 3,
     "firstName": "Kris",
     "lastName": "De Filippo",
-    "dateOfBirth": "2005/1/17",
+    "dateOfBirth": "2005/01/17",
     "email": "kdefilippo2@ucoz.ru",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 4,
     "firstName": "George",
     "lastName": "Benit",
-    "dateOfBirth": "1995/2/14",
+    "dateOfBirth": "1995/02/14",
     "email": "gbenit3@upenn.edu",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 5,
     "firstName": "Sherlock",
     "lastName": "Foxon",
-    "dateOfBirth": "2007/5/12",
+    "dateOfBirth": "2007/05/12",
     "email": "sfoxon4@ning.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 6,
     "firstName": "Dino",
     "lastName": "Malinowski",
-    "dateOfBirth": "1997/7/1",
+    "dateOfBirth": "1997/7/01",
     "email": "dmalinowski5@hubpages.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 7,
@@ -53,7 +95,14 @@
     "lastName": "Berk",
     "dateOfBirth": "2008/5/18",
     "email": "eberk6@fda.gov",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 8,
@@ -61,39 +110,74 @@
     "lastName": "Hardes",
     "dateOfBirth": "2009/12/12",
     "email": "zhardes7@linkedin.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 9,
     "firstName": "Alane",
     "lastName": "Crampsey",
-    "dateOfBirth": "2003/5/14",
+    "dateOfBirth": "2003/05/14",
     "email": "acrampsey8@hud.gov",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 10,
     "firstName": "Anna-maria",
     "lastName": "Maccree",
-    "dateOfBirth": "2006/1/11",
+    "dateOfBirth": "2006/01/11",
     "email": "amaccree9@lycos.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 11,
     "firstName": "Gael",
     "lastName": "Pyrah",
-    "dateOfBirth": "2003/7/29",
+    "dateOfBirth": "2003/07/29",
     "email": "gpyraha@wired.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 12,
     "firstName": "Aloin",
     "lastName": "Turtle",
-    "dateOfBirth": "2005/5/12",
+    "dateOfBirth": "2005/05/12",
     "email": "aturtleb@mtv.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 13,
@@ -101,31 +185,59 @@
     "lastName": "Caudell",
     "dateOfBirth": "2003/12/13",
     "email": "vcaudellc@dailymotion.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 14,
     "firstName": "Darda",
     "lastName": "Dybald",
-    "dateOfBirth": "2009/11/3",
+    "dateOfBirth": "2009/11/03",
     "email": "ddybaldd@slate.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 15,
     "firstName": "Florian",
     "lastName": "Dublin",
-    "dateOfBirth": "1997/5/17",
+    "dateOfBirth": "1997/05/17",
     "email": "fdubline@twitpic.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 16,
     "firstName": "Waldon",
     "lastName": "Breeze",
-    "dateOfBirth": "2003/7/17",
+    "dateOfBirth": "2003/07/17",
     "email": "wbreezef@livejournal.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 17,
@@ -133,15 +245,29 @@
     "lastName": "Clardge",
     "dateOfBirth": "1999/11/20",
     "email": "rclardgeg@webeden.co.uk",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 18,
     "firstName": "Lia",
     "lastName": "Hunnisett",
-    "dateOfBirth": "2003/6/5",
+    "dateOfBirth": "2003/06/05",
     "email": "lhunnisetth@wix.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 19,
@@ -149,7 +275,14 @@
     "lastName": "Boniface",
     "dateOfBirth": "1997/11/11",
     "email": "dbonifacei@vistaprint.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   },
   {
     "studentId": 20,
@@ -157,7 +290,14 @@
     "lastName": "Bloschke",
     "dateOfBirth": "2005/10/18",
     "email": "gbloschkej@hostgator.com",
-    "enrollmentDate": "2024/3/12"
+    "enrollmentDate": "2024/03/12",
+    "address": {
+      "street": "123 Example St",
+      "city": "Example City",
+      "state": "Example State",
+      "country": "Example Country",
+      "zipCode": "12345"
+    }
   }
 
 ]

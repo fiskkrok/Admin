@@ -65,9 +65,9 @@ public static class CourseEndpoints
         }
         var newCourse = new Application.AggregateModels.CourseAggregate.Course(
             request.CourseId,
-            request.Description,
+            request.Description ?? "No Description",
             request.CourseName,
-            request.CourseCode,
+            request.CourseCode ?? throw new InvalidOperationException($"{nameof(request.CourseCode)} can't be empty"),
             request.Credits);
         newCourse = await courseRepository.AddAsync(newCourse);
         if (newCourse.CourseId != 0)

@@ -18,7 +18,29 @@ public class StudentEntityTypeConfiguration : IEntityTypeConfiguration<Student>
 
         entity.Property(e => e.StudentId).ValueGeneratedNever();
 
-        entity.OwnsOne(o => o.Address);
+        entity.OwnsOne(o => o.Address,a =>
+        {
+            a.WithOwner();
+
+            a.Property(a => a.ZipCode)
+                .HasMaxLength(18)
+                .IsRequired();
+
+            a.Property(a => a.Street)
+                .HasMaxLength(180)
+                .IsRequired();
+
+            a.Property(a => a.State)
+                .HasMaxLength(60);
+
+            a.Property(a => a.Country)
+                .HasMaxLength(90)
+                .IsRequired();
+
+            a.Property(a => a.City)
+                .HasMaxLength(100)
+                .IsRequired();
+        });
 
     }
 }
