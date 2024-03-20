@@ -1,0 +1,64 @@
+﻿@page "/faculties"
+
+@inject FacultyService FacultyService
+@inject NavigationManager NavigationManager
+
+<h3>Faculty Members</h3>
+
+@if (_faculties == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="AddFaculty">Add New Faculty</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var faculty in _faculties)
+        {
+            <tr>
+                <td>@faculty.FirstName</td>
+                <td>@faculty.LastName</td>
+                <td>@faculty.Department</td>
+                <td>
+                    <button class="btn btn-info" @onclick="() => EditFaculty(faculty.Id)">Edit</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteFaculty(faculty.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Faculty>? _faculties;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _faculties = await FacultyService.GetAllFacultiesAsync();
+    }
+
+    void AddFaculty()
+    {
+        NavigationManager.NavigateTo("/faculty/add");
+    }
+
+    void EditFaculty(int facultyId)
+    {
+        NavigationManager.NavigateTo($"/faculty/edit/{facultyId}");
+    }
+
+    async Task DeleteFaculty(int facultyId)
+    {
+        await FacultyService.DeleteFacultyAsync(facultyId);
+        _faculties = await FacultyService.GetAllFacultiesAsync(); // Refresh the list
+    }
+}

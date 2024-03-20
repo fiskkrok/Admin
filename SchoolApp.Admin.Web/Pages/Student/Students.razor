@@ -1,0 +1,64 @@
+﻿@page "/students"
+
+@inject StudentService StudentService
+@inject NavigationManager NavigationManager
+
+<h3>Students</h3>
+
+@if (_students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="AddStudent">Add New Student</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var student in _students)
+        {
+            <tr>
+                <td>@student.FirstName</td>
+                <td>@student.LastName</td>
+                <td>@student.Email</td>
+                <td>
+                    <button class="btn btn-info" @onclick="() => EditStudent(student.Id)">Edit</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteStudent(student.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Student>? _students;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _students = await StudentService.GetAllStudentsAsync();
+    }
+
+    void AddStudent()
+    {
+        NavigationManager.NavigateTo("/student/add");
+    }
+
+    void EditStudent(int studentId)
+    {
+        NavigationManager.NavigateTo($"/student/edit/{studentId}");
+    }
+
+    async Task DeleteStudent(int studentId)
+    {
+        await StudentService.DeleteStudentAsync(studentId);
+        _students = await StudentService.GetAllStudentsAsync(); // Refresh the list
+    }
+}

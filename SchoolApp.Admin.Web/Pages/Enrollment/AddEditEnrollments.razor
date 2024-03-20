@@ -1,0 +1,55 @@
+﻿@page "/enrollment/add"
+@page "/enrollment/edit/{EnrollmentId:int}"
+
+@inject EnrollmentService EnrollmentService
+@inject NavigationManager NavigationManager
+
+<h3>Add/Edit Enrollment</h3>
+
+<EditForm Model="@enrollment" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="studentId">Student ID:</label>
+        <InputNumber id="studentId" class="form-control" @bind-Value="enrollment.StudentId" />
+    </div>
+    <div class="form-group">
+        <label for="courseId">Course ID:</label>
+        <InputNumber id="courseId" class="form-control" @bind-Value="enrollment.CourseId" />
+    </div>
+    <div class="form-group">
+        <label for="enrollmentDate">Enrollment Date:</label>
+        <InputDate id="enrollmentDate" class="form-control" @bind-Value="enrollment.EnrollmentDate" />
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? EnrollmentId { get; set; }
+
+    private Enrollment? enrollment = new Enrollment();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (EnrollmentId.HasValue)
+        {
+            enrollment = await EnrollmentService.GetEnrollmentByIdAsync(EnrollmentId.Value);
+        }
+    }
+
+    async Task HandleValidSubmit()
+    {
+        if (EnrollmentId.HasValue)
+        {
+            await EnrollmentService.UpdateEnrollmentAsync(enrollment.Id, enrollment);
+        }
+        else
+        {
+            await EnrollmentService.AddEnrollmentAsync(enrollment);
+        }
+
+        NavigationManager.NavigateTo("/enrollments");
+    }
+}
