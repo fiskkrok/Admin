@@ -1,5 +1,6 @@
-﻿using eShop.EventBusRabbitMQ;
+﻿
 using Microsoft.Extensions.DependencyInjection;
+using SchoolApp.EventBusRabbitMQ;
 
 namespace Microsoft.Extensions.Hosting;
 

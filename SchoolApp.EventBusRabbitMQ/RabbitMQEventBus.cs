@@ -1,6 +1,8 @@
-﻿using SchoolApp.Shared;
+﻿
 
-namespace eShop.EventBusRabbitMQ;
+using Microsoft.AspNetCore.Hosting;
+
+namespace SchoolApp.EventBusRabbitMQ;
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;

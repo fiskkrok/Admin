@@ -1,7 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SchoolApp.Shared;
-
+namespace Microsoft.AspNetCore.Hosting;
 internal static class ActivityExtensions
 {
     // See https://opentelemetry.io/docs/specs/otel/trace/semantic_conventions/exceptions/

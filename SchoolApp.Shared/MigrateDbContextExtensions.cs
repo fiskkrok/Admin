@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using Admin.Infrastructure.Common;
-using Admin.WebAPI;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+
 
 namespace Microsoft.AspNetCore.Hosting;
 
@@ -69,7 +69,7 @@ internal static class MigrateDbContextExtensions
 
         try
         {
-            await context.Database.MigrateAsync();
+            await context.Database.EnsureCreatedAsync();
             await seeder(context, services);
         }
         catch (Exception ex)

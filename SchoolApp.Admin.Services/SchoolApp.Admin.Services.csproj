@@ -5,12 +5,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+	<ItemGroup>
+		<Compile Include="..\SchoolApp.Shared\ActivityExtensions.cs" Link="Extensions\ActivityExtensions.cs" />
+		<Compile Include="..\SchoolApp.Shared\MigrateDbContextExtensions.cs" Link="Extensions\MigrateDbContextExtensions.cs" />
+	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.2.24128.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolApp.Admin.Infrastructure\SchoolApp.Admin.Infrastructure.csproj" />
+    <ProjectReference Include="..\SchoolApp.EventBusRabbitMQ\SchoolApp.EventBusRabbitMQ.csproj" />
+    <ProjectReference Include="..\SchoolApp.IntegrationEventLogEF\SchoolApp.IntegrationEventLogEF.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,18 +8,23 @@
 <EditForm Model="@course" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    
+
     <div class="form-group">
         <label for="courseCode">Course Code:</label>
-        <InputText id="courseCode" class="form-control" @bind-Value="course.CourseCode" />
-    </div>
-    <div class="form-group">
-        <label for="courseName">Course Name:</label>
-        <InputText id="courseName" class="form-control" @bind-Value="course.CourseName" />
-    </div>
-    <div class="form-group">
-        <label for="credits">Credits:</label>
-        <InputNumber id="credits" class="form-control" @bind-Value="course.Credits" />
+        @if (course != null)
+        {
+            <InputText id="courseCode" class="form-control" @bind-Value="course.CourseCode"/>
+            @:</div>
+            <div class="form-group">
+                <label for="courseName">Course Name:</label>
+                <InputText id="courseName" class="form-control" @bind-Value="course.CourseName"/>
+            </div>
+            @:<div class="form-group">
+            <label for="credits">Credits:</label>
+            <InputNumber id="credits" class="form-control" @bind-Value="course.Credits"/>
+        }
+
+
     </div>
     <button type="submit" class="btn btn-success">Save</button>
 </EditForm>

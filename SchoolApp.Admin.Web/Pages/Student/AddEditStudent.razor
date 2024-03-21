@@ -12,15 +12,20 @@
 
     <div class="form-group">
         <label for="firstName">First Name:</label>
-        <InputText id="firstName" class="form-control" @bind-Value="student.FirstName" />
-    </div>
-    <div class="form-group">
-        <label for="lastName">Last Name:</label>
-        <InputText id="lastName" class="form-control" @bind-Value="student.LastName" />
-    </div>
-    <div class="form-group">
-        <label for="email">Email:</label>
-        <InputText id="email" class="form-control" @bind-Value="student.Email" />
+        @if (student != null)
+        {
+            <InputText id="firstName" class="form-control" @bind-Value="student.FirstName"/>
+            @:</div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <InputText id="lastName" class="form-control" @bind-Value="student.LastName"/>
+            </div>
+            @:<div class="form-group">
+            <label for="email">Email:</label>
+            <InputText id="email" class="form-control" @bind-Value="student.Email"/>
+        }
+
+
     </div>
     <button type="submit" class="btn btn-success">Save</button>
 </EditForm>

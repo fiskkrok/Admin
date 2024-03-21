@@ -29,5 +29,9 @@
     <ProjectReference Include="..\SchoolApp.Admin.Application\SchoolApp.Admin.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seeder\" />
+  </ItemGroup>
+
 
 </Project>

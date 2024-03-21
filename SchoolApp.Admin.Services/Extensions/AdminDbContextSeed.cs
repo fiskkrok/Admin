@@ -8,6 +8,7 @@ using Admin.Application.AggregateModels.EnrollmentAggregate;
 using Admin.Application.AggregateModels.FacultyAggregate;
 using Admin.Application.AggregateModels.StudentAggregate;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 
@@ -26,7 +27,7 @@ public class AdminDbContextSeed(
             PropertyNameCaseInsensitive = true,
 
         };
-        options.Converters.Add(new DateOnlyJsonConverter("yyyy/M/dd")); // Adjust the format as needed
+        options.Converters.Add(new DateOnlyJsonConverter("yyyy/MM/dd")); // Adjust the format as needed
         options.IncludeFields = true;
         if (!context.Faculties.Any())
         {

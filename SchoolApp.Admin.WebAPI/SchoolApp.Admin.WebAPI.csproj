@@ -35,6 +35,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SchoolApp.Admin.Application\SchoolApp.Admin.Application.csproj" />
     <ProjectReference Include="..\SchoolApp.Admin.Infrastructure\SchoolApp.Admin.Infrastructure.csproj" />
+    <ProjectReference Include="..\SchoolApp.Admin.Services\SchoolApp.Admin.Services.csproj" />
     <ProjectReference Include="..\SchoolApp.ServiceDefaults\SchoolApp.ServiceDefaults.csproj" />
   </ItemGroup>
 

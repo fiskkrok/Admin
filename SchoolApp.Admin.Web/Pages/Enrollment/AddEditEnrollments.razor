@@ -12,15 +12,20 @@
 
     <div class="form-group">
         <label for="studentId">Student ID:</label>
-        <InputNumber id="studentId" class="form-control" @bind-Value="enrollment.StudentId" />
-    </div>
-    <div class="form-group">
-        <label for="courseId">Course ID:</label>
-        <InputNumber id="courseId" class="form-control" @bind-Value="enrollment.CourseId" />
-    </div>
-    <div class="form-group">
-        <label for="enrollmentDate">Enrollment Date:</label>
-        <InputDate id="enrollmentDate" class="form-control" @bind-Value="enrollment.EnrollmentDate" />
+        @if (enrollment != null)
+        {
+            <InputNumber id="studentId" class="form-control" @bind-Value="enrollment.StudentId"/>
+            @:</div>
+            <div class="form-group">
+                <label for="courseId">Course ID:</label>
+                <InputNumber id="courseId" class="form-control" @bind-Value="enrollment.CourseId"/>
+            </div>
+            @:<div class="form-group">
+            <label for="enrollmentDate">Enrollment Date:</label>
+            <InputDate id="enrollmentDate" class="form-control" @bind-Value="enrollment.EnrollmentDate"/>
+        }
+
+
     </div>
     <button type="submit" class="btn btn-success">Save</button>
 </EditForm>

@@ -8,7 +8,7 @@ using Microsoft.OpenApi.Models;
 
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace eShop.ServiceDefaults;
+namespace SchoolApp.ServiceDefaults;
 
 public static partial class Extensions
 {
