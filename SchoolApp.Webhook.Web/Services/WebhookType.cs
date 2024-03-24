@@ -1,0 +1,8 @@
+﻿namespace SchoolApp.Webhook.Web.Services;
+
+public enum WebhookType
+{
+    CatalogItemPriceChange = 1,
+    OrderShipped = 2,
+    OrderPaid = 3
+}

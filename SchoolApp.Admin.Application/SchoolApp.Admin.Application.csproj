@@ -26,4 +26,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AggregateModels\AuthAggregate\" />
+    <Folder Include="Behaviors\" />
+  </ItemGroup>
+
 </Project>

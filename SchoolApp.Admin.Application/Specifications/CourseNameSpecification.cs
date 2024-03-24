@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Admin.Application.AggregateModels.CourseAggregate;
+using SchoolApp.Admin.Application.AggregateModels.CourseAggregate;
 using Ardalis.Specification;
 
 namespace Admin.Application.Specifications;

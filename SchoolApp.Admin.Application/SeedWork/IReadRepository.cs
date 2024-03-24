@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.Specification;
-namespace Admin.Application.SeedWork;
+namespace SchoolApp.Admin.Application.SeedWork;
 public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IAggregateRoot
 {
 }

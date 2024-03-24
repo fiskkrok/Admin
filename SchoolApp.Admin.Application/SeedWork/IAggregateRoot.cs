@@ -4,5 +4,5 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Admin.Application.SeedWork;
+namespace SchoolApp.Admin.Application.SeedWork;
 public interface IAggregateRoot { }

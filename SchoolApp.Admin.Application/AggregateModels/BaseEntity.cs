@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-using Admin.Application.SeedWork;
-
-namespace Admin.Application.AggregateModels;
+namespace SchoolApp.Admin.Application.AggregateModels;
 public abstract class BaseEntity
 {
     int? _requestedHashCode;

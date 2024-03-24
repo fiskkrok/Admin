@@ -1,14 +1,15 @@
 ﻿
-
-using Admin.Application.SeedWork;
 using Admin.Infrastructure;
 using Admin.Infrastructure.Data;
 using SchoolApp.Admin.Services.IntegrationEvents.EventHandling;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient; // SqlConnectionStringBuilder
 using Microsoft.EntityFrameworkCore; // UseSqlServer
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SchoolApp.Admin.Application.SeedWork;
+using SchoolApp.Admin.Infrastructure.Identity;
 using SchoolApp.Admin.Services.IntegrationEvents;
 using SchoolApp.Admin.Services.IntegrationEvents.Events;
 using SchoolApp.IntegrationEventLogEF.Services; // IServiceCollection
@@ -42,11 +43,8 @@ public static class Extensions
             optionsLifetime: ServiceLifetime.Transient);
         // Uncomment för att köra migrations
         builder.Services.AddMigration<AdminDbContext, AdminDbContextSeed>();
-
         builder.Services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService<AdminDbContext>>();
-
         builder.Services.AddTransient<IAdminIntegrationEventService, AdminIntegrationEventService>();
-
         builder.AddRabbitMqEventBus("eventbus")
             .AddSubscription<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>()
             .AddSubscription<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();

@@ -1,4 +1,4 @@
-﻿namespace Admin.WebAPI.Endpoints.CourseAssignment;
+﻿namespace SchoolApp.Admin.WebAPI.Endpoints.CourseAssignment;
 
 public class GetByIdCourseAssignmentResponse
 {

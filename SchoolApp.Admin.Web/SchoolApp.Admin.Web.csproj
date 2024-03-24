@@ -24,4 +24,10 @@
     <_ContentIncludedByDefault Remove="Pages\Courses\AddEditCourse.razor" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Components.Authorization">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\9.0.0-preview.2.24128.4\Microsoft.AspNetCore.Components.Authorization.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

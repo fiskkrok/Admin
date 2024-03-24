@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Admin.Application.AggregateModels.CourseAssignmentAggregate;
-using Admin.Application.SeedWork;
-using Admin.Domain.SeedWork;
+using SchoolApp.Admin.Application.AggregateModels.CourseAssignmentAggregate;
+using SchoolApp.Admin.Application.SeedWork;
 
-namespace Admin.Application.AggregateModels.FacultyAggregate;
+
+namespace SchoolApp.Admin.Application.AggregateModels.FacultyAggregate;
 
 
 public class Faculty(int facultyId, string? firstName, string? lastName, string? department)

@@ -1,6 +1,6 @@
-﻿using Microsoft.eShopWeb.PublicApi;
+﻿using SchoolApp.Admin.WebAPI;
 
-namespace Admin.WebAPI.Endpoints.Faculty;
+namespace SchoolApp.Admin.WebAPI.Endpoints.Faculty;
 
 public class ListFacultiesResponse : BaseResponse
 {

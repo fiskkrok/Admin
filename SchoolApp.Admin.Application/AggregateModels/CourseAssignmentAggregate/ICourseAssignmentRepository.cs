@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Admin.Application.SeedWork;
+using SchoolApp.Admin.Application.SeedWork;
 using Admin.Domain.SeedWork;
 
-namespace Admin.Application.AggregateModels.CourseAssignmentAggregate;
+namespace SchoolApp.Admin.Application.AggregateModels.CourseAssignmentAggregate;
 public interface ICourseAssignmentRepository : IRepository<CourseAssignment>
 {
     IQueryable<CourseAssignment> GetAll();

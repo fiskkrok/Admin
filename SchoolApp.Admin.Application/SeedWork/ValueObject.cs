@@ -1,4 +1,4 @@
-﻿namespace Admin.Application.SeedWork;
+﻿namespace SchoolApp.Admin.Application.SeedWork;
 
 public abstract class ValueObject
 {

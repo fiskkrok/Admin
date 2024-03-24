@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Admin.Application.AggregateModels.CourseAggregate;
-using Admin.Application.AggregateModels.CourseAssignmentAggregate;
-using Admin.Application.AggregateModels.EnrollmentAggregate;
-using Admin.Application.AggregateModels.FacultyAggregate;
-using Admin.Application.AggregateModels.StudentAggregate;
 using Admin.Domain;
-using Admin.Infrastructure.EntityConfigurations;
-
+using SchoolApp.Admin.Infrastructure.EntityConfigurations;
 using MediatR;
-
 using Microsoft.Data.SqlClient;
+using SchoolApp.Admin.Application.AggregateModels.CourseAggregate;
+using SchoolApp.Admin.Application.AggregateModels.CourseAssignmentAggregate;
+using SchoolApp.Admin.Application.AggregateModels.EnrollmentAggregate;
+using SchoolApp.Admin.Application.AggregateModels.FacultyAggregate;
+using SchoolApp.Admin.Application.AggregateModels.StudentAggregate;
 
 namespace Admin.Infrastructure.Data;
 

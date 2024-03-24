@@ -16,6 +16,8 @@
   <ItemGroup>
     <ProjectReference Include="..\SchoolApp.Admin.WebAPI\SchoolApp.Admin.WebAPI.csproj" />
     <ProjectReference Include="..\SchoolApp.Admin.Web\SchoolApp.Admin.Web.csproj" />
+    <ProjectReference Include="..\SchoolApp.Webhook.Web\SchoolApp.Webhook.Web.csproj" />
+    <ProjectReference Include="..\SchoolApp.Webhooks.API\SchoolApp.Webhooks.API.csproj" />
   </ItemGroup>
 
 </Project>

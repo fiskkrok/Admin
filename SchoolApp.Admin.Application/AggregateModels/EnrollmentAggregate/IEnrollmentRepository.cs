@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Admin.Application.SeedWork;
+using SchoolApp.Admin.Application.SeedWork;
 using Admin.Domain.SeedWork;
 
-namespace Admin.Application.AggregateModels.EnrollmentAggregate;
+namespace SchoolApp.Admin.Application.AggregateModels.EnrollmentAggregate;
 public interface IEnrollmentRepository : IRepository<Enrollment>
 {
 

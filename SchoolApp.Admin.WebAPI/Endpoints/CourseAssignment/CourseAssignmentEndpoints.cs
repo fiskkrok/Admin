@@ -1,11 +1,12 @@
 ﻿
-using Admin.Application.SeedWork;
-using AggregateModel = Admin.Application.AggregateModels.CourseAssignmentAggregate;
+
+using AggregateModel = SchoolApp.Admin.Application.AggregateModels.CourseAssignmentAggregate;
 using AutoMapper;
 
 using Microsoft.AspNetCore.Http.HttpResults;
+using SchoolApp.Admin.Application.SeedWork;
 
-namespace Admin.WebAPI.Endpoints.CourseAssignment;
+namespace SchoolApp.Admin.WebAPI.Endpoints.CourseAssignment;
 
 public static class CourseAssignmentEndpoints
 {

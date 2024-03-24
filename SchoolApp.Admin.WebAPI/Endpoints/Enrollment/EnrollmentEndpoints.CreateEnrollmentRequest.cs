@@ -1,6 +1,6 @@
-﻿using Microsoft.eShopWeb.PublicApi;
+﻿using SchoolApp.Admin.WebAPI;
 
-namespace Admin.WebAPI.Endpoints.Enrollment;
+namespace SchoolApp.Admin.WebAPI.Endpoints.Enrollment;
 
 public class CreateEnrollmentRequest : BaseRequest
 {

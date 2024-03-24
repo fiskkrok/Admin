@@ -1,11 +1,11 @@
-﻿using Admin.Application.Exceptions;
-using Admin.Application.SeedWork;
+﻿
 
 using AutoMapper;
 
 using Microsoft.AspNetCore.Http.HttpResults;
+using SchoolApp.Admin.Application.SeedWork;
 
-namespace Admin.WebAPI.Endpoints.Enrollment;
+namespace SchoolApp.Admin.WebAPI.Endpoints.Enrollment;
 
 public static class EnrollmentEndpoints
 {

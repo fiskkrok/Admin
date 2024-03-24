@@ -1,4 +1,4 @@
-﻿namespace Admin.WebAPI.Endpoints.Faculty;
+﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Faculty;
 
 public class GetByIdFacultyResonse
 {

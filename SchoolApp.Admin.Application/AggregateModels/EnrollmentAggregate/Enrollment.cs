@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
-using Admin.Application.AggregateModels.CourseAggregate;
-using Admin.Application.AggregateModels.StudentAggregate;
-using Admin.Application.SeedWork;
-using Admin.Domain.SeedWork;
+using SchoolApp.Admin.Application.AggregateModels.CourseAggregate;
+using SchoolApp.Admin.Application.AggregateModels.StudentAggregate;
+using SchoolApp.Admin.Application.SeedWork;
 
-namespace Admin.Application.AggregateModels.EnrollmentAggregate;
+
+namespace SchoolApp.Admin.Application.AggregateModels.EnrollmentAggregate;
 
 public class Enrollment(int enrollmentId, int? studentId, int? courseId, DateOnly? enrollmentDate)
     : BaseEntity, IAggregateRoot

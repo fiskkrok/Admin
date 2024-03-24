@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Ardalis.Specification;
 
-namespace Admin.Application.SeedWork;
+namespace SchoolApp.Admin.Application.SeedWork;
 public interface IRepository<T> : IRepositoryBase<T> where T : class, IAggregateRoot
 {
 }

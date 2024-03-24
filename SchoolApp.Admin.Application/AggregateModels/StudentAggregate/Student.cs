@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
-using Admin.Application.AggregateModels.EnrollmentAggregate;
-using Admin.Application.SeedWork;
+using SchoolApp.Admin.Application.AggregateModels.EnrollmentAggregate;
+using SchoolApp.Admin.Application.SeedWork;
 using Admin.Domain.SeedWork;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Admin.Application.AggregateModels.StudentAggregate;
+namespace SchoolApp.Admin.Application.AggregateModels.StudentAggregate;
 
 public class Student : BaseEntity, IAggregateRoot
 {

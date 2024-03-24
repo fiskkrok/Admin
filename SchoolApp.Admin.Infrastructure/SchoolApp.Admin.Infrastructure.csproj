@@ -27,10 +27,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SchoolApp.Admin.Application\SchoolApp.Admin.Application.csproj" />
+    <ProjectReference Include="..\SchoolApp.Admin.Domain\SchoolApp.Admin.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Seeder\" />
+    <Folder Include="Identity\Migrations\" />
   </ItemGroup>
 
 

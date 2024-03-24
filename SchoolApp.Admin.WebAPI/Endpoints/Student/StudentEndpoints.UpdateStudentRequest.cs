@@ -1,4 +1,4 @@
-﻿namespace Admin.WebAPI.Endpoints.Student;
+﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
 
 public class UpdateStudentRequest
 {

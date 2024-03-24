@@ -1,6 +1,7 @@
-﻿using Microsoft.eShopWeb.PublicApi;
+﻿
+using SchoolApp.Admin.WebAPI;
 
-namespace Admin.WebAPI.Endpoints.Course;
+namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
 
 public class CreateCourseRequest : BaseRequest
 {

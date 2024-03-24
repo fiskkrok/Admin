@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Admin.Application.AggregateModels.StudentAggregate;
+namespace SchoolApp.Admin.Application.AggregateModels.StudentAggregate;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum StudentStatus
 {

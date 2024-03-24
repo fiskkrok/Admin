@@ -33,7 +33,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolApp.ServiceDefaults",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolApp.AppHost", "SchoolApp.AppHost\SchoolApp.AppHost.csproj", "{7E4964A9-A311-4D19-8C51-A95BEBCC941E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolApp.Shared", "SchoolApp.Shared\SchoolApp.Shared.csproj", "{68FFBBE6-ED8E-44E6-B81F-EC90220EFD44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolApp.Shared", "SchoolApp.Shared\SchoolApp.Shared.csproj", "{68FFBBE6-ED8E-44E6-B81F-EC90220EFD44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolApp.Webhooks.API", "SchoolApp.Webhooks.API\SchoolApp.Webhooks.API.csproj", "{9FEF8E90-63E5-40CA-BC5C-F5C835470057}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolApp.Webhook.Web", "SchoolApp.Webhook.Web\SchoolApp.Webhook.Web.csproj", "{4CDD56F7-CCA9-41D3-9709-B2E470033ED9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77A41AAE-7976-46D5-8EF9-4A093272AF73}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +98,14 @@ Global
 		{68FFBBE6-ED8E-44E6-B81F-EC90220EFD44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68FFBBE6-ED8E-44E6-B81F-EC90220EFD44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68FFBBE6-ED8E-44E6-B81F-EC90220EFD44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FEF8E90-63E5-40CA-BC5C-F5C835470057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FEF8E90-63E5-40CA-BC5C-F5C835470057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FEF8E90-63E5-40CA-BC5C-F5C835470057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FEF8E90-63E5-40CA-BC5C-F5C835470057}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CDD56F7-CCA9-41D3-9709-B2E470033ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDD56F7-CCA9-41D3-9709-B2E470033ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDD56F7-CCA9-41D3-9709-B2E470033ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDD56F7-CCA9-41D3-9709-B2E470033ED9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +123,8 @@ Global
 		{CDD135F4-13A4-4CE8-8588-0C6845838700} = {DD746B51-6673-4079-9403-02664723B920}
 		{7E4964A9-A311-4D19-8C51-A95BEBCC941E} = {DD746B51-6673-4079-9403-02664723B920}
 		{68FFBBE6-ED8E-44E6-B81F-EC90220EFD44} = {DD746B51-6673-4079-9403-02664723B920}
+		{9FEF8E90-63E5-40CA-BC5C-F5C835470057} = {DD746B51-6673-4079-9403-02664723B920}
+		{4CDD56F7-CCA9-41D3-9709-B2E470033ED9} = {DD746B51-6673-4079-9403-02664723B920}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCB8FDDD-9CCD-4075-934D-F522E43ECE1B}

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Admin.Application.Entities.CourseLogic;
 
-namespace Admin.WebAPI.Endpoints.CourseAssignment;
+namespace SchoolApp.Admin.WebAPI.Endpoints.CourseAssignment;
 
 public record CourseAssignmentRecord(
     int AssignmentId,

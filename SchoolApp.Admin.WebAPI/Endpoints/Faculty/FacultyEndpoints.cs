@@ -1,11 +1,12 @@
 ﻿using Admin.Application.Exceptions;
-using Admin.Application.SeedWork;
+
 
 using AutoMapper;
 
 using Microsoft.AspNetCore.Http.HttpResults;
+using SchoolApp.Admin.Application.SeedWork;
 
-namespace Admin.WebAPI.Endpoints.Faculty;
+namespace SchoolApp.Admin.WebAPI.Endpoints.Faculty;
 
 public static class FacultyEndpoints
 {

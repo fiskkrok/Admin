@@ -1,4 +1,4 @@
-﻿namespace Admin.WebAPI.Endpoints.Enrollment;
+﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Enrollment;
 
 public class UpdateEntollmentResponse
 {

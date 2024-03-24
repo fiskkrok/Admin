@@ -1,0 +1,12 @@
+﻿global using System.ComponentModel.DataAnnotations;
+global using System.Text;
+global using System.Text.Json;
+global using Microsoft.EntityFrameworkCore;
+global using SchoolApp.EventBus.Abstractions;
+global using SchoolApp.EventBus.Events;
+global using SchoolApp.ServiceDefaults;
+global using SchoolApp.Webhooks.API.Infrastructure;
+global using SchoolApp.Webhooks.API.Model;
+global using SchoolApp.Webhooks.API.Services;
+global using SchoolApp.Webhooks.API;
+global using SchoolApp.Webhooks.API.Model;

@@ -1,6 +1,5 @@
 ﻿using System;
-
-namespace Microsoft.eShopWeb.PublicApi;
+namespace SchoolApp.Admin.WebAPI;
 
 /// <summary>
 /// Base class used by API requests

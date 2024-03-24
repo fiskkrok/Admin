@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Admin.Application.AggregateModels.CourseAggregate;
-using Admin.Application.AggregateModels.FacultyAggregate;
-using Admin.Application.AggregateModels.StudentAggregate;
-using Admin.Application.SeedWork;
-using Admin.Domain.SeedWork;
-using Microsoft.EntityFrameworkCore;
+using SchoolApp.Admin.Application.AggregateModels.FacultyAggregate;
+using SchoolApp.Admin.Application.SeedWork;
 
-namespace Admin.Application.AggregateModels.CourseAssignmentAggregate;
+using Microsoft.EntityFrameworkCore;
+using SchoolApp.Admin.Application.AggregateModels.CourseAggregate;
+
+
+namespace SchoolApp.Admin.Application.AggregateModels.CourseAssignmentAggregate;
 
 public class CourseAssignment(
     int assignmentId,

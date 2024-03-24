@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Admin.Application.SeedWork;
+﻿
 using Admin.Infrastructure.Data;
 using Ardalis.Specification.EntityFrameworkCore;
+using SchoolApp.Admin.Application.SeedWork;
 
 namespace Admin.Infrastructure;
 public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot

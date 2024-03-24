@@ -1,11 +1,10 @@
-﻿using Admin.Application.Exceptions;
-using Admin.Application.SeedWork;
+﻿
 
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
+using SchoolApp.Admin.Application.SeedWork;
 
-namespace Admin.WebAPI.Endpoints.Student;
+namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
 
 public static class StudentEndpoints
 {

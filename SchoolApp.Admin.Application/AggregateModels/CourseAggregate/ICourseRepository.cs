@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Admin.Application.SeedWork;
-using Admin.Domain.SeedWork;
+﻿
+using SchoolApp.Admin.Application.SeedWork;
 
-namespace Admin.Application.AggregateModels.CourseAggregate;
+
+namespace SchoolApp.Admin.Application.AggregateModels.CourseAggregate;
 public interface ICourseRepository : IRepository<Course>
 {
     IQueryable<Course> GetAll();

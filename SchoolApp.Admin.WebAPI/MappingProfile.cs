@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 
+
 namespace SchoolApp.Admin.WebAPI;
 
 public class MappingProfile : Profile
