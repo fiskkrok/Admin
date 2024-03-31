@@ -1,9 +1,9 @@
 ﻿
 
 using AutoMapper;
-
 using Microsoft.AspNetCore.Http.HttpResults;
-using SchoolApp.Admin.Application.SeedWork;
+using SchoolApp.Admin.Application.Commands.Enrollment;
+using SchoolApp.Admin.Domain.SeedWork;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Enrollment;
 
@@ -23,67 +23,48 @@ public static class EnrollmentEndpoints
         return app;
     }
 
-    public static async Task<Ok<ListEnrollmentsResponse>> GetAllEnrollments(IRepository<Application.AggregateModels.EnrollmentAggregate.Enrollment> enrollmentRepository, IMapper mapper)
+    public static async Task<Ok<ListEnrollmentsResponse>> GetAllEnrollments( IMapper mapper)
     {
         var response = new ListEnrollmentsResponse();
-        var items = await enrollmentRepository.ListAsync();
-        response.Enrollments.AddRange(items.Select(mapper.Map<EnrollmentRecord>));
+        //var items = await enrollmentRepository.ListAsync();
+        //response.Enrollments.AddRange(items.Select(mapper.Map<EnrollmentRecord>));
         return TypedResults.Ok(response);
     }
 
-    public static async Task<Results<Ok<Application.AggregateModels.EnrollmentAggregate.Enrollment>, NotFound>> GetEnrollmentById(int enrollmentid, IRepository<Application.AggregateModels.EnrollmentAggregate.Enrollment> enrollmentRepository)
+    public static async Task<Results<Ok<GetByIdEnrollmentResponse>, NotFound>> GetEnrollmentById(int enrollmentid)
     {
-        var enrollment = await enrollmentRepository.GetByIdAsync(enrollmentid);
-        return enrollment != null ? TypedResults.Ok(enrollment) : TypedResults.NotFound();
+        var respone = new GetByIdEnrollmentResponse();
+        //var enrollment = await enrollmentRepository.GetByIdAsync(enrollmentid);
+        //return enrollment != null ? TypedResults.Ok(enrollment) : TypedResults.NotFound();
+        return TypedResults.Ok(respone);
     }
 
-    public static async Task<Results<Ok, NotFound>> UpdateEnrollment(int enrollmentid, Application.AggregateModels.EnrollmentAggregate.Enrollment enrollment, IRepository<Application.AggregateModels.EnrollmentAggregate.Enrollment> enrollmentRepository)
+    public static async Task<Results<Ok, NotFound>> UpdateEnrollment(int enrollmentid)
     {
-        var existingEnrollment = await enrollmentRepository.GetByIdAsync(enrollmentid);
+        var existingEnrollment = string.Empty;
         if (existingEnrollment == null)
         {
             return TypedResults.NotFound();
         }
 
-        existingEnrollment.StudentId = enrollment.StudentId;
-        existingEnrollment.CourseId = enrollment.CourseId;
-        existingEnrollment.EnrollmentDate = enrollment.EnrollmentDate;
-
-        await enrollmentRepository.UpdateAsync(existingEnrollment);
         return TypedResults.Ok();
     }
 
-    public static async Task<IResult> CreateEnrollment(CreateEnrollmentRequest request, IRepository<Application.AggregateModels.EnrollmentAggregate.Enrollment> enrollmentRepository)
+    public static async Task<IResult> CreateEnrollment(CreateEnrollmentRequest request)
     {
         var response = new CreateEnrollmentResponse(request.CorrelationId());
 
-        var newEnrollment = new Application.AggregateModels.EnrollmentAggregate.Enrollment(
-            request.EnrollmentId,
-            request.StudentId,
-            request.CourseId,
-            request.EnrollmentDate);
-        newEnrollment = await enrollmentRepository.AddAsync(newEnrollment);
-
-        var dto = new EnrollmentRecord
-        (
-            EnrollmentId: newEnrollment.EnrollmentId,
-            StudentId: newEnrollment.StudentId,
-            CourseId: newEnrollment.CourseId,
-            EnrollmentDate: newEnrollment.EnrollmentDate
-        );
-        response.Enrollment = dto;
-        return Results.Created($"enrollment/{dto.EnrollmentId}", response);
+       
+        return Results.Created($"enrollment/", response);
     }
 
-    public static async Task<Results<Ok, NotFound>> DeleteEnrollment(int enrollmentid, IRepository<Application.AggregateModels.EnrollmentAggregate.Enrollment> enrollmentRepository)
+    public static async Task<Results<Ok, NotFound>> DeleteEnrollment(int enrollmentid)
     {
-        var enrollment = await enrollmentRepository.GetByIdAsync(enrollmentid);
+        var enrollment = string.Empty;
         if (enrollment == null)
         {
             return TypedResults.NotFound();
         }
-
-        await enrollmentRepository.DeleteAsync(enrollment);
         return TypedResults.Ok();
     }
 }

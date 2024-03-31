@@ -1,90 +1,119 @@
-﻿
-
-using AggregateModel = SchoolApp.Admin.Application.AggregateModels.CourseAssignmentAggregate;
-using AutoMapper;
-
+﻿using Admin.Application.Commands;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
-using SchoolApp.Admin.Application.SeedWork;
+using SchoolApp.Admin.Application.Commands.CourseAssignment;
+using SchoolApp.EventBus.Extensions;
+using Azure.Core;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.CourseAssignment;
-
 public static class CourseAssignmentEndpoints
 {
     public static IEndpointRouteBuilder MapCourseAssignmentEndpoints(this IEndpointRouteBuilder app)
     {
-        // Routes for querying course assignments
-        app.MapGet("/CourseAssignmentt", GetAllCourseAssignments);
-        app.MapGet("/CourseAssignmentt/{id}", GetCourseAssignmentById);
-
-        // Routes for modifying course assignments
-        app.MapPut("/CourseAssignmentt/{id}", UpdateCourseAssignment);
-        app.MapPost("/CourseAssignmentt", CreateCourseAssignment);
-        app.MapDelete("/CourseAssignmentt/{id}", DeleteCourseAssignment);
+        // Define endpoints for course assignment operations
+        app.MapGet("/CourseAssignment/", GetAllCourseAssignmentsAsync);
+        app.MapGet("/CourseAssignment/{assignmentId:int}", GetCourseAssignmentByIdAsync);
+        app.MapPost("/CourseAssignment/", CreateCourseAssignmentAsync);
+        app.MapPut("/CourseAssignment/{assignmentId:int}", UpdateCourseAssignmentAsync);
+        app.MapDelete("/CourseAssignment/{assignmentId:int}", DeleteCourseAssignmentAsync);
 
         return app;
     }
 
-    public static async Task<Ok<ListCourseAssignmentsResponse>> GetAllCourseAssignments(IRepository<AggregateModel.CourseAssignment> courseAssignmentRepository, IMapper mapper)
+    public static async Task<Results<Ok<ListCourseAssignmentsResponse>, NotFound>> GetAllCourseAssignmentsAsync([AsParameters] CourseAssignmentServices services)
     {
-        var response = new ListCourseAssignmentsResponse();
-        var items = await courseAssignmentRepository.ListAsync();
-        response.CourseAssignments.AddRange(items.Select(mapper.Map<CourseAssignmentRecord>));
-        return TypedResults.Ok(response);
-    }
-
-    public static async Task<Results<Ok<AggregateModel.CourseAssignment>, NotFound>> GetCourseAssignmentById(int assignmentid, IRepository<AggregateModel.CourseAssignment> courseAssignmentRepository)
-    {
-        var courseAssignment = await courseAssignmentRepository.GetByIdAsync(assignmentid);
-        return courseAssignment != null ? TypedResults.Ok(courseAssignment) : TypedResults.NotFound();
-    }
-
-    public static async Task<Results<Ok, NotFound>> UpdateCourseAssignment(int assignmentid, AggregateModel.CourseAssignment courseAssignment, IRepository<AggregateModel.CourseAssignment> courseAssignmentRepository)
-    {
-        var existingCourseAssignment = await courseAssignmentRepository.GetByIdAsync(assignmentid);
-        if (existingCourseAssignment == null)
+        services.Logger.LogInformation("Fetching all course assignments");
+        var response = new ListCourseAssignmentsResponse
         {
-            return TypedResults.NotFound();
+            CourseAssignments = await services.Queries.GetAllCourseAssignmentAsync()
+        };
+
+        if (response.CourseAssignments.Any())
+            return TypedResults.Ok(response);
+
+        services.Logger.LogWarning("No course assignments found");
+
+        return TypedResults.NotFound();
+
+    }
+
+    public static async Task<Results<Ok<GetByIdCourseAssignmentResponse>, NotFound<string>>> GetCourseAssignmentByIdAsync(int assignmentId, [AsParameters] CourseAssignmentServices services)
+    {
+        services.Logger.LogInformation("Fetching course assignment with ID {assignmentId}", assignmentId);
+        var response = new GetByIdCourseAssignmentResponse
+        {
+            CourseAssignment = await services.Queries.GetCourseAssignmentByIdAsync(assignmentId)
+        };
+        
+        if (response != null) return TypedResults.Ok(response);
+
+        services.Logger.LogWarning("Course assignment with ID {assignmentId} not found", assignmentId);
+        return TypedResults.NotFound("Course assignment with ID not found");
+    }
+
+    public static async Task<Results<Ok, BadRequest<string>>> CreateCourseAssignmentAsync(
+        CreateCourseAssignmentRequest request, [FromHeader(Name = "x-requestid")] Guid requestId,
+        [AsParameters] CourseAssignmentServices services)
+    {
+        services.Logger.LogInformation(
+            "Creating course assignment with Request ID: {RequestId}", requestId);
+
+        if (requestId == Guid.Empty)
+        {
+            services.Logger.LogWarning("Empty GUID provided as Request ID");
+            return TypedResults.BadRequest("Empty GUID is not valid for request ID");
         }
 
-        existingCourseAssignment.FacultyId = courseAssignment.FacultyId;
-        existingCourseAssignment.CourseId = courseAssignment.CourseId;
-        existingCourseAssignment.AssignmentType = courseAssignment.AssignmentType;
+        var createCourseAssignmentCommand = new CreateCourseAssignmentCommand();
 
-        await courseAssignmentRepository.UpdateAsync(existingCourseAssignment);
+        bool result = await services.Mediator.Send(createCourseAssignmentCommand);
+
+        if (result)
+        {
+            services.Logger.LogInformation("CreateCourseAssignmentCommand succeeded - RequestId: {RequestId}", requestId);
+            return TypedResults.Ok();
+        }
+        else
+        {
+            services.Logger.LogWarning("CreateCourseAssignmentCommand failed - RequestId: {RequestId}", requestId);
+            return TypedResults.BadRequest("Failed to create course assignment.");
+        }
+    }
+
+    public static async Task<Results<Ok, NotFound, BadRequest<string>>> UpdateCourseAssignmentAsync(
+        int assignmentId, UpdateCourseAssignmentRequest request,
+        [AsParameters] CourseAssignmentServices services, [FromHeader(Name = "x-requestid")] Guid requestId)
+    {
+        services.Logger.LogInformation("Updating course assignment with ID {assignmentId}", assignmentId);
+
+        bool success = await services.Mediator.Send(new IdentifiedCommand<UpdateCourseAssignmentRequest, bool>(request, requestId));
+
+        if (!success)
+        {
+            services.Logger.LogWarning("Failed to update course assignment with ID {assignmentId}", assignmentId);
+            return TypedResults.BadRequest("Failed to update course assignment.");
+        }
+
+        services.Logger.LogInformation("Course assignment with ID {assignmentId} updated successfully", assignmentId);
         return TypedResults.Ok();
     }
 
-    public static async Task<IResult> CreateCourseAssignment(CreateCourseAssignmentRequest request, IRepository<AggregateModel.CourseAssignment> courseAssignmentRepository)
+    public static async Task<Results<Ok, NotFound>> DeleteCourseAssignmentAsync(
+        int assignmentId, DeleteCourseAssignmentRequest request,
+        [AsParameters] CourseAssignmentServices services, [FromHeader(Name = "x-requestid")] Guid requestId)
     {
-        var response = new CreateCourseAssignmentResponse(request.CorrelationId());
+        services.Logger.LogInformation("Deleting course assignment with ID {assignmentId}", assignmentId);
 
-        var newCourseAssignment = new AggregateModel.CourseAssignment(
-            request.AssignmentId,
-            request.FacultyId,
-            request.CourseId,
-            request.AssignmentType);
-        newCourseAssignment = await courseAssignmentRepository.AddAsync(newCourseAssignment);
-
-        var dto = new CourseAssignmentRecord
-        (
-            AssignmentId: newCourseAssignment.AssignmentId,
-            FacultyId: newCourseAssignment.FacultyId,
-            CourseId: newCourseAssignment.CourseId,
-            AssignmentType: newCourseAssignment.AssignmentType
-        );
-        response.CourseAssignment = dto;
-        return Results.Created($"courseassignment/{dto.AssignmentId}", response);
-    }
-
-    public static async Task<Results<Ok, NotFound>> DeleteCourseAssignment(int assignmentid, IRepository<AggregateModel.CourseAssignment> courseAssignmentRepository)
-    {
-        var courseAssignment = await courseAssignmentRepository.GetByIdAsync(assignmentid);
-        if (courseAssignment == null)
+        bool success = await services.Mediator.Send(new IdentifiedCommand<DeleteCourseAssignmentRequest, bool>(request, requestId));
+        if (success)
         {
+            services.Logger.LogInformation("Course assignment with ID {assignmentId} deleted successfully", assignmentId);
+            return TypedResults.Ok();
+        }
+        else
+        {
+            services.Logger.LogWarning("Failed to delete course assignment with ID {assignmentId}", assignmentId);
             return TypedResults.NotFound();
         }
-
-        await courseAssignmentRepository.DeleteAsync(courseAssignment);
-        return TypedResults.Ok();
     }
 }

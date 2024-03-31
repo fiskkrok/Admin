@@ -1,8 +1,17 @@
-﻿
+﻿using Admin.Application.Commands;
 
 using AutoMapper;
+
+using Azure.Core;
+
 using Microsoft.AspNetCore.Http.HttpResults;
-using SchoolApp.Admin.Application.SeedWork;
+using Microsoft.AspNetCore.Mvc;
+
+using SchoolApp.Admin.Application.Commands;
+using SchoolApp.Admin.Application.Commands.Student;
+using SchoolApp.EventBus.Extensions;
+
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
 
@@ -10,86 +19,95 @@ public static class StudentEndpoints
 {
     public static IEndpointRouteBuilder MapStudentEndpoints(this IEndpointRouteBuilder app)
     {
-        // Routes for querying students
-        
-        app.MapGet("/Student", GetAllStudents).AllowAnonymous();
-        app.MapGet("/Student/{id}", GetStudentById);
-
-        // Routes for modifying students
-        app.MapPut("/Student/{id}", UpdateStudent);
-        app.MapPost("/Student", CreateStudent);
-        app.MapDelete("/Student/{id}", DeleteStudent);
+        app.MapGet("/Student", GetAllStudentsAsync);
+        app.MapGet("/Student/{studentId:int}", GetStudentByIdAsync);
+        app.MapPost("/Student", CreateStudentAsync);
+        app.MapPut("/Student/{studentId:int}", UpdateStudentAsync);
+        app.MapDelete("/Student/{studentId:int}", DeleteStudentAsync);
 
         return app;
     }
 
-    private static async Task<Ok<ListStudentsResponse>> GetAllStudents(IRepository<Application.AggregateModels.StudentAggregate.Student> studentRepository, IMapper mapper)
+    public static async Task<Results<Ok<ListStudentsResponse>, NotFound>> GetAllStudentsAsync([FromServices] StudentServices services)
     {
-        var response = new ListStudentsResponse();
-        var items = await studentRepository.ListAsync();
-        response.Students.AddRange(items.Select(mapper.Map<StudentRecord>));
-        return TypedResults.Ok(response);
-    }
-
-    private static async Task<Results<Ok<Application.AggregateModels.StudentAggregate.Student>, NotFound>> GetStudentById(int studentid, IRepository<Application.AggregateModels.StudentAggregate.Student> studentRepository)
-    {
-        var student = await studentRepository.GetByIdAsync(studentid);
-        return student != null ? TypedResults.Ok(student) : TypedResults.NotFound();
-    }
-
-    private static async Task<Results<Ok, NotFound>> UpdateStudent(int studentid, Application.AggregateModels.StudentAggregate.Student student, IRepository<Application.AggregateModels.StudentAggregate.Student> studentRepository)
-    {
-        var existingStudent = await studentRepository.GetByIdAsync(studentid);
-        if (existingStudent == null)
+        var studentsResponse = new ListStudentsResponse
         {
-            return TypedResults.NotFound();
+            Students = (services.Queries.GetAllStudents() ?? []).ToList()
+        };
+        services.Logger.LogInformation("Retrieving all students");
+
+        if (studentsResponse.Students.Count != 0) return TypedResults.Ok(studentsResponse);
+        services.Logger.LogWarning("No students found");
+        return TypedResults.NotFound();
+
+    }
+
+    public static async Task<Results<Ok<GetByIdStudentResponse>, NotFound<string>>> GetStudentByIdAsync(int studentId, [FromServices] StudentServices services)
+    {
+        services.Logger.LogInformation("Fetching student with ID {StudentId}", studentId);
+        var studentResponse = new GetByIdStudentResponse
+        {
+            Student = await services.Queries.GetStudentByIdAsync(studentId)
+        };
+
+        return studentResponse.Student != null ? TypedResults.Ok(studentResponse) : TypedResults.NotFound<string>($"Student with ID {studentId} not found.");
+    }
+
+    public static async Task<Results<Ok, BadRequest<string>>> CreateStudentAsync(
+        CreateStudentRequest request, [FromHeader(Name = "x-requestid")] Guid requestId, [FromServices] StudentServices services)
+    {
+        if (requestId == Guid.Empty)
+        {
+            services.Logger.LogWarning("Empty GUID provided as Request ID");
+            return TypedResults.BadRequest("Empty GUID is not valid for request ID");
         }
 
-        existingStudent.FirstName = student.FirstName;
-        existingStudent.LastName = student.LastName;
-        existingStudent.DateOfBirth = student.DateOfBirth;
-        existingStudent.Email = student.Email;
-        existingStudent.EnrollmentDate = student.EnrollmentDate;
+        services.Logger.LogInformation("Processing student creation request with ID {RequestId}", requestId);
+        var createStudentCommand = new CreateStudentCommand(request.EnrollmentDate, request.Email, request.DateOfBirth, request.LastName, request.FirstName);
+        var result = await services.Mediator.Send(new IdentifiedCommand<CreateStudentCommand, bool>(createStudentCommand, requestId));
 
-        await studentRepository.UpdateAsync(existingStudent);
+        if (!result)
+        {
+            services.Logger.LogWarning("Failed to create student - RequestId: {RequestId}", requestId);
+            return TypedResults.BadRequest("Failed to create student.");
+        }
+
+        services.Logger.LogInformation("Student created successfully - RequestId: {RequestId}", requestId);
         return TypedResults.Ok();
     }
 
-    private static async Task<IResult> CreateStudent(CreateStudentRequest request, IRepository<Application.AggregateModels.StudentAggregate.Student> studentRepository)
+    public static async Task<Results<Ok, NotFound, BadRequest<string>>> UpdateStudentAsync(
+        [FromHeader(Name = "x-requestid")] Guid requestId,int studentId, UpdateStudentCommand request, [FromServices] StudentServices services)
     {
-        var response = new CreateStudentResponse(request.CorrelationId());
-
-        var newStudent = new Application.AggregateModels.StudentAggregate.Student(
-            request.StudentId,
-            request.FirstName,
-            request.LastName,
-            request.DateOfBirth,
-            request.Email,
-            request.Address);
-        newStudent = await studentRepository.AddAsync(newStudent);
-
-        var dto = new StudentRecord
-        (
-            StudentId: newStudent.StudentId,
-            FirstName: newStudent.FirstName ?? "noName",
-            LastName: newStudent.LastName ?? "noName",
-            DateOfBirth: newStudent.DateOfBirth,
-            Email: newStudent.Email,
-            EnrollmentDate: newStudent.EnrollmentDate
-        );
-        response.Student = dto;
-        return Results.Created($"student/{dto.StudentId}", response);
-    }
-
-    private static async Task<Results<Ok, NotFound>> DeleteStudent(int studentid, IRepository<Application.AggregateModels.StudentAggregate.Student> studentRepository)
-    {
-        var student = await studentRepository.GetByIdAsync(studentid);
+        var student = await services.Queries.GetStudentByIdAsync(studentId);
         if (student == null)
         {
+            services.Logger.LogWarning("Student with ID {StudentId} not found", studentId);
             return TypedResults.NotFound();
         }
 
-        await studentRepository.DeleteAsync(student);
+        var success = await services.Mediator.Send(new IdentifiedCommand<UpdateStudentCommand, bool>(request, requestId));
+        if (!success)
+        {
+            services.Logger.LogWarning("Failed to update student with ID {StudentId}", studentId);
+            return TypedResults.BadRequest("Failed to update student.");
+        }
+
+        services.Logger.LogInformation("Student with ID {StudentId} updated successfully", studentId);
+        return TypedResults.Ok();
+    }
+
+    public static async Task<Results<Ok, NotFound>> DeleteStudentAsync(DeleteStudentCommand request,
+        [FromHeader(Name = "x-requestid")] Guid requestId, [FromServices] StudentServices services)
+    {
+        var success = await services.Mediator.Send(new IdentifiedCommand<DeleteStudentCommand ,bool>(request, requestId));
+        if (!success)
+        {
+            services.Logger.LogWarning("Failed to delete student with ID {requestId}", requestId);
+            return TypedResults.NotFound();
+        }
+
+        services.Logger.LogInformation("Student with ID {requestId} deleted successfully", requestId);
         return TypedResults.Ok();
     }
 }

@@ -1,6 +1,7 @@
 ﻿
-using SchoolApp.Admin.Application.AggregateModels.StudentAggregate;
 
+
+using SchoolApp.Admin.Application.Commands.Student;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
 
@@ -11,6 +12,6 @@ public class CreateStudentRequest : BaseRequest
     public string LastName { get; set; }
     public DateOnly DateOfBirth { get; set; }
     public string Email { get; set; }
-    public Address Address { get; set; }
-    public DateTime EnrollmentDate { get; set; }
+    public AddressRecord Address { get; set; }
+    public DateOnly EnrollmentDate { get; set; }
 }

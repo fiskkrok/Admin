@@ -1,4 +1,5 @@
-﻿using SchoolApp.Admin.WebAPI;
+﻿using SchoolApp.Admin.Application.Commands.CourseAssignment;
+using SchoolApp.Admin.WebAPI;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.CourseAssignment;
 
@@ -12,5 +13,5 @@ public class ListCourseAssignmentsResponse : BaseResponse
     {
     }
 
-    public List<CourseAssignmentRecord> CourseAssignments { get; set; } = new List<CourseAssignmentRecord>();
+    public IEnumerable<CourseAssignmentRecord> CourseAssignments { get; init; } = new List<CourseAssignmentRecord>();
 }

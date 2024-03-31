@@ -1,5 +1,8 @@
-﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class UpdateStudentRequest
+namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
+
+public class UpdateStudentRequest : BaseRequest
 {
+    
 }

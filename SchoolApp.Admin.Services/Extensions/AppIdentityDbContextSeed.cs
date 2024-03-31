@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using SchoolApp.Admin.Application;
-namespace SchoolApp.Admin.Infrastructure.Identity;
+using SchoolApp.Admin.Infrastructure;
+using SchoolApp.Admin.Infrastructure.Identity;
+
+namespace SchoolApp.Admin.Services.Extensions;
 
 public class AppIdentityDbContextSeed(
     ILogger<AppIdentityDbContextSeed> logger, UserManager<ApplicationUser> userManager,

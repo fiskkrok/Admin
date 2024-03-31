@@ -1,7 +1,4 @@
 ﻿
-using Admin.Infrastructure.Data;
-using MediatR;
-using SchoolApp.Admin.Application.SeedWork;
 
 namespace SchoolApp.Admin.Infrastructure;
 

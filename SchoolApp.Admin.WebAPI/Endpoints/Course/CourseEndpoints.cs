@@ -1,105 +1,141 @@
-﻿using Admin.Application.Exceptions;
-using Admin.Application.Specifications;
-using AutoMapper;
+﻿using Admin.Application.Commands;
+using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.AspNetCore.Http.HttpResults;
-using SchoolApp.Admin.Application.SeedWork;
+using SchoolApp.Admin.Application.Commands.Course;
+using SchoolApp.EventBus.Extensions;
+using Azure.Core;
+
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
-
 public static class CourseEndpoints
 {
     public static IEndpointRouteBuilder MapCourseEndpoints(this IEndpointRouteBuilder app)
     {
-        // Routes for querying courses
-        app.MapGet("/Course", GetAllCourses);
-        app.MapGet("/Course/{id}", GetCourseById);
-
-        // Routes for modifying courses
-        app.MapPut("/Course/{id}", UpdateCourse);
-        app.MapPost("/Course", CreateCourse);
-        app.MapDelete("/Course/{id}", DeleteCourse);
+        app.MapGet("/Course/", GetAllCoursesAsync);
+        app.MapGet("/Course/{courseId:int}", GetCourseByIdAsync);
+        app.MapPost("/Course/", CreateCourseAsync);
+        app.MapPut("/Course/{courseId:int}", UpdateCourseAsync);
+        app.MapDelete("/Course/{courseId:int}", DeleteCourseAsync);
 
         return app;
     }
 
-    public static async Task<Ok<ListCoursesResponse>> GetAllCourses(IRepository<Application.AggregateModels.CourseAggregate.Course> courseRepository, IMapper mapper)
+    public static async Task<Results<Ok<ListCoursesResponse>, NotFound>> GetAllCoursesAsync([AsParameters] CourseServices services)
     {
-        var response = new ListCoursesResponse();
-        var items = await courseRepository.ListAsync();
-        response.Courses.AddRange(items.Select(mapper.Map<CourseRecord>));
-        return TypedResults.Ok(response);
-    }
-
-    public static async Task<Results<Ok<Application.AggregateModels.CourseAggregate.Course>, NotFound>> GetCourseById(int courseid, IRepository<Application.AggregateModels.CourseAggregate.Course> courseRepository)
-    {
-        var course = await courseRepository.GetByIdAsync(courseid);
-        return course != null ? TypedResults.Ok(course) : TypedResults.NotFound();
-    }
-
-    public static async Task<Results<Ok, NotFound>> UpdateCourse(int courseid, Application.AggregateModels.CourseAggregate.Course course, IRepository<Application.AggregateModels.CourseAggregate.Course> courseRepository)
-    {
-        var existingCourse = await courseRepository.GetByIdAsync(courseid);
-        if (existingCourse == null)
+        var courses = new ListCoursesResponse
         {
+            Courses =  services.Queries.GetAllCourses().ToList()
+        };
+        services.Logger.LogInformation("Fetching all courses");
+        
+        if (courses.Courses == null || !courses.Courses.Any())
+        {
+            services.Logger.LogWarning("No courses found");
             return TypedResults.NotFound();
         }
 
-        existingCourse.CourseCode = course.CourseCode;
-        existingCourse.CourseName = course.CourseName;
-        existingCourse.Credits = course.Credits;
-
-        await courseRepository.UpdateAsync(existingCourse);
-        return TypedResults.Ok();
+        return TypedResults.Ok(courses);
     }
 
-    public static async Task<IResult> CreateCourse(CreateCourseRequest request, IRepository<Application.AggregateModels.CourseAggregate.Course> courseRepository)
+    public static async Task<Results<Ok<GetByIdCourseResponse>, NotFound<string>>> GetCourseByIdAsync(int courseId, [AsParameters] CourseServices services)
     {
-        
-        var response = new CreateCourseResponse(request.CorrelationId());
-
-        var courseNameSpecification = new CourseNameSpecification(request.CourseName);
-        var existingCourses = await courseRepository.CountAsync(courseNameSpecification);
-        if (existingCourses > 0)
+        services.Logger.LogInformation("Fetching course with ID {courseId}", courseId);
+        GetByIdCourseResponse course = new GetByIdCourseResponse
         {
-            throw new DuplicateException($"A catalogItem with name {request.CourseName} already exists");
-        }
-        var newCourse = new Application.AggregateModels.CourseAggregate.Course(
-            request.CourseId,
-            request.Description ?? "No Description",
-            request.CourseName,
-            request.CourseCode ?? throw new InvalidOperationException($"{nameof(request.CourseCode)} can't be empty"),
-            request.Credits);
-        newCourse = await courseRepository.AddAsync(newCourse);
-        if (newCourse.CourseId != 0)
-        {
-            //We disabled the upload functionality and added a default/placeholder image to this sample due to a potential security risk 
-            //  pointed out by the community. More info in this issue: https://github.com/dotnet-architecture/eShopOnWeb/issues/537 
-            //  In production, we recommend uploading to a blob storage and deliver the image via CDN after a verification process.
-
-            await courseRepository.UpdateAsync(newCourse);
-        }
-
-        var dto = new CourseRecord
-        (
-            CourseId: newCourse.Id,
-            Description: newCourse.Description,
-            CourseName: newCourse.CourseName,
-            CourseCode: newCourse.CourseCode,
-            Credits: newCourse.Credits
-        );
-        response.Course = dto;
-        return Results.Created($"course/{dto.CourseId}", response);
+            Course = await services.Queries.GetCourseByIdAsync(courseId)
+        };
+        return TypedResults.Ok(course);
     }
 
-    public static async Task<Results<Ok, NotFound>> DeleteCourse(int courseid, IRepository<Application.AggregateModels.CourseAggregate.Course> courseRepository)
+
+    public static async Task<Results<Ok, BadRequest<string>>> CreateCourseAsync(
+        CreateCourseRequest request, [FromHeader(Name = "x-requestid")] Guid requestId,
+        [AsParameters] CourseServices services)
     {
-        var course = await courseRepository.GetByIdAsync(courseid);
+        services.Logger.LogInformation(
+            "Sending command: {CommandName} - {IdProperty}: {CommandId} ({@Command})",
+            request.GetGenericTypeName(),
+            nameof(request.CorrelationId),
+            request.CorrelationId(),
+            request);
+        if (requestId == Guid.Empty)
+        {
+            services.Logger.LogWarning("Empty GUID provided as Request ID");
+            return TypedResults.BadRequest("Empty GUID is not valid for request ID");
+        }
+
+        using (services.Logger.BeginScope(new List<KeyValuePair<string, object>>
+                       { new("IdentifiedCommandId", requestId) }))
+        {
+            var createCourseCommand = new CreateCourseCommand(request.CourseCode, request.CourseName,
+                request.Credits,
+                request.Description, request.CourseId);
+            var requestCreateCourse =
+                new IdentifiedCommand<CreateCourseCommand, bool>(createCourseCommand, requestId);
+            services.Logger.LogInformation(
+                "Sending command: {CommandName} - {IdProperty}: {CommandId} ({@Command})",
+                requestCreateCourse.GetGenericTypeName(),
+                nameof(requestCreateCourse.Id),
+                requestCreateCourse.Id,
+                requestCreateCourse);
+            var result = await services.Mediator.Send(requestCreateCourse);
+
+            if (result)
+            {
+                services.Logger.LogInformation("CreateCourseCommand succeeded - RequestId: {RequestId}", requestId);
+            }
+            else
+            {
+                services.Logger.LogWarning("CreateCourseCommand failed - RequestId: {RequestId}", requestId);
+            }
+
+            return TypedResults.Ok();
+
+        }
+
+    }
+
+    public static async Task<Results<Ok, NotFound, BadRequest<string>>> UpdateCourseAsync(
+        [FromHeader(Name = "x-requestid")] Guid requestId,
+        UpdateCourseCommand request,
+        [AsParameters] CourseServices services)
+    {
+        services.Logger.LogInformation("Attempting to update course with ID {requestId}", requestId);
+        var course = await services.Queries.GetCourseByIdAsync(request.CourseId);
         if (course == null)
         {
+            services.Logger.LogWarning("Course with ID {requestId} not found for update", requestId);
             return TypedResults.NotFound();
         }
 
-        await courseRepository.DeleteAsync(course);
+        var success = await services.Mediator.Send(new IdentifiedCommand<UpdateCourseCommand, bool>(request, requestId)); // Assuming new GUID as request ID for simplicity
+
+        if (!success)
+        {
+            services.Logger.LogWarning("Failed to update course with ID {requestId}", requestId);
+            return TypedResults.BadRequest("Failed to update course.");
+        }
+
+        services.Logger.LogInformation("Course with ID {requestId} updated successfully", requestId);
         return TypedResults.Ok();
     }
+
+    public static async Task<Results<Ok, NotFound>> DeleteCourseAsync(
+        [FromHeader(Name = "x-requestid")] Guid requestId,
+        DeleteCourseCommand request,
+        [AsParameters] CourseServices services)
+    {
+        services.Logger.LogInformation("Attempting to delete course with ID {requestId}");
+        var success = await services.Mediator.Send(new IdentifiedCommand<DeleteCourseCommand, bool>(request, requestId));
+        if (success)
+        {
+            services.Logger.LogInformation("Course with ID {requestId} deleted successfully", requestId);
+            return TypedResults.Ok();
+        }
+
+        services.Logger.LogWarning("Failed to delete course with ID {requestId}", requestId);
+        return TypedResults.NotFound();
+    }
 }
+

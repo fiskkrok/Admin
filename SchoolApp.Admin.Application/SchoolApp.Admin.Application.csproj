@@ -5,7 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+	<ItemGroup>
+		<Compile Include="..\SchoolApp.Shared\ActivityExtensions.cs" Link="Extensions\ActivityExtensions.cs" />
+		<Compile Include="..\SchoolApp.Shared\MigrateDbContextExtensions.cs" Link="Extensions\MigrateDbContextExtensions.cs" />
+	</ItemGroup>
   <ItemGroup>
 
 	  <PackageReference Include="Ardalis.Specification" Version="8.0.0" />
@@ -27,8 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AggregateModels\AuthAggregate\" />
     <Folder Include="Behaviors\" />
-  </ItemGroup>
+	<ProjectReference Include="..\SchoolApp.Admin.Infrastructure\SchoolApp.Admin.Infrastructure.csproj" />
+	<ProjectReference Include="..\SchoolApp.EventBus\SchoolApp.EventBus.csproj" />
+  </ItemGroup>    
+    
 
 </Project>

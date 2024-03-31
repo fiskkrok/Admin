@@ -1,5 +1,13 @@
-﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class UpdateCourseResponse
+namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
+
+public class UpdateCourseRequest : BaseRequest
 {
+    [Required]
+    public int CourseId { get; set; }
+    public string? CourseName { get; set; }
+    public string? CourseCode { get; set; }
+    public string? Description { get; set; }
+    public int Credits { get; set; }
 }

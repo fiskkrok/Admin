@@ -1,5 +1,16 @@
-﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
+﻿using SchoolApp.Admin.Application.Commands.Student;
 
-public class UpdateStudentResponse
+namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
+
+public class UpdateStudentResponse : BaseResponse
 {
+    public UpdateStudentResponse(Guid correlationId) : base(correlationId)
+    {
+    }
+
+    public UpdateStudentResponse()
+    {
+    }
+
+    public StudentRecord Student { get; set; }
 }

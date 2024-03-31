@@ -1,5 +1,13 @@
-﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
+﻿using MediatR;
 
-public class DeleteCourseRequest
+namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
+
+public class DeleteCourseRequest : BaseRequest
 {
+    public int CourseId { get; init; }
+
+    public DeleteCourseRequest(int courseId)
+    {
+        CourseId = courseId;
+    }
 }

@@ -1,5 +1,8 @@
 ﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
 
-public class ListFacultiesRequest
+public class ListFacultiesRequest : BaseRequest
 {
+   public ListFacultiesRequest()
+    {
+    }
 }

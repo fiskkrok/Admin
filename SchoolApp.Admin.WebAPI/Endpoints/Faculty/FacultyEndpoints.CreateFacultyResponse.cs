@@ -1,4 +1,5 @@
 ﻿
+using SchoolApp.Admin.Application.Commands.Faculty;
 using SchoolApp.Admin.WebAPI;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Faculty;

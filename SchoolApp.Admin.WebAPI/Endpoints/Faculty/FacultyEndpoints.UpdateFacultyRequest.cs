@@ -1,5 +1,11 @@
-﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Faculty;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class UpdateFacultyRequest
+namespace SchoolApp.Admin.WebAPI.Endpoints.Faculty;
+
+public class UpdateFacultyRequest : BaseRequest
 {
+    public int FacultyId { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public string? Department { get; set; }
 }

@@ -18,20 +18,20 @@ var adminApi = builder.AddProject<Projects.SchoolApp_Admin_WebAPI>("admin-webapi
     .WithReference(identityDb)
     .WithLaunchProfile("https"); 
 
-var idpHttps = adminApi.GetEndpoint("https");
+//var idpHttps = adminApi.GetEndpoint("AuthEndpoints");
 var adminWeb = builder.AddProject<Projects.SchoolApp_Admin_Web>("admin-web")
     .WithReference(adminApi)
     .WithReference(rabbitMq)
-    //.WithEnvironment("IdentityUrl", idpHttps)
+    //.WithEnvironment("AuthEndpoints", idpHttps)
     .WithLaunchProfile("https");
 
 var webHooksApi = builder.AddProject<Projects.SchoolApp_Webhooks_API>("webhooks-api")
     .WithReference(rabbitMq)
-    .WithReference(webhooksDb)
-    .WithEnvironment("Identity__Url", idpHttps);
-var webhooksClient = builder.AddProject<Projects.SchoolApp_Webhook_Web>("webhooks-web")
-    .WithReference(webHooksApi)
-    .WithEnvironment("IdentityUrl", idpHttps);
+    .WithReference(webhooksDb);
+    //.WithEnvironment("Auth__Endpoints", idpHttps);
+    var webhooksClient = builder.AddProject<Projects.SchoolApp_Webhook_Web>("webhooks-web")
+        .WithReference(webHooksApi);
+    //.WithEnvironment("AuthEndpoints", idpHttps);
 
 // Wire up the callback urls (self referencing)
 adminWeb.WithEnvironment("CallBackUrl", adminWeb.GetEndpoint("https"));

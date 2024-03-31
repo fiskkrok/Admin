@@ -1,4 +1,5 @@
-﻿using SchoolApp.Admin.WebAPI;
+﻿using SchoolApp.Admin.Application.Commands.CourseAssignment;
+using SchoolApp.Admin.WebAPI;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.CourseAssignment;
 

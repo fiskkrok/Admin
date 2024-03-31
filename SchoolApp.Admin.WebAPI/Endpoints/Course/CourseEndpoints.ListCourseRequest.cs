@@ -1,5 +1,8 @@
 ﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
 
-public class ListCourseRequest
+public class ListCourseRequest : BaseRequest
 {
+    public ListCourseRequest()
+    {
+    }
 }

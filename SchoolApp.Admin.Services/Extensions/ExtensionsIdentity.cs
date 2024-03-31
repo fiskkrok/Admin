@@ -1,17 +1,16 @@
-﻿
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient; // SqlConnectionStringBuilder
-using Microsoft.EntityFrameworkCore; // UseSqlServer
+// UseSqlServer
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SchoolApp.Admin.Application.SeedWork;
 using SchoolApp.Admin.Infrastructure.Identity;
 using SchoolApp.Admin.Services.IntegrationEvents;
+using SchoolApp.Admin.Domain.SeedWork;
+
 
 using SchoolApp.IntegrationEventLogEF.Services; // IServiceCollection
 
-namespace SchoolApp.Admin.Services.Exstensions;
+namespace SchoolApp.Admin.Services.Extensions;
 public static class ExtensionsIdentity
 {
     public static void AddApplicationIdentity(this IHostApplicationBuilder builder,
@@ -43,9 +42,7 @@ public static class ExtensionsIdentity
         builder.Services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService<AppIdentityDbContext>>();
         builder.Services.AddTransient<IAdminIntegrationEventService, AdminIntegrationEventService>();
 
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<AppIdentityDbContext>()
-            .AddDefaultTokenProviders();
+        
         builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
 
 

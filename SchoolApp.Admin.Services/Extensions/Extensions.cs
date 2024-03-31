@@ -1,20 +1,17 @@
 ﻿
-using Admin.Infrastructure;
-using Admin.Infrastructure.Data;
 using SchoolApp.Admin.Services.IntegrationEvents.EventHandling;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.Data.SqlClient; // SqlConnectionStringBuilder
-using Microsoft.EntityFrameworkCore; // UseSqlServer
+// UseSqlServer
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SchoolApp.Admin.Application.SeedWork;
-using SchoolApp.Admin.Infrastructure.Identity;
+using SchoolApp.Admin.Domain.SeedWork;
+using SchoolApp.Admin.Infrastructure;
 using SchoolApp.Admin.Services.IntegrationEvents;
 using SchoolApp.Admin.Services.IntegrationEvents.Events;
 using SchoolApp.IntegrationEventLogEF.Services; // IServiceCollection
 
-namespace SchoolApp.Admin.Services.Exstensions;
+namespace SchoolApp.Admin.Services.Extensions;
 public static class Extensions
 {
     public static void AddApplicationServices(this IHostApplicationBuilder builder,
@@ -49,8 +46,6 @@ public static class Extensions
             .AddSubscription<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>()
             .AddSubscription<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
 
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
         builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
         builder.Services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
 

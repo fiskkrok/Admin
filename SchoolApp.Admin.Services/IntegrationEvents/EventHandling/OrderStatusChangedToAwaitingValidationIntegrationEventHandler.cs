@@ -1,9 +1,7 @@
-﻿using Admin.Infrastructure.Data;
-using Microsoft.Extensions.Logging;
-using SchoolApp.Admin.Services.IntegrationEvents;
+﻿
 using SchoolApp.Admin.Services.IntegrationEvents.Events;
 using SchoolApp.EventBus.Abstractions;
-using SchoolApp.EventBus.Events;
+
 
 namespace SchoolApp.Admin.Services.IntegrationEvents.EventHandling;
 

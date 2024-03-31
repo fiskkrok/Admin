@@ -1,5 +1,8 @@
-﻿namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
+﻿using MediatR;
 
-public class UpdateCourseRequest
+namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
+
+public class UpdateCourseResponse : IRequest<bool>
 {
+   public int Id  { get; set; }
 }

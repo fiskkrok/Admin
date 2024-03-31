@@ -1,20 +1,9 @@
-﻿using System.ComponentModel;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using SchoolApp.Admin.Application.AggregateModels.CourseAggregate;
-using SchoolApp.Admin.Application.AggregateModels.CourseAssignmentAggregate;
-using SchoolApp.Admin.Application.AggregateModels.EnrollmentAggregate;
-using SchoolApp.Admin.Application.AggregateModels.FacultyAggregate;
-using SchoolApp.Admin.Application.AggregateModels.StudentAggregate;
-
-
-namespace Admin.Infrastructure.Data;
+﻿
+using Microsoft.Extensions.Hosting;
+namespace SchoolApp.Admin.Services.Extensions;
 
 public class AdminDbContextSeed(
-    IWebHostEnvironment env,
+    IHostEnvironment env,
     ILogger<AdminDbContextSeed> logger) : IDbSeeder<AdminDbContext>
 {
     public async Task SeedAsync(AdminDbContext context)
@@ -33,7 +22,7 @@ public class AdminDbContextSeed(
             var sourceFacultiesPath = Path.Combine(contentRootPath, "Setup", "Faculties.json");
             var sourceFacultiesJson = File.ReadAllText(sourceFacultiesPath);
             var sourceFacultiesItems = JsonSerializer.Deserialize<Faculty[]>(sourceFacultiesJson, options);
-            if (sourceFacultiesItems != null) await context.Faculties.AddRangeAsync(sourceFacultiesItems ?? throw new InvalidOperationException($"{nameof(sourceFacultiesItems)} can't be empty"));
+            await context.Faculties.AddRangeAsync(sourceFacultiesItems ?? throw new InvalidOperationException($"{nameof(sourceFacultiesItems)} can't be empty"));
             await context.SaveChangesAsync();
             logger.LogInformation("Seeded faculties");
         }

@@ -1,4 +1,5 @@
-﻿using SchoolApp.Admin.WebAPI;
+﻿using SchoolApp.Admin.Application.Commands.Enrollment;
+using SchoolApp.Admin.WebAPI;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Enrollment;
 

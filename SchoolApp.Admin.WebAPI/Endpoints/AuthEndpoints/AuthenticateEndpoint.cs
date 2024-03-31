@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using SchoolApp.Admin.Domain.SeedWork;
 using SchoolApp.Admin.Infrastructure.Identity;
-using ITokenClaimsService = SchoolApp.Admin.Application.SeedWork.ITokenClaimsService;
 
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.AuthEndpoints;

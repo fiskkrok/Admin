@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Admin.Domain;
-using SchoolApp.Admin.Infrastructure.EntityConfigurations;
-using MediatR;
-using Microsoft.Data.SqlClient;
-using SchoolApp.Admin.Application.AggregateModels.CourseAggregate;
-using SchoolApp.Admin.Application.AggregateModels.CourseAssignmentAggregate;
-using SchoolApp.Admin.Application.AggregateModels.EnrollmentAggregate;
-using SchoolApp.Admin.Application.AggregateModels.FacultyAggregate;
-using SchoolApp.Admin.Application.AggregateModels.StudentAggregate;
-
-namespace Admin.Infrastructure.Data;
+﻿namespace SchoolApp.Admin.Infrastructure.Data;
 
 public class AdminDbContext : DbContext
 {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public AdminDbContext()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
     }
 
@@ -22,10 +12,10 @@ public class AdminDbContext : DbContext
         : base(options)
     {
         
-        Mediator1 = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        Mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
-    public IMediator Mediator1 { get; }
+    public IMediator Mediator { get; }
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<CourseAssignment> CourseAssignments { get; set; }

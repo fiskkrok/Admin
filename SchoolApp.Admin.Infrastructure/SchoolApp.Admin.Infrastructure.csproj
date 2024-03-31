@@ -6,10 +6,11 @@
     <Nullable>enable</Nullable>
     <UserSecretsId>197ce6da-520b-41d6-854d-f286905fb40f</UserSecretsId>
   </PropertyGroup>
-
+	
   <ItemGroup>      
-	  <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />      
+	  <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
 	  <PackageReference Include="MediatR" Version="12.2.0" />      
+	  <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />      
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.2.24128.4">
@@ -26,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SchoolApp.Admin.Application\SchoolApp.Admin.Application.csproj" />
     <ProjectReference Include="..\SchoolApp.Admin.Domain\SchoolApp.Admin.Domain.csproj" />
   </ItemGroup>
 

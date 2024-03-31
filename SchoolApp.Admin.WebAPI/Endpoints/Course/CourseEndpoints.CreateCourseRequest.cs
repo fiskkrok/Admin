@@ -1,9 +1,10 @@
 ﻿
+using MediatR;
 using SchoolApp.Admin.WebAPI;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
 
-public class CreateCourseRequest : BaseRequest
+public class CreateCourseRequest : BaseRequest, IRequest<bool>
 {
     public int CourseId { get; set; }
     public string? CourseCode { get; set; }

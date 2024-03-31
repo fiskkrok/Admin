@@ -1,5 +1,13 @@
-﻿namespace Admin.WebAPI;
+﻿using SchoolApp.Admin.WebAPI;
 
-public class DeleteEnrollmentRequest
+namespace Admin.WebAPI;
+
+public class DeleteEnrollmentRequest : BaseRequest
 {
+    public int EnrollmentId { get; init; }
+
+    public DeleteEnrollmentRequest(int enrollmentId)
+    {
+        EnrollmentId = enrollmentId;
+    }
 }
