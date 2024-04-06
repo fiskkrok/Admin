@@ -1,11 +1,13 @@
 ﻿using MediatR;
-using SchoolApp.Admin.Application.Queries.Student;
+using SchoolApp.Admin.Application.Queries.Students;
+using SchoolApp.Admin.Infrastructure.Identity.Services;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Student;
 
-public class StudentServices(ILogger logger, IMediator mediator, IStudentQueries queries)
+public class StudentServices(ILogger<StudentServices> logger, IMediator mediator, IStudentQueries queries) /* IIdentityService identityService,*/
 {
-public ILogger Logger { get; set; } = logger;
+public ILogger<StudentServices> Logger { get; set; } = logger;
 public IMediator Mediator { get; set; } = mediator;
 public IStudentQueries Queries { get; set; } = queries;
+//public IIdentityService IdentityService { get; } = identityService;
 }

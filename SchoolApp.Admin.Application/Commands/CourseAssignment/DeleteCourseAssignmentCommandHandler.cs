@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolApp.Admin.Application.Commands.CourseAssignment;
-public class DeleteCourseCommandHandler
+public class DeleteCourseAssignmentCommandHandler
 {
 }

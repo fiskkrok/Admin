@@ -3,12 +3,13 @@ namespace SchoolApp.Admin.Domain.AggregateModels.StudentAggregate;
 
 public class Student : BaseEntity, IAggregateRoot
 {
-    // Assuming StudentId is now a string to hold GUID values
-    public string StudentId { get; private set; }
+    
+    public string StudentId { get; set; } 
     [Required]
     public Address Address { get; set; } // Ensure there's a setter
 
     public string? FirstName { get; set; }
+    public string? PhoneNumber { get; set; }
 
     [StringLength(50)]
     [Unicode(false)]
@@ -30,13 +31,14 @@ public class Student : BaseEntity, IAggregateRoot
     public IReadOnlyCollection<Course> Courses => _courses.AsReadOnly();
 
     // This constructor is for initial creation and other domain-specific operations
-    public Student(string firstName, string lastName, DateOnly dateOfBirth, string email, Address address, Enrollment enrollment)
+    public Student(string firstName, string lastName, DateOnly dateOfBirth, string email, Address address, Enrollment enrollment, string phoneNumber)
     {
         StudentId = Guid.NewGuid().ToString(); // Auto-generate StudentId
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;
         Email = email;
+        PhoneNumber = phoneNumber;
         Address = address;
         _enrollments = [enrollment];
         _enrollments.Remove(enrollment);
@@ -51,14 +53,14 @@ public class Student : BaseEntity, IAggregateRoot
     // Parameterless constructor for EF and deserialization
     public Student()
     {
-      //  _enrollment = new List<Enrollment>();
-      //  // Initialize Address with default non-null values
-      //Address = new Address("123 Main St", "Anytown", "WA", "USA", "12345");
+        //_enrollment = new List<Enrollment>();
+        //  // Initialize Address with default non-null values
+        Address = new Address("123 Main St", "Anytown", "WA", "USA", "12345");
 
     }
 
 
-    public void UpdateStudent(string studentId, string firstName, string lastName, DateOnly? dateOfBirth, string email, Address address)
+    public void UpdateStudent(string studentId, string firstName, string lastName, DateOnly? dateOfBirth, string email, Address address, string phoneNumber)
     {
         StudentId = studentId;
         FirstName = firstName;
@@ -66,6 +68,7 @@ public class Student : BaseEntity, IAggregateRoot
         DateOfBirth = dateOfBirth;
         Email = email;
         Address = address;
+        PhoneNumber = phoneNumber;
     }
 
     public void SetActiveStatus()

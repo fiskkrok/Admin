@@ -1,122 +1,122 @@
 [
     {
-        "assignmentId": 1,
-        "facultyId": 1,
-        "courseId": 1,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440000",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440001",
+        "courseId": "550e8400-e29b-41d4-a716-446655440002",
         "assignmentType": "Group Projects"
     },
     {
-        "assignmentId": 2,
-        "facultyId": 2,
-        "courseId": 2,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440003",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440004",
+        "courseId": "550e8400-e29b-41d4-a716-446655440005",
         "assignmentType": "Short Essays"
     },
     {
-        "assignmentId": 3,
-        "facultyId": 3,
-        "courseId": 3,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440006",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440007",
+        "courseId": "550e8400-e29b-41d4-a716-446655440008",
         "assignmentType": "Design a Conference"
     },
     {
-        "assignmentId": 4,
-        "facultyId": 4,
-        "courseId": 4,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440009",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440010",
+        "courseId": "550e8400-e29b-41d4-a716-446655440011",
         "assignmentType": "Group Projects"
     },
     {
-        "assignmentId": 5,
-        "facultyId": 5,
-        "courseId": 5,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440012",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440013",
+        "courseId": "550e8400-e29b-41d4-a716-446655440014",
         "assignmentType": "Short Essays"
     },
     {
-        "assignmentId": 6,
-        "facultyId": 6,
-        "courseId": 6,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440015",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440016",
+        "courseId": "550e8400-e29b-41d4-a716-446655440017",
         "assignmentType": "Group Projects"
     },
     {
-        "assignmentId": 7,
-        "facultyId": 7,
-        "courseId": 7,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440018",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440019",
+        "courseId": "550e8400-e29b-41d4-a716-446655440020",
         "assignmentType": "Blog Writing"
     },
     {
-        "assignmentId": 8,
-        "facultyId": 8,
-        "courseId": 8,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440021",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440022",
+        "courseId": "550e8400-e29b-41d4-a716-446655440023",
         "assignmentType": "Group Projects"
     },
     {
-        "assignmentId": 9,
-        "facultyId": 9,
-        "courseId": 9,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440024",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440025",
+        "courseId": "550e8400-e29b-41d4-a716-446655440026",
         "assignmentType": "Blog Writing"
     },
     {
-        "assignmentId": 10,
-        "facultyId": 10,
-        "courseId": 10,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440027",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440028",
+        "courseId": "550e8400-e29b-41d4-a716-446655440029",
         "assignmentType": "Short Essays"
     },
     {
-        "assignmentId": 11,
-        "facultyId": 11,
-        "courseId": 11,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440030",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440031",
+        "courseId": "550e8400-e29b-41d4-a716-446655440032",
         "assignmentType": "Reflective Journals"
     },
     {
-        "assignmentId": 12,
-        "facultyId": 12,
-        "courseId": 12,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440033",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440034",
+        "courseId": "550e8400-e29b-41d4-a716-446655440035",
         "assignmentType": "Blog Writing"
     },
     {
-        "assignmentId": 13,
-        "facultyId": 13,
-        "courseId": 13,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440036",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440037",
+        "courseId": "550e8400-e29b-41d4-a716-446655440038",
         "assignmentType": "Visual Analysis"
     },
     {
-        "assignmentId": 14,
-        "facultyId": 14,
-        "courseId": 14,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440039",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440040",
+        "courseId": "550e8400-e29b-41d4-a716-446655440041",
         "assignmentType": "Blog Writing"
     },
     {
-        "assignmentId": 15,
-        "facultyId": 15,
-        "courseId": 15,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440042",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440043",
+        "courseId": "550e8400-e29b-41d4-a716-446655440044",
         "assignmentType": "Visual Analysis"
     },
     {
-        "assignmentId": 16,
-        "facultyId": 16,
-        "courseId": 16,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440045",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440046",
+        "courseId": "550e8400-e29b-41d4-a716-446655440047",
         "assignmentType": "Reflective Journals"
     },
     {
-        "assignmentId": 17,
-        "facultyId": 17,
-        "courseId": 17,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440048",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440049",
+        "courseId": "550e8400-e29b-41d4-a716-446655440050",
         "assignmentType": "Blog Writing"
     },
     {
-        "assignmentId": 18,
-        "facultyId": 18,
-        "courseId": 18,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440051",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440052",
+        "courseId": "550e8400-e29b-41d4-a716-446655440053",
         "assignmentType": "Short Essays"
     },
     {
-        "assignmentId": 19,
-        "facultyId": 19,
-        "courseId": 19,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440054",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440055",
+        "courseId": "550e8400-e29b-41d4-a716-446655440056",
         "assignmentType": "Design a Conference"
     },
     {
-        "assignmentId": 20,
-        "facultyId": 20,
-        "courseId": 20,
+        "assignmentId": "550e8400-e29b-41d4-a716-446655440057",
+        "facultyId": "550e8400-e29b-41d4-a716-446655440058",
+        "courseId": "550e8400-e29b-41d4-a716-446655440059",
         "assignmentType": "Research Papers"
     }
 ]

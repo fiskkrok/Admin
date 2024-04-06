@@ -2,7 +2,7 @@
 namespace SchoolApp.Admin.Application.Queries.Courses;
 public interface ICourseQueries
 {
-    Task<CourseRecord> GetCourseByIdAsync(int courseId);
-    IQueryable<CourseRecord>? GetAllCourses();
-    IQueryable<CourseRecord>? GetAllCoursesStudent(int studentId);
+    Task<Course> GetCourseByIdAsync(int courseId);
+    Task<IEnumerable<Course>> GetAllCourses();
+    Task<IEnumerable<Course>> GetAllCoursesStudent(int studentId);
 }

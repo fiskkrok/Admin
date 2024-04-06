@@ -4,4 +4,6 @@ public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepositor
     public EfRepository(AdminDbContext dbContext) : base(dbContext)
     {
     }
+
+    public IUnitOfWork UnitOfWork => throw new NotImplementedException();
 }

@@ -1,18 +1,23 @@
-﻿namespace SchoolApp.Admin.Infrastructure.Data;
+﻿using SchoolApp.IntegrationEventLogEF;
 
-public class AdminDbContext : DbContext
+namespace SchoolApp.Admin.Infrastructure.Data;
+
+public class AdminDbContext : DbContext, IUnitOfWork
 {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public AdminDbContext()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
     }
-
+    private readonly IMediator _mediator;
     public AdminDbContext(DbContextOptions<AdminDbContext> options, IMediator mediator)
         : base(options)
     {
-        
-        Mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+
+        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+
+
+        System.Diagnostics.Debug.WriteLine("AdminDbContext::ctor ->" + this.GetHashCode());
     }
 
     public IMediator Mediator { get; }
@@ -45,10 +50,29 @@ public class AdminDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         modelBuilder.ApplyConfiguration(new CourseAssignmentEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new CourseEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new EnrollmentEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new FacultyEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new StudentEntityTypeConfiguration());
+        modelBuilder.UseIntegrationEventLogs();
+    }
+
+    public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
+    {
+        // Dispatch Domain Events collection. 
+        // Choices:
+        // A) Right BEFORE committing data (EF SaveChanges) into the DB will make a single transaction including  
+        // side effects from the domain event handlers which are using the same DbContext with "InstancePerLifetimeScope" or "scoped" lifetime
+        // B) Right AFTER committing data (EF SaveChanges) into the DB will make multiple transactions. 
+        // You will need to handle eventual consistency and compensatory actions in case of failures in any of the Handlers. 
+        await _mediator.DispatchDomainEventsAsync(this);
+
+        // After executing this line all the changes (from the Command Handler and Domain Event Handlers) 
+        // performed through the DbContext will be committed
+        _ = await base.SaveChangesAsync(cancellationToken);
+
+        return true;
     }
 }

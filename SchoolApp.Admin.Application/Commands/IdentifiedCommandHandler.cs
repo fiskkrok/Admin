@@ -1,5 +1,10 @@
 ﻿using Admin.Application.Commands;
+
 using Microsoft.Extensions.Logging;
+using SchoolApp.Admin.Application.Commands.CourseAssignment;
+using SchoolApp.Admin.Application.Commands.Enrollment;
+using SchoolApp.Admin.Application.Commands.Faculty;
+using SchoolApp.Admin.Application.Commands.Student;
 using SchoolApp.Admin.Infrastructure;
 using SchoolApp.Admin.Infrastructure.Idempotency;
 using SchoolApp.EventBus.Extensions;
@@ -75,6 +80,20 @@ public abstract class IdentifiedCommandHandler<T, R> : IRequestHandler<Identifie
                     case ApprovedEnrollmentCommand approvedEnrollmentCommand:
                         idProperty = nameof(approvedEnrollmentCommand.EnrollmentNumber);
                         commandId = $"{approvedEnrollmentCommand.EnrollmentNumber}";
+                        break;
+                    case CreateStudentCommand createStudentCommand:
+                        idProperty = nameof(createStudentCommand.FirstName);
+                        commandId = createStudentCommand.FirstName;
+                        break;
+
+                    case CreateFacultyCommand createFacultyCommand:
+                        idProperty = nameof(createFacultyCommand.FirstName);
+                        commandId = createFacultyCommand.FirstName;
+                        break;
+
+                    case CreateCourseAssignmentCommand createCourseAssignmentCommand:
+                        idProperty = nameof(createCourseAssignmentCommand.CourseId);
+                        commandId = createCourseAssignmentCommand.CourseId.ToString();
                         break;
 
                     default:

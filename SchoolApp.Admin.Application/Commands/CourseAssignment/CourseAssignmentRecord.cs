@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SchoolApp.Admin.Application.Commands.CourseAssignment;
 
 public record CourseAssignmentRecord(
-    int AssignmentId,
-    int? FacultyId,
-    int? CourseId,
+    string AssignmentId,
+    string FacultyId,
+    string CourseId,
     string? AssignmentType);

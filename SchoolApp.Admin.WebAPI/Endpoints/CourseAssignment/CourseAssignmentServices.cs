@@ -1,13 +1,16 @@
 ﻿using MediatR;
+using SchoolApp.Admin.Application.Queries.CourseAssignments;
 using SchoolApp.Admin.Application.Queries.CoursesAssignment;
+using SchoolApp.Admin.Infrastructure.Identity.Services;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.CourseAssignment;
 
 public class CourseAssignmentServices
-    (ILogger logger, IMediator mediator, CourseAssignmentQueries queries)
+    (ILogger<CourseAssignmentServices> logger, IMediator mediator, ICourseAssignmentQueries queries /*, IIdentityService identityService*/)
     {
-    public ILogger Logger { get; set; } = logger;
+    public ILogger<CourseAssignmentServices> Logger { get; set; } = logger;
     public IMediator Mediator { get; set; } = mediator;
-    public CourseAssignmentQueries Queries { get; set; } = queries;
+    public ICourseAssignmentQueries Queries { get; set; } = queries;
+    //public IIdentityService IdentityService { get; } = identityService;
 }
 

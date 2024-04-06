@@ -4,7 +4,7 @@
 public class Faculty(string? firstName, string? lastName, string? department)
     : BaseEntity, IAggregateRoot
 {
-    public string FacultyId { get; private set; } = Guid.NewGuid().ToString();
+    public string FacultyId { get;  set; }
 
     [Required]
     [StringLength(50)]
@@ -17,9 +17,6 @@ public class Faculty(string? firstName, string? lastName, string? department)
     [StringLength(50)]
     public string? Department { get; set; } = department;
 
-    public virtual ICollection<CourseAssignment> CourseAssignments { get; init; } = new List<CourseAssignment>
-    {
-        Capacity = 0
-    };
+    public virtual ICollection<CourseAssignment> CourseAssignments { get; init; } = new List<CourseAssignment>();
 
 }

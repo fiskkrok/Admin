@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+
 using SchoolApp.Admin.Domain.SeedWork;
 using SchoolApp.Admin.Infrastructure.Identity;
 
@@ -13,12 +15,12 @@ public static class AuthEndpoints
     public static ITokenClaimsService? TokenClaimsService { get; }
 
 
-    public static IEndpointRouteBuilder MapAuthEndpoints(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapAuthEndpoints(this RouteGroupBuilder app)
     {
 
         app.MapPost("/authenticate", HandleAsync);
 
-            return app;
+        return app;
     }
 
     private static async Task<Ok<AuthenticateResponse>> HandleAsync(IMapper mapper, AuthenticateRequest request)
@@ -44,7 +46,7 @@ public static class AuthEndpoints
     }
 
 
-    
 
-    
+
+
 }

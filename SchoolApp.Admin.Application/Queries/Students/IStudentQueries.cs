@@ -4,9 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolApp.Admin.Application.Queries.Student;
+using SchoolApp.Admin.Domain.AggregateModels.StudentAggregate;
+
+namespace SchoolApp.Admin.Application.Queries.Students;
+
 public interface IStudentQueries
 {
-    Task<StudentRecord> GetStudentByIdAsync(int studentId);
-    IEnumerable<StudentRecord>? GetAllStudents();
+    Task<IEnumerable<Student>> GetAllStudentsAsync();
+    Task<Student> GetStudentByIdAsync(string studentId);
+    Task<IEnumerable<Student>> GetStudentsByStatusAsync(StudentStatus status);
+    // Additional query contracts can be added as needed
 }
+

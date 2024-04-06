@@ -12,20 +12,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.AddServiceDefaults();
-builder.AddDefaultOpenApi();
+//builder.AddDefaultOpenApi();
 builder.AddApplicationServices( null);
 builder.AddApplicationIdentity( null);
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppIdentityDbContext>()
     .AddDefaultTokenProviders();
-builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseDefaultOpenApi();
+//app.UseDefaultOpenApi();
 app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
@@ -34,13 +33,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.MapCourseEndpoints();
-app.MapEnrollmentEndpoints();
-app.MapFacultyEndpoints();
-app.MapCourseAssignmentEndpoints();
-app.MapStudentEndpoints();
-app.MapAuthEndpoints();
+app.UseHttpsRedirection(); 
+//app.MapGroup("/api/v1")
+app.MapGroup("/")
+    .MapCourseEndpoints()
+.MapFacultyEndpoints()
+.MapCourseAssignmentEndpoints()
+.MapStudentEndpoints()
+.MapAuthEndpoints()
+    .RequireAuthorization();
+//.MapEnrollmentEndpoints()
+
 app.UseCors(policyBuilder =>
 {
     policyBuilder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:7114");

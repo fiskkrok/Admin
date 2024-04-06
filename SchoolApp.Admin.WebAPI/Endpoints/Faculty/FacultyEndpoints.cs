@@ -11,12 +11,14 @@ using SchoolApp.Admin.Application.Commands.CourseAssignment;
 using SchoolApp.Admin.Application.Commands.Faculty;
 using SchoolApp.EventBus.Extensions;
 
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Faculty;
 
 public static class FacultyEndpoints
 {
-    public static IEndpointRouteBuilder MapFacultyEndpoints(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapFacultyEndpoints(this RouteGroupBuilder app)
     {
         // Routes for querying faculties
         app.MapGet("/Faculty", GetAllFaculties);
@@ -30,47 +32,45 @@ public static class FacultyEndpoints
         return app;
     }
 
-    public static async Task<Results<Ok<ListFacultiesResponse>, NotFound>> GetAllFaculties(FacultyServices services,ListFacultiesRequest request)
+    public static async Task<Ok<IEnumerable<Application.Queries.Faculties.Faculty>>> GetAllFaculties([AsParameters]FacultyServices services)
     {
 
         services.Logger.LogInformation("Fetching all course assignments");
-        var response = new ListFacultiesResponse
-        {
-            Faculties = [.. services.Queries.GetAllFacultiesAsync()]
-        };
 
-        if (response.Faculties is { Count: > 0 })
-            return TypedResults.Ok(response);
+        var faculties = await services.Queries.GetAllFacultiesAsync();
+      
 
-        services.Logger.LogWarning("No course assignments found");
+       
+            return TypedResults.Ok(faculties);
 
-        return TypedResults.NotFound();
+      
     }
 
-    public static async Task<Results<Ok<GetByIdFacultyResponse>, NotFound>> GetFacultyById(FacultyServices services, Guid facultyId)
+    public static async Task<Results<Ok<Application.Queries.Faculties.Faculty>, NotFound>> GetFacultyById([AsParameters] FacultyServices services, int facultyId)
     {
-    
-        var response = new GetByIdFacultyResponse
-        {
-            Faculty = await services.Queries.GetFacultyByIdAsync(facultyId)
-        };
-        if (response.Faculty is null) return TypedResults.NotFound();
 
-        return TypedResults.Ok(response);
+
+        var faculty = await services.Queries.GetFacultyByIdAsync(facultyId.ToString());
+
+        return TypedResults.Ok(faculty);
 
     }
 
-    public static async Task<Results<Ok, NotFound, BadRequest<string>>> UpdateFaculty([AsParameters] FacultyServices services, UpdateFacultyCommand command, 
-        [FromHeader(Name = "x-requestid")] Guid requestId)
+    public static async Task<Results<Ok, NotFound, BadRequest<string>>> UpdateFaculty([AsParameters] FacultyServices services,
+        [FromBody] UpdateFacultyRequest request,
+        [FromHeader(Name = "x-requestid")] Guid requestId, int facultyId)
     {
-        var existingFaculty = await services.Queries.GetFacultyByIdAsync(requestId);
+        var existingFaculty = await services.Queries.GetFacultyByIdAsync(facultyId.ToString());
         if (existingFaculty == null)
         {
-            services.Logger.LogWarning("Course with ID {requestId} not found for update", requestId);
+            services.Logger.LogWarning("Course with ID {facultyId} not found for update", facultyId);
             return TypedResults.NotFound();
         }
 
-        var success = await services.Mediator.Send(new IdentifiedCommand<UpdateFacultyCommand, bool>(command, requestId)); // Assuming new GUID as request ID for simplicity
+        var command =
+            new UpdateFacultyCommand(request.FirstName, request.LastName, request.Department, request.FacultyId);
+        var success = await services.Mediator.Send(new IdentifiedCommand<UpdateFacultyCommand, bool>(command, requestId)); // Assuming new GUID as
+                                                                                                                           // ID for simplicity
 
         if (!success)
         {
@@ -82,7 +82,7 @@ public static class FacultyEndpoints
         return TypedResults.Ok();
     }
 
-    public static async Task<IResult> CreateFaculty(CreateFacultyRequest request, [FromHeader(Name = "x-requestid")] Guid requestId,
+    public static async Task<IResult> CreateFaculty([FromBody] CreateFacultyRequest request, [FromHeader(Name = "x-requestid")] Guid requestId,
         [AsParameters] FacultyServices services)
     {
         services.Logger.LogInformation(
@@ -128,12 +128,12 @@ public static class FacultyEndpoints
     }
 
     public static async Task<Results<Ok, NotFound>> DeleteFaculty([FromHeader(Name = "x-requestid")] Guid requestId,
-        DeleteFacultyCommand request,
+        int facultyId,
         [AsParameters] FacultyServices services)
     {
-
+        var command = new DeleteFacultyCommand(facultyId);
         services.Logger.LogInformation("Attempting to delete course with ID {requestId}");
-        var success = await services.Mediator.Send(new IdentifiedCommand<DeleteFacultyCommand, bool>(request, requestId));
+        var success = await services.Mediator.Send(new IdentifiedCommand<DeleteFacultyCommand, bool>(command, requestId));
         if (success)
         {
             services.Logger.LogInformation("Course with ID {requestId} deleted successfully", requestId);

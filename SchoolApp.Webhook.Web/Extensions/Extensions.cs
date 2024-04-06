@@ -25,7 +25,7 @@ public static class Extensions
         var configuration = builder.Configuration;
         var services = builder.Services;
 
-        var identityUrl = configuration.GetRequiredValue("IdentityUrl");
+        //var identityUrl = configuration.GetRequiredValue("IdentityUrl");
         var callBackUrl = configuration.GetRequiredValue("CallBackUrl");
         var sessionCookieLifetime = configuration.GetValue("SessionCookieLifetimeMinutes", 60);
 
@@ -47,7 +47,7 @@ public static class Extensions
         .AddOpenIdConnect(options =>
         {
             options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            options.Authority = identityUrl.ToString();
+            //options.Authority = identityUrl.ToString();
             options.SignedOutRedirectUri = callBackUrl.ToString();
             options.ClientId = "webhooks-web";
             options.ClientSecret = "secret";

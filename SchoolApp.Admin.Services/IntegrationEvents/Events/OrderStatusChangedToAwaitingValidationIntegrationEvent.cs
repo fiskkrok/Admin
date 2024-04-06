@@ -1,5 +1,4 @@
-﻿using SchoolApp.Admin.Services.IntegrationEvents.Events;
-using SchoolApp.EventBus.Events;
+﻿using SchoolApp.EventBus.Events;
 
 namespace SchoolApp.Admin.Services.IntegrationEvents.Events;
 

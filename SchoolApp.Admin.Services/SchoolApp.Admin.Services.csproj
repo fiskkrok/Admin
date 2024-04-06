@@ -15,13 +15,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
+	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0-preview.2.24158.2" />
 
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SchoolApp.Admin.Application\SchoolApp.Admin.Application.csproj" />
     <ProjectReference Include="..\SchoolApp.Admin.Infrastructure\SchoolApp.Admin.Infrastructure.csproj" />
     <ProjectReference Include="..\SchoolApp.EventBusRabbitMQ\SchoolApp.EventBusRabbitMQ.csproj" />
     <ProjectReference Include="..\SchoolApp.IntegrationEventLogEF\SchoolApp.IntegrationEventLogEF.csproj" />
+    <ProjectReference Include="..\SchoolApp.ServiceDefaults\SchoolApp.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

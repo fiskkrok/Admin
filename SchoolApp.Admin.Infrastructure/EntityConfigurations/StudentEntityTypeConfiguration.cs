@@ -5,13 +5,14 @@ public class StudentEntityTypeConfiguration : IEntityTypeConfiguration<Student>
 {
     public void Configure(EntityTypeBuilder<Student> entity)
     {
-        entity.HasKey(b => b.Id);
+        entity.HasKey(b => b.StudentId);
+
+        entity.HasIndex(e => e.Id); // Create an index on the Id property
 
         entity.Property(b => b.Id)
             .ValueGeneratedOnAdd(); // Configure EF to auto-generate Id values
-        entity.HasAlternateKey(e => e.StudentId);
 
-        entity.Property(e => e.StudentId).ValueGeneratedNever();
+
 
         entity.OwnsOne(o => o.Address,a =>
         {

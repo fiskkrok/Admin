@@ -2,8 +2,11 @@
 
 public sealed class CourseAssignment : BaseEntity, IAggregateRoot
 {
-    private CourseAssignment(int? facultyId,
-        int? courseId,
+    public CourseAssignment()
+    {
+    }
+    private CourseAssignment(string facultyId,
+        string courseId,
         string? assignmentType)
     {
         FacultyId = facultyId;
@@ -11,20 +14,20 @@ public sealed class CourseAssignment : BaseEntity, IAggregateRoot
         AssignmentType = assignmentType;
     }
 
-    public static CourseAssignment CreateInstance(int? facultyId, int? courseId, string? assignmentType)
+    public static CourseAssignment CreateInstance(string facultyId, string courseId, string? assignmentType)
     {
         return new CourseAssignment(facultyId, courseId, assignmentType);
     }
 
 
     [Column("AssignmentID")]
-    public string AssignmentId { get; set; } = Guid.NewGuid().ToString();
+    public string AssignmentId { get; set; }
 
     [Column("FacultyID")]
-    public int? FacultyId { get; set; }
+    public string FacultyId { get; set; }
 
     [Column("CourseID")]
-    public int? CourseId { get; set; }
+    public string CourseId { get; set; }
 
     [StringLength(50)]
     [Unicode(false)]

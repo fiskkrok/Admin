@@ -1,7 +1,7 @@
 ﻿
 namespace SchoolApp.Admin.Domain.AggregateModels.EnrollmentAggregate;
 
-public class Enrollment(int? studentId, int? courseId, DateOnly? enrollmentDate)
+public class Enrollment(string? studentId, string? courseId, DateOnly? enrollmentDate)
     : BaseEntity, IAggregateRoot
 {
 
@@ -9,10 +9,10 @@ public class Enrollment(int? studentId, int? courseId, DateOnly? enrollmentDate)
     public string EnrollmentId { get; set; } = Guid.NewGuid().ToString();
 
     [Column("StudentID")]
-    public int? StudentId { get; set; } = studentId;
+    public string? StudentId { get; set; } = studentId;
 
     [Column("CourseID")]
-    public int? CourseId { get; set; } = courseId;
+    public string? CourseId { get; set; } = courseId;
 
 
     public DateOnly? EnrollmentDate { get; set; } = enrollmentDate;

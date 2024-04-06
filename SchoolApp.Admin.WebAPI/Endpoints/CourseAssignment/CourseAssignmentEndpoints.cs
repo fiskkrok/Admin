@@ -2,13 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
 using SchoolApp.Admin.Application.Commands.CourseAssignment;
-using SchoolApp.EventBus.Extensions;
-using Azure.Core;
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.CourseAssignment;
 public static class CourseAssignmentEndpoints
 {
-    public static IEndpointRouteBuilder MapCourseAssignmentEndpoints(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCourseAssignmentEndpoints(this RouteGroupBuilder app)
     {
         // Define endpoints for course assignment operations
         app.MapGet("/CourseAssignment/", GetAllCourseAssignmentsAsync);
@@ -20,73 +18,51 @@ public static class CourseAssignmentEndpoints
         return app;
     }
 
-    public static async Task<Results<Ok<ListCourseAssignmentsResponse>, NotFound>> GetAllCourseAssignmentsAsync([AsParameters] CourseAssignmentServices services)
+    public static async Task<Ok<IEnumerable<Application.Queries.CoursesAssignment.CourseAssignment>>> GetAllCourseAssignmentsAsync([AsParameters] CourseAssignmentServices services)
     {
-        services.Logger.LogInformation("Fetching all course assignments");
-        var response = new ListCourseAssignmentsResponse
-        {
-            CourseAssignments = await services.Queries.GetAllCourseAssignmentAsync()
-        };
-
-        if (response.CourseAssignments.Any())
-            return TypedResults.Ok(response);
-
-        services.Logger.LogWarning("No course assignments found");
-
-        return TypedResults.NotFound();
+        var courseAssignments = await services.Queries.GetAllAssignments();
+            return TypedResults.Ok(courseAssignments);
 
     }
 
-    public static async Task<Results<Ok<GetByIdCourseAssignmentResponse>, NotFound<string>>> GetCourseAssignmentByIdAsync(int assignmentId, [AsParameters] CourseAssignmentServices services)
+    public static async Task<Results<Ok<Application.Queries.CoursesAssignment.CourseAssignment>, NotFound>> GetCourseAssignmentByIdAsync(int assignmentId, [AsParameters] CourseAssignmentServices services)
     {
-        services.Logger.LogInformation("Fetching course assignment with ID {assignmentId}", assignmentId);
-        var response = new GetByIdCourseAssignmentResponse
+        try
         {
-            CourseAssignment = await services.Queries.GetCourseAssignmentByIdAsync(assignmentId)
-        };
-        
-        if (response != null) return TypedResults.Ok(response);
-
-        services.Logger.LogWarning("Course assignment with ID {assignmentId} not found", assignmentId);
-        return TypedResults.NotFound("Course assignment with ID not found");
+            var courseAssignment = await services.Queries.GetAssignmentByIdAsync(assignmentId.ToString());
+            return TypedResults.Ok(courseAssignment);
+        }
+        catch
+        {
+            return TypedResults.NotFound();
+        }
     }
 
     public static async Task<Results<Ok, BadRequest<string>>> CreateCourseAssignmentAsync(
-        CreateCourseAssignmentRequest request, [FromHeader(Name = "x-requestid")] Guid requestId,
+        [FromHeader(Name = "x-requestid")] Guid requestId,
+        [FromBody] CreateCourseAssignmentRequest request,
         [AsParameters] CourseAssignmentServices services)
     {
         services.Logger.LogInformation(
             "Creating course assignment with Request ID: {RequestId}", requestId);
 
-        if (requestId == Guid.Empty)
-        {
-            services.Logger.LogWarning("Empty GUID provided as Request ID");
-            return TypedResults.BadRequest("Empty GUID is not valid for request ID");
-        }
+        var command = new CreateCourseAssignmentCommand(request.AssignmentId, request.FacultyId, request.AssignmentType, request.CourseId);
+        var identifiedCommand = new IdentifiedCommand<CreateCourseAssignmentCommand, bool>(command, requestId);
+        var result = await services.Mediator.Send(identifiedCommand);
 
-        var createCourseAssignmentCommand = new CreateCourseAssignmentCommand();
-
-        bool result = await services.Mediator.Send(createCourseAssignmentCommand);
-
-        if (result)
-        {
-            services.Logger.LogInformation("CreateCourseAssignmentCommand succeeded - RequestId: {RequestId}", requestId);
-            return TypedResults.Ok();
-        }
-        else
-        {
-            services.Logger.LogWarning("CreateCourseAssignmentCommand failed - RequestId: {RequestId}", requestId);
-            return TypedResults.BadRequest("Failed to create course assignment.");
-        }
+        if (result) return TypedResults.Ok();
+        services.Logger.LogWarning("CreateCourseAssignmentCommand failed - RequestId: {RequestId}", requestId);
+        return TypedResults.BadRequest("Failed to create course assignment.");
     }
 
     public static async Task<Results<Ok, NotFound, BadRequest<string>>> UpdateCourseAssignmentAsync(
-        int assignmentId, UpdateCourseAssignmentRequest request,
+        int assignmentId,
+        [FromBody] UpdateCourseAssignmentRequest request,
         [AsParameters] CourseAssignmentServices services, [FromHeader(Name = "x-requestid")] Guid requestId)
     {
         services.Logger.LogInformation("Updating course assignment with ID {assignmentId}", assignmentId);
-
-        bool success = await services.Mediator.Send(new IdentifiedCommand<UpdateCourseAssignmentRequest, bool>(request, requestId));
+        var command = new UpdateCourseAssignmentCommand(request.AssignmentId, request.FacultyId, request.CourseId, request.AssignmentType);
+        bool success = await services.Mediator.Send(new IdentifiedCommand<UpdateCourseAssignmentCommand, bool>(command, requestId));
 
         if (!success)
         {
@@ -99,12 +75,12 @@ public static class CourseAssignmentEndpoints
     }
 
     public static async Task<Results<Ok, NotFound>> DeleteCourseAssignmentAsync(
-        int assignmentId, DeleteCourseAssignmentRequest request,
+        int assignmentId,
         [AsParameters] CourseAssignmentServices services, [FromHeader(Name = "x-requestid")] Guid requestId)
     {
         services.Logger.LogInformation("Deleting course assignment with ID {assignmentId}", assignmentId);
-
-        bool success = await services.Mediator.Send(new IdentifiedCommand<DeleteCourseAssignmentRequest, bool>(request, requestId));
+        var command = new DeleteCourseAssignmentCommand(assignmentId);
+        bool success = await services.Mediator.Send(new IdentifiedCommand<DeleteCourseAssignmentCommand, bool>(command, requestId));
         if (success)
         {
             services.Logger.LogInformation("Course assignment with ID {assignmentId} deleted successfully", assignmentId);
@@ -117,3 +93,4 @@ public static class CourseAssignmentEndpoints
         }
     }
 }
+

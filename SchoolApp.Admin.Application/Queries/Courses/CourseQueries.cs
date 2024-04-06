@@ -1,34 +1,60 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using SchoolApp.Admin.Infrastructure.Data;
 
 namespace SchoolApp.Admin.Application.Queries.Courses;
 
-public class CourseQueries(AdminDbContext context, IMapper mapper) : ICourseQueries
+public class CourseQueries(AdminDbContext context) : ICourseQueries
 {
-    public async Task<CourseRecord> GetCourseByIdAsync(int courseId)
+    public async Task<Course> GetCourseByIdAsync(int courseId)
     {
         var course = await context.Courses
             .Include(o => o.Enrollments)
             .FirstOrDefaultAsync(o => o.Id == courseId);
+        if (course is null)
+            throw new KeyNotFoundException();
+        return new Course
+        {
+            CourseCode = course.CourseCode,
+            CourseId = course.CourseId,
+            CourseName = course.CourseName,
+            Credits = course.Credits,
+            Description = course.Description,
 
-        return course is null
-            ? throw new KeyNotFoundException()
-            : new CourseRecord(course.Id, course.CourseName);
+        };
+
     }
 
-    public IQueryable<CourseRecord> GetAllCourses()
+    public async Task<IEnumerable<Course>> GetAllCourses()
     {
-        var courses = context.Courses.AsQueryable();
-        return mapper.ProjectTo<CourseRecord>(courses);
+        return await context.Courses.Where(c => c.Status.Equals(true))
+            .Include(c => c.Enrollments)
+            .Include(c => c.CourseAssignments)
+            .Include(c => c.Students)
+            .Select(o => new Course
+        {
+            CourseId = o.CourseId,
+            Credits = o.Credits,
+            CourseName = o.CourseName,
+            CourseAssignments = {},
+            CourseCode = o.CourseCode,
+            Description = o.Description,
+            Enrollments = { },
+            Students = {}
+
+        }).ToListAsync();
     }
 
-    public IQueryable<CourseRecord>? GetAllCoursesStudent(int studentId)
+    public async Task<IEnumerable<Course>> GetAllCoursesStudent(int studentId)
     {
-        return context.Courses
-            .Where(o => o.Students.Any(a => a.StudentId.Equals(studentId.ToString())))
-            .Select(c => new CourseRecord(
-                c.Id,
-                c.CourseName
-            ));
+        return await context.Courses
+            .Where(o => o.Students.Any(a => a.StudentId.Equals(studentId.ToString()))).Select(o => new Course
+            {
+                CourseId = o.CourseId,
+                Credits = o.Credits,
+                CourseName = o.CourseName,
+            }).ToListAsync();
     }
 }

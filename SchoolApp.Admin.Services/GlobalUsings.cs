@@ -11,3 +11,4 @@ global using SchoolApp.Admin.Domain.AggregateModels.EnrollmentAggregate;
 global using SchoolApp.Admin.Domain.AggregateModels.FacultyAggregate;
 global using SchoolApp.Admin.Domain.AggregateModels.StudentAggregate;
 global using SchoolApp.Admin.Infrastructure.Data;
+global using SchoolApp.Admin.Services.IntegrationEvents.Events;

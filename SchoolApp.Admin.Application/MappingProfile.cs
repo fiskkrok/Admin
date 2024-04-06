@@ -1,14 +1,16 @@
-﻿namespace SchoolApp.Admin.Application;
+﻿using SchoolApp.Admin.Application.Queries.Enrollments;
 
-public class MappingProfile : Profile
-{
-    public MappingProfile()
-    {
-        CreateMap<Course, CourseRecord>();
-        CreateMap<CourseAssignment, CourseAssignmentRecord>();
-        CreateMap<Faculty, FacultyRecord>();
-        CreateMap<Student, StudentRecord>();
-        CreateMap<Enrollment, EnrollmentRecord>(); 
+namespace SchoolApp.Admin.Application;
+
+//public class MappingProfile : Profile
+//{
+//    public MappingProfile()
+//    {
+//        CreateMap<Course, Course>();
+//        CreateMap<CourseAssignment, CourseAssignment>();
+//        CreateMap<Faculty, Faculty>();
+//        CreateMap<Student, Student>();
+//        CreateMap<Enrollment, Enrollment>(); 
       
-    }
-}
+//    }
+//}

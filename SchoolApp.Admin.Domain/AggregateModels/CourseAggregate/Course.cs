@@ -1,23 +1,30 @@
 ﻿namespace SchoolApp.Admin.Domain.AggregateModels.CourseAggregate;
 
-public sealed class Course
+public class Course
     : BaseEntity, IAggregateRoot
 {
-    private Course(string courseId, string? courseCode, string? courseName, int credits)
+    public Course()
+    {
+      
+    }
+    public Course(string courseId, string? courseCode, string? courseName, int credits, IEnumerable<CourseAssignment> courseAssignments, IEnumerable<Enrollment> enrollments, IEnumerable<Student> students)
     {
         CourseId = courseId;
         CourseCode = courseCode;
         CourseName = courseName;
         Credits = credits;
+        CourseAssignments = courseAssignments;
+        Enrollments = enrollments;
+        Students = students;
     }
 
     public static Course CreateInstance(string courseId, string? courseCode, string? courseName, int credits)
     {
-        return new Course(courseId, courseCode, courseName, credits);
+        return new Course(courseId, courseCode, courseName, credits,  [], [], []);
     }
 
-    [Column("CourseID")]
-    public string CourseId { get; init; } = Guid.NewGuid().ToString();
+    public bool Status { get; set; } = true;
+    public string CourseId { get; set; }
 
     [StringLength(10)]
     [Unicode(false)]
@@ -32,10 +39,10 @@ public sealed class Course
     public string? Description { get; init; }
 
     [InverseProperty("Course")]
-    public IEnumerable<CourseAssignment> CourseAssignments { get;  } = new List<CourseAssignment>();
+    public IEnumerable<CourseAssignment>? CourseAssignments { get; set; }
 
     [InverseProperty("Course")]
-    public IEnumerable<Enrollment> Enrollments { get; } = new List<Enrollment>();
-    public IEnumerable<Student> Students { get; } = new List<Student>();
+    public IEnumerable<Enrollment> Enrollments { get; set; }
+    public IEnumerable<Student> Students { get; set; }
 
 }

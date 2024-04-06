@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolApp.Admin.Domain.Exceptions;
-public class EnrollmentDomainException : Exception
+public class AdminDomainException : Exception
 {
-    public EnrollmentDomainException()
+    public AdminDomainException()
     { }
 
-    public EnrollmentDomainException(string message)
+    public AdminDomainException(string message)
         : base(message)
     { }
 
-    public EnrollmentDomainException(string message, Exception innerException)
+    public AdminDomainException(string message, Exception innerException)
         : base(message, innerException)
     { }
 }

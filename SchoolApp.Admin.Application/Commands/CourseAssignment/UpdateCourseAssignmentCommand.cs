@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolApp.Admin.Application.Commands.CourseAssignment;
-public class UpdateCourseCommand
-{
-}
+
+public record UpdateCourseAssignmentCommand(
+    int AssignmentId,
+    int FacultyId,
+    int CourseId,
+    string? AssignmentType
+) : IRequest<bool>;

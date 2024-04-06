@@ -28,10 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SchoolApp.Admin.Domain\SchoolApp.Admin.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Identity\Migrations\" />
+    <ProjectReference Include="..\SchoolApp.IntegrationEventLogEF\SchoolApp.IntegrationEventLogEF.csproj" />
   </ItemGroup>
 
 

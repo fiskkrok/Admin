@@ -26,7 +26,7 @@ public class RequestManager : IRequestManager
         var exists = await ExistAsync(id);
 
         var request = exists ?
-            throw new EnrollmentDomainException($"Request with {id} already exists") :
+            throw new AdminDomainException($"Request with {id} already exists") :
             new ClientRequest()
             {
                 Id = id,

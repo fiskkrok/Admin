@@ -5,4 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolApp.Admin.Application.Commands.Student;
-public class DeleteStudentCommand(int studentId) : IRequest<bool>;
+public class DeleteStudentCommand(int studentId) : IRequest<bool>
+{
+    public int StudentId { get; } = studentId;
+}

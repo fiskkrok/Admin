@@ -1,120 +1,120 @@
 [
     {
-        "courseId": 1,
+        "courseId": "550e8400-e29b-41d4-a716-446655440002",
         "courseCode": "MATH200",
         "courseName": "History of Art",
         "credits": 5
     },
     {
-        "courseId": 2,
+        "courseId": "550e8400-e29b-41d4-a716-446655440005",
         "courseCode": "CS101",
         "courseName": "Introduction to Astronomy",
         "credits": 0
     },
     {
-        "courseId": 3,
+        "courseId": "550e8400-e29b-41d4-a716-446655440008",
         "courseCode": "HIST300",
         "courseName": "Fashion Design Fundamentals",
         "credits": 0
     },
     {
-        "courseId": 4,
+        "courseId": "550e8400-e29b-41d4-a716-446655440011",
         "courseCode": "CHEM250",
         "courseName": "Introduction to Astronomy",
         "credits": 3
     },
     {
-        "courseId": 5,
+        "courseId": "550e8400-e29b-41d4-a716-446655440014",
         "courseCode": "PHYS150",
         "courseName": "Creative Writing Workshop",
         "credits": 9
     },
     {
-        "courseId": 6,
+        "courseId": "550e8400-e29b-41d4-a716-446655440017",
         "courseCode": "CHEM250",
         "courseName": "Digital Marketing Strategies",
         "credits": 3
     },
     {
-        "courseId": 7,
+        "courseId": "550e8400-e29b-41d4-a716-446655440020",
         "courseCode": "PHYS150",
         "courseName": "Nutrition and Wellness",
         "credits": 2
     },
     {
-        "courseId": 8,
+        "courseId": "550e8400-e29b-41d4-a716-446655440023",
         "courseCode": "MATH200",
         "courseName": "Public Speaking 101",
         "credits": 1
     },
     {
-        "courseId": 9,
+        "courseId": "550e8400-e29b-41d4-a716-446655440026",
         "courseCode": "BUS220",
         "courseName": "Fashion Design Fundamentals",
         "credits": 3
     },
     {
-        "courseId": 10,
+        "courseId": "550e8400-e29b-41d4-a716-446655440029",
         "courseCode": "SOC101",
         "courseName": "Introduction to Psychology",
         "credits": 10
     },
     {
-        "courseId": 11,
+        "courseId": "550e8400-e29b-41d4-a716-446655440032",
         "courseCode": "ENG102",
         "courseName": "Introduction to Astronomy",
         "credits": 1
     },
     {
-        "courseId": 12,
+        "courseId": "550e8400-e29b-41d4-a716-446655440035",
         "courseCode": "HIST300",
         "courseName": "Environmental Science",
         "credits": 6
     },
     {
-        "courseId": 13,
+        "courseId": "550e8400-e29b-41d4-a716-446655440038",
         "courseCode": "PHYS150",
         "courseName": "Digital Marketing Strategies",
         "credits": 10
     },
     {
-        "courseId": 14,
+        "courseId": "550e8400-e29b-41d4-a716-446655440041",
         "courseCode": "PHYS150",
         "courseName": "Public Speaking 101",
         "credits": 3
     },
     {
-        "courseId": 15,
+        "courseId": "550e8400-e29b-41d4-a716-446655440044",
         "courseCode": "PSYCH210",
         "courseName": "Introduction to Psychology",
         "credits": 0
     },
     {
-        "courseId": 16,
+        "courseId": "550e8400-e29b-41d4-a716-446655440047",
         "courseCode": "BUS220",
         "courseName": "Nutrition and Wellness",
         "credits": 9
     },
     {
-        "courseId": 17,
+        "courseId": "550e8400-e29b-41d4-a716-446655440050",
         "courseCode": "ART110",
         "courseName": "Advanced Calculus",
         "credits": 10
     },
     {
-        "courseId": 18,
+        "courseId": "550e8400-e29b-41d4-a716-446655440053",
         "courseCode": "CHEM250",
         "courseName": "Nutrition and Wellness",
         "credits": 3
     },
     {
-        "courseId": 19,
+        "courseId": "550e8400-e29b-41d4-a716-446655440056",
         "courseCode": "CS101",
         "courseName": "Nutrition and Wellness",
         "credits": 6
     },
     {
-        "courseId": 20,
+        "courseId": "550e8400-e29b-41d4-a716-446655440059",
         "courseCode": "CS101",
         "courseName": "Environmental Science",
         "credits": 0

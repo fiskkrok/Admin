@@ -14,5 +14,5 @@ public class ListCoursesResponse : BaseResponse
     {
     }
 
-    public List<CourseRecord> Courses { get; init; } = new List<CourseRecord>();
+    public IEnumerable<CourseRecord> Courses { get; init; } = new List<CourseRecord>();
 }

@@ -1,16 +1,3 @@
-﻿global using FluentValidation;
-global using System.Data.Common;
+﻿
 global using AutoMapper;
 global using MediatR;
-global using Microsoft.AspNetCore.Mvc;
-global using SchoolApp.Admin.Application.Commands.Course;
-global using SchoolApp.Admin.Application.Commands.CourseAssignment;
-global using SchoolApp.Admin.Application.Commands.Enrollment;
-global using SchoolApp.Admin.Application.Commands.Faculty;
-global using SchoolApp.Admin.Application.Commands.Student;
-global using SchoolApp.Admin.Domain.AggregateModels.CourseAggregate;
-global using SchoolApp.Admin.Domain.AggregateModels.CourseAssignmentAggregate;
-global using SchoolApp.Admin.Domain.AggregateModels.EnrollmentAggregate;
-global using SchoolApp.Admin.Domain.AggregateModels.FacultyAggregate;
-global using SchoolApp.Admin.Domain.AggregateModels.StudentAggregate;
-global using Swashbuckle.AspNetCore.SwaggerGen;

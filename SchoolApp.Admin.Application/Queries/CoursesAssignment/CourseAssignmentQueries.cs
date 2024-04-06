@@ -5,27 +5,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+
+using SchoolApp.Admin.Application.Queries.CourseAssignments;
+using SchoolApp.Admin.Application.Queries.Courses;
 using SchoolApp.Admin.Application.Queries.CoursesAssignment;
 using SchoolApp.Admin.Infrastructure.Data;
 
 namespace SchoolApp.Admin.Application.Queries.CoursesAssignment;
 public class CourseAssignmentQueries(AdminDbContext context) : ICourseAssignmentQueries
 {
-    public async Task<CourseAssignmentRecord> GetCourseAssignmentByIdAsync(int courseAssignmentId)
-    {
-        var courseAssignment = await context.CourseAssignments
-            .Include(o => o.Course)
-            .FirstOrDefaultAsync(o => o.Id == courseAssignmentId);
 
-        return courseAssignment is null
-            ? throw new KeyNotFoundException()
-            : new CourseAssignmentRecord(int.Parse(courseAssignment.AssignmentId), courseAssignment.FacultyId,
-                courseAssignment.CourseId,courseAssignment.AssignmentType);
+    public async Task<IEnumerable<CourseAssignment>> GetAllAssignments()
+    {
+        return  await context.CourseAssignments.Select(c => new CourseAssignment
+        {
+            AssignmentType = c.AssignmentType,
+            AssignmentId = c.AssignmentId,
+            CourseId = c.CourseId,
+            FacultyId = c.FacultyId,
+
+        }).ToListAsync();
+     
+        
     }
 
-    public Task<IEnumerable<CourseAssignmentRecord>> GetAllCourseAssignmentAsync()
+    public async Task<CourseAssignment> GetAssignmentByIdAsync(string assignmentId)
     {
-        return Task.FromResult<IEnumerable<CourseAssignmentRecord>>(context.CourseAssignments.ToListAsync() as IEnumerable<CourseAssignmentRecord>);
+        var assignment = await context.CourseAssignments
+            .FirstOrDefaultAsync(o => o.Id == int.Parse(assignmentId));
+        if (assignment is null)
+            throw new KeyNotFoundException();
+        return new CourseAssignment
+        {
+           CourseId = assignment.CourseId
+           , AssignmentType = assignment.AssignmentType,
+           FacultyId = assignment.FacultyId,
+           AssignmentId = assignment.AssignmentId
+        };
     }
 
+    public async Task<IEnumerable<CourseAssignment>> GetAssignmentsByCourseIdAsync(string courseId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<CourseAssignment>> GetAssignmentsByFacultyIdAsync(string facultyId)
+    {
+        throw new NotImplementedException();
+    }
+
+    // Implement other methods similarly...
 }
+

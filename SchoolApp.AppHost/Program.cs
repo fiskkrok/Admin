@@ -3,7 +3,8 @@ using SchoolApp.AppHost;
 var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddForwardedHeaders();
-var redis = builder.AddRedis("redis");
+//var redis = builder.AddRedis("redis");
+//    .WithReference(redis)
 var rabbitMq = builder.AddRabbitMQ("eventbus");
 var sqlserver = builder.AddSqlServer("sqlserver");
 
@@ -16,30 +17,21 @@ var webhooksDb = sqlserver.AddDatabase("webhooksdb");
 var adminApi = builder.AddProject<Projects.SchoolApp_Admin_WebAPI>("admin-webapi")
     .WithReference(adminDb)
     .WithReference(identityDb)
-    .WithLaunchProfile("https"); 
-
-//var idpHttps = adminApi.GetEndpoint("AuthEndpoints");
-var adminWeb = builder.AddProject<Projects.SchoolApp_Admin_Web>("admin-web")
-    .WithReference(adminApi)
-    .WithReference(rabbitMq)
-    //.WithEnvironment("AuthEndpoints", idpHttps)
-    .WithLaunchProfile("https");
-
+    .WithLaunchProfile("http");
 var webHooksApi = builder.AddProject<Projects.SchoolApp_Webhooks_API>("webhooks-api")
     .WithReference(rabbitMq)
-    .WithReference(webhooksDb);
-    //.WithEnvironment("Auth__Endpoints", idpHttps);
-    var webhooksClient = builder.AddProject<Projects.SchoolApp_Webhook_Web>("webhooks-web")
-        .WithReference(webHooksApi);
-    //.WithEnvironment("AuthEndpoints", idpHttps);
-
-// Wire up the callback urls (self referencing)
+    .WithReference(webhooksDb)
+    .WithLaunchProfile("http");
+var webhooksClient = builder.AddProject<Projects.SchoolApp_Webhook_Web>("webhooksclient")
+    .WithReference(webHooksApi)
+    .WithLaunchProfile("https");
+var adminWeb = builder.AddProject<Projects.SchoolApp_Admin_Web>("admin-web")
+    .WithReference(rabbitMq)
+    .WithReference(adminApi)
+    .WithLaunchProfile("https");
+webhooksClient.WithEnvironment("CallBackUrl", webhooksClient.GetEndpoint("https"));
 adminWeb.WithEnvironment("CallBackUrl", adminWeb.GetEndpoint("https"));
-webhooksClient.WithEnvironment("CallBackUrl", webhooksClient.GetEndpoint("http"));
 
-//Identity has a reference to all of the apps for callback urls, this is a cyclic reference
-adminApi.WithEnvironment("AdminWebAPI", adminApi.GetEndpoint("http"))
-    .WithEnvironment("WebhooksApiClient", webHooksApi.GetEndpoint("http"))
-    .WithEnvironment("WebhooksWebClient", webhooksClient.GetEndpoint("http"));
 
 builder.Build().Run();
+

@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Behaviors\" />
 	<ProjectReference Include="..\SchoolApp.Admin.Infrastructure\SchoolApp.Admin.Infrastructure.csproj" />
 	<ProjectReference Include="..\SchoolApp.EventBus\SchoolApp.EventBus.csproj" />
   </ItemGroup>    

@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
 using SchoolApp.Admin.Application.Commands.Course;
 using SchoolApp.EventBus.Extensions;
-using Azure.Core;
+
 
 
 namespace SchoolApp.Admin.WebAPI.Endpoints.Course;
 public static class CourseEndpoints
 {
-    public static IEndpointRouteBuilder MapCourseEndpoints(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCourseEndpoints(this RouteGroupBuilder app)
     {
         app.MapGet("/Course/", GetAllCoursesAsync);
         app.MapGet("/Course/{courseId:int}", GetCourseByIdAsync);
@@ -21,36 +21,38 @@ public static class CourseEndpoints
         return app;
     }
 
-    public static async Task<Results<Ok<ListCoursesResponse>, NotFound>> GetAllCoursesAsync([AsParameters] CourseServices services)
+    public static async Task<Results<Ok<IEnumerable<Application.Queries.Courses.Course>>, NotFound>> GetAllCoursesAsync([AsParameters] CourseServices services)
     {
-        var courses = new ListCoursesResponse
+        try
         {
-            Courses =  services.Queries.GetAllCourses().ToList()
-        };
+            var courses = await services.Queries.GetAllCourses();
+
         services.Logger.LogInformation("Fetching all courses");
-        
-        if (courses.Courses == null || !courses.Courses.Any())
+        return TypedResults.Ok(courses);
+        }
+        catch
         {
-            services.Logger.LogWarning("No courses found");
             return TypedResults.NotFound();
         }
 
-        return TypedResults.Ok(courses);
     }
 
-    public static async Task<Results<Ok<GetByIdCourseResponse>, NotFound<string>>> GetCourseByIdAsync(int courseId, [AsParameters] CourseServices services)
+    public static async Task<Results<Ok<Application.Queries.Courses.Course>, NotFound>> GetCourseByIdAsync(int courseId, [AsParameters] CourseServices services)
     {
-        services.Logger.LogInformation("Fetching course with ID {courseId}", courseId);
-        GetByIdCourseResponse course = new GetByIdCourseResponse
+        try
         {
-            Course = await services.Queries.GetCourseByIdAsync(courseId)
-        };
-        return TypedResults.Ok(course);
+            var order = await services.Queries.GetCourseByIdAsync(courseId);
+            return TypedResults.Ok(order);
+        }
+        catch
+        {
+            return TypedResults.NotFound();
+        }
     }
 
 
     public static async Task<Results<Ok, BadRequest<string>>> CreateCourseAsync(
-        CreateCourseRequest request, [FromHeader(Name = "x-requestid")] Guid requestId,
+        [FromHeader(Name = "x-requestid")] Guid requestId, CreateCourseRequest request,
         [AsParameters] CourseServices services)
     {
         services.Logger.LogInformation(
@@ -98,7 +100,7 @@ public static class CourseEndpoints
 
     public static async Task<Results<Ok, NotFound, BadRequest<string>>> UpdateCourseAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
-        UpdateCourseCommand request,
+        UpdateCourseRequest request,
         [AsParameters] CourseServices services)
     {
         services.Logger.LogInformation("Attempting to update course with ID {requestId}", requestId);
@@ -109,7 +111,8 @@ public static class CourseEndpoints
             return TypedResults.NotFound();
         }
 
-        var success = await services.Mediator.Send(new IdentifiedCommand<UpdateCourseCommand, bool>(request, requestId)); // Assuming new GUID as request ID for simplicity
+        var command = new UpdateCourseCommand(request.CourseCode, request.CourseName, request.Credits, request.Description, request.CourseId);
+        var success = await services.Mediator.Send(new IdentifiedCommand<UpdateCourseCommand, bool>(command, requestId)); // Assuming new GUID as request ID for simplicity
 
         if (!success)
         {
@@ -123,11 +126,12 @@ public static class CourseEndpoints
 
     public static async Task<Results<Ok, NotFound>> DeleteCourseAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
-        DeleteCourseCommand request,
+       int courseId,
         [AsParameters] CourseServices services)
     {
+        var command = new DeleteCourseCommand(courseId);
         services.Logger.LogInformation("Attempting to delete course with ID {requestId}");
-        var success = await services.Mediator.Send(new IdentifiedCommand<DeleteCourseCommand, bool>(request, requestId));
+        var success = await services.Mediator.Send(new IdentifiedCommand<DeleteCourseCommand, bool>(command, requestId));
         if (success)
         {
             services.Logger.LogInformation("Course with ID {requestId} deleted successfully", requestId);
