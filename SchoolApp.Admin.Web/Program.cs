@@ -1,22 +1,31 @@
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Admin.Web;
-using Admin.Web.Services;
-using SchoolApp.Admin.Web;
+using SchoolApp.Admin.Web.Components;
+using SchoolApp.Admin.Web.Extensions;
 using SchoolApp.Admin.Web.Services;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.RootComponents.Add<App>("#app");
-builder.RootComponents.Add<HeadOutlet>("head::after");
-ServiceExstension.AddServices(builder);
-// Configure HttpClient with base address from appsettings.json
+var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped(sp =>
-    new HttpClient { BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:5002") });
-
-var env = builder.HostEnvironment;
-env.IsDevelopment();
-
-await builder.Build().RunAsync();
+// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+builder.AddApplicationServices();
 
 
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseAntiforgery();
+
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+
+app.Run();

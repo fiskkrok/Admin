@@ -1,0 +1,66 @@
+﻿@page "/courseassignment/add"
+@page "/courseassignment/edit/{AssignmentId:int}"
+@using SchoolApp.Admin.Web.Models
+@using SchoolApp.Admin.Web.Services
+
+@inject CourseAssignmentService CourseAssignmentService
+@inject NavigationManager NavigationManager
+
+<h3>Add/Edit Course Assignment</h3>
+
+<EditForm Model="@courseAssignment" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="assignmentId">Assignment ID:</label>
+        @if (courseAssignment != null)
+        {
+            <InputNumber id="assignmentId" class="form-control" @bind-Value="courseAssignment.AssignmentId"/>
+            @:</div>
+            <div class="form-group">
+                <label for="courseId">Course ID:</label>
+                <InputNumber id="courseId" class="form-control" @bind-Value="courseAssignment.CourseId"/>
+            </div>
+            <div class="form-group">
+                <label for="facultyId">Faculty ID:</label>
+                <InputNumber id="facultyId" class="form-control" @bind-Value="courseAssignment.FacultyId"/>
+            </div>
+            @:<div class="form-group">
+            <label for="assignmentType">Assignment Type:</label>
+            <InputText id="assignmentType" class="form-control" @bind-Value="courseAssignment.AssignmentType"/>
+        }
+
+
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string? AssignmentId { get; set; }
+
+    private CourseAssignment? courseAssignment = new CourseAssignment();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(AssignmentId))
+        {
+            courseAssignment = await CourseAssignmentService.GetCourseAssignmentByIdAsync(AssignmentId);
+        }
+    }
+
+    async Task HandleValidSubmit()
+    {
+        if (!string.IsNullOrWhiteSpace((AssignmentId)))
+        {
+            if (courseAssignment != null) await CourseAssignmentService.UpdateCourseAssignmentAsync(courseAssignment.AssignmentId, courseAssignment);
+        }
+        else
+        {
+            await CourseAssignmentService.AddCourseAssignmentAsync(courseAssignment);
+        }
+
+        NavigationManager.NavigateTo("/courseassignments");
+    }
+}

@@ -1,0 +1,67 @@
+﻿@page "/courseassignments"
+@using SchoolApp.Admin.Web.Models
+@using SchoolApp.Admin.Web.Services
+@inject CourseAssignmentService CourseAssignmentService
+@inject NavigationManager NavigationManager
+
+<h3>Course Assignments</h3>
+
+@if (courseAssignments == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="AddCourseAssignment">Add New Assignment</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Assignment ID</th>
+                <th>Course ID</th>
+                <th>Faculty ID</th>
+                <th>Assignment Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var assignment in courseAssignments)
+            {
+                <tr>
+                    <td>@assignment.AssignmentId</td>
+                    <td>@assignment.CourseId</td>
+                    <td>@assignment.FacultyId</td>
+                    <td>@assignment.AssignmentType</td>
+                    <td>
+                        <button class="btn btn-info" @onclick="() => EditAssignment(assignment.AssignmentId)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteAssignment(assignment.AssignmentId)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<CourseAssignment>? courseAssignments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        courseAssignments = await CourseAssignmentService.GetAllCourseAssignmentsAsync();
+    }
+
+    void AddCourseAssignment()
+    {
+        NavigationManager.NavigateTo("/courseassignment/add");
+    }
+
+    void EditAssignment(string assignmentId)
+    {
+        NavigationManager.NavigateTo($"/courseassignment/edit/{assignmentId}");
+    }
+
+    async Task DeleteAssignment(string assignmentId)
+    {
+        await CourseAssignmentService.DeleteCourseAssignmentAsync(assignmentId);
+        courseAssignments = await CourseAssignmentService.GetAllCourseAssignmentsAsync(); // Refresh the list
+    }
+}

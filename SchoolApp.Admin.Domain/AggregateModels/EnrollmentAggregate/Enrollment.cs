@@ -1,12 +1,11 @@
 ﻿
 namespace SchoolApp.Admin.Domain.AggregateModels.EnrollmentAggregate;
 
-public class Enrollment(string? studentId, string? courseId, DateOnly? enrollmentDate)
+public class Enrollment(string? studentId, string? courseId, DateOnly? enrollmentDate, string enrollmentId)
     : BaseEntity, IAggregateRoot
 {
 
-    [Column("EnrollmentID")]
-    public string EnrollmentId { get; set; } = Guid.NewGuid().ToString();
+    [Column("EnrollmentID")] public string EnrollmentId { get; set; } = enrollmentId;
 
     [Column("StudentID")]
     public string? StudentId { get; set; } = studentId;

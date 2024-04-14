@@ -4,11 +4,11 @@ namespace SchoolApp.Admin.WebAPI.Endpoints.Enrollment;
 
 public class CreateEnrollmentRequest : BaseRequest
 {
-    public int EnrollmentId { get; set; }
+    public string? EnrollmentId { get; set; }
 
-    public int? StudentId { get; set; }
+    public string? StudentId { get; set; }
 
-    public int? CourseId { get; set; }
+    public string? CourseId { get; set; }
 
     public DateOnly? EnrollmentDate { get; set; }
 }

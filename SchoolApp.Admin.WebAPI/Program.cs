@@ -1,7 +1,7 @@
 
 using Microsoft.AspNetCore.Identity;
-using SchoolApp.Admin.Infrastructure.Identity;
-using SchoolApp.Admin.WebAPI.Endpoints.AuthEndpoints;
+
+
 
 using SchoolApp.Admin.Services.Extensions;
 using SchoolApp.Admin.WebAPI;
@@ -12,40 +12,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.AddServiceDefaults();
-//builder.AddDefaultOpenApi();
+builder.AddDefaultOpenApi();
 builder.AddApplicationServices( null);
-builder.AddApplicationIdentity( null);
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppIdentityDbContext>()
-    .AddDefaultTokenProviders();
-builder.Services.AddCors();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
-//app.UseDefaultOpenApi();
+app.UseDefaultOpenApi();
 app.MapDefaultEndpoints();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection(); 
-//app.MapGroup("/api/v1")
-app.MapGroup("/")
+app.MapGroup("/api/v1/admin")
+    .WithTags("Admin API")
     .MapCourseEndpoints()
-.MapFacultyEndpoints()
-.MapCourseAssignmentEndpoints()
-.MapStudentEndpoints()
-.MapAuthEndpoints()
+    .MapFacultyEndpoints()
+    .MapCourseAssignmentEndpoints()
+    .MapStudentEndpoints()
+.MapEnrollmentEndpoints()
     .RequireAuthorization();
-//.MapEnrollmentEndpoints()
 
-app.UseCors(policyBuilder =>
-{
-    policyBuilder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:7114");
-});
 app.Run();

@@ -27,7 +27,7 @@ public class CourseQueries(AdminDbContext context) : ICourseQueries
 
     }
 
-    public async Task<IEnumerable<Course>> GetAllCourses()
+    public async Task<IEnumerable<Course>> GetAllCoursesAsync()
     {
         return await context.Courses.Where(c => c.Status.Equals(true))
             .Include(c => c.Enrollments)
@@ -38,11 +38,8 @@ public class CourseQueries(AdminDbContext context) : ICourseQueries
             CourseId = o.CourseId,
             Credits = o.Credits,
             CourseName = o.CourseName,
-            CourseAssignments = {},
             CourseCode = o.CourseCode,
             Description = o.Description,
-            Enrollments = { },
-            Students = {}
 
         }).ToListAsync();
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolApp.Admin.Application.Commands.Enrollment;
-public class CancelEnrollmentCommand
+public class CancelEnrollmentCommand:IRequest<bool>
 {
     public int EnrollmentNumber { get; set; }
 }

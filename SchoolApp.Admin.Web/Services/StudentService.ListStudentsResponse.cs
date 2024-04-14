@@ -1,4 +1,4 @@
-﻿using Admin.Web.Models;
+﻿using SchoolApp.Admin.Web.Models;
 
 namespace SchoolApp.Admin.Web.Services;
 

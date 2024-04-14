@@ -1,9 +1,9 @@
-﻿namespace Admin.Web.Models;
+﻿namespace SchoolApp.Admin.Web.Models;
 
 public class Faculty
 {
-    public int Id { get; set; }
-    public int FacultyId { get; set; }
+    public IEnumerable<CourseAssignment>? CourseAssignments { get; set; }
+    public string? FacultyId { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? Department { get; set; }

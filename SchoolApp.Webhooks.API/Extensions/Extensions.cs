@@ -1,6 +1,6 @@
 ﻿using Admin.ServiceDefaults;
 using Microsoft.Data.SqlClient;
-
+using SchoolApp.Webhooks.API.IntegrationEvents;
 
 
 internal static class Extensions
@@ -15,8 +15,9 @@ internal static class Extensions
             if (connectionString == null)
             {
                 SqlConnectionStringBuilder sqlBuilder = new();
-                sqlBuilder.DataSource = "FISKKROK\\SQLEXPRESS";
-                sqlBuilder.InitialCatalog = "SchoolSystem";
+            //sqlBuilder.DataSource = "localhost";
+            sqlBuilder.DataSource = "FISKKROK\\SQLEXPRESS";
+            sqlBuilder.InitialCatalog = "SchoolSystem";
                 sqlBuilder.TrustServerCertificate = true;
                 sqlBuilder.MultipleActiveResultSets = true;
                 sqlBuilder.IntegratedSecurity = true;
@@ -42,8 +43,8 @@ internal static class Extensions
 
     private static void AddEventBusSubscriptions(this IEventBusBuilder eventBus)
     {
-        //eventBus.AddSubscription<ProductPriceChangedIntegrationEvent, ProductPriceChangedIntegrationEventHandler>();
-        //eventBus.AddSubscription<OrderStatusChangedToShippedIntegrationEvent, OrderStatusChangedToShippedIntegrationEventHandler>();
-        //eventBus.AddSubscription<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
+        eventBus.AddSubscription<ProductPriceChangedIntegrationEvent, ProductPriceChangedIntegrationEventHandler>();
+        eventBus.AddSubscription<OrderStatusChangedToShippedIntegrationEvent, OrderStatusChangedToShippedIntegrationEventHandler>();
+        eventBus.AddSubscription<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
     }
 }

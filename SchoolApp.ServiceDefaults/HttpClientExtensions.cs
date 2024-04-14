@@ -48,5 +48,4 @@ public static class HttpClientExtensions
             return await base.SendAsync(request, cancellationToken);
         }
     }
-
 }

@@ -1,0 +1,62 @@
+﻿@page "/faculty/add"
+@page "/faculty/edit/{FacultyId:int}"
+@using SchoolApp.Admin.Web.Models
+@using SchoolApp.Admin.Web.Services
+
+@inject FacultyService FacultyService
+@inject NavigationManager NavigationManager
+
+<h3>Add/Edit Faculty</h3>
+
+<EditForm Model="@faculty" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="firstName">First Name:</label>
+        @if (faculty != null)
+        {
+            <InputText id="firstName" class="form-control" @bind-Value="faculty.FirstName"/>
+            @:</div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <InputText id="lastName" class="form-control" @bind-Value="faculty.LastName"/>
+            </div>
+            @:<div class="form-group">
+            <label for="department">Department:</label>
+            <InputText id="department" class="form-control" @bind-Value="faculty.Department"/>
+        }
+
+
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string? FacultyId { get; set; }
+
+    private Faculty? faculty = new Faculty();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(FacultyId))
+        {
+            faculty = await FacultyService.GetFacultyByIdAsync(FacultyId);
+        }
+    }
+
+    async Task HandleValidSubmit()
+    {
+        if (!string.IsNullOrWhiteSpace(FacultyId))
+        {
+            await FacultyService.UpdateFacultyAsync(faculty.FacultyId, faculty);
+        }
+        else
+        {
+            await FacultyService.AddFacultyAsync(faculty);
+        }
+
+        NavigationManager.NavigateTo("/faculties");
+    }
+}

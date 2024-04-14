@@ -10,14 +10,17 @@ public static class AuthenticationExtensions
         var services = builder.Services;
         var configuration = builder.Configuration;
 
-        // {
-        //   "Identity": {
-        //     "Url": "http://identity",
-        //     "Audience": "basket"
-        //    }
-        // }
+
+#pragma warning disable S125 // Sections of code should not be commented out
+                            // {
+                            //   "Identity": {
+                            //     "Url": "http://identity",
+                            //     "Audience": "basket"
+                            //    }
+                            // }
 
         var identitySection = configuration.GetSection("Identity");
+#pragma warning restore S125 // Sections of code should not be commented out
 
         if (!identitySection.Exists())
         {

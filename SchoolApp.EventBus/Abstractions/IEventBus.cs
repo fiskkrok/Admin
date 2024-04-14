@@ -1,4 +1,6 @@
-﻿namespace SchoolApp.EventBus.Abstractions;
+﻿using System.Threading.Tasks;
+
+namespace SchoolApp.EventBus.Abstractions;
 
 public interface IEventBus
 {

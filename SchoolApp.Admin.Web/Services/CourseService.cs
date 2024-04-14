@@ -1,48 +1,41 @@
-﻿using SchoolApp.Admin.Web.Services;
-
-namespace Admin.Web.Services;
+﻿namespace SchoolApp.Admin.Web.Services;
 
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 // Adjust the namespace to where your models are located
 using System.Collections.Generic;
-using Admin.Web.Models;
+using SchoolApp.Admin.Web.Models;
 
-public class CourseService
+public class CourseService(HttpClient httpClient)
 {
-    private readonly HttpClient _httpClient;
-    private readonly string? _serviceEndpoint;
+    private const string? ServiceEndpoint = "/api/v1/admin//Course";
 
 
-    public CourseService(HttpClient httpClient, IConfiguration config)
+    public async Task<List<Course>?> GetAllCoursesAsync()
     {
-        _httpClient = httpClient;
-        _serviceEndpoint = $"{config.GetValue<string>("BackendUrl")}/Course";
-    }
-    public async Task<IEnumerable<Course>?> GetAllCoursesAsync()
-    {
-        var response = await _httpClient.GetFromJsonAsync<ListCoursesResponse>(_serviceEndpoint);
-        return response?.Courses ?? Enumerable.Empty<Course>();
+
+        var courses = await httpClient.GetFromJsonAsync<List<Course>>(ServiceEndpoint);
+        return courses ?? [];
     }
 
     public async Task<Course?> GetCourseByIdAsync(int courseId)
     {
-        return await _httpClient.GetFromJsonAsync<Course>($"{_serviceEndpoint}{courseId}");
+        return await httpClient.GetFromJsonAsync<Course>($"{ServiceEndpoint}{courseId}");
     }
 
     public async Task<HttpResponseMessage> AddCourseAsync(Course? course)
     {
-        return await _httpClient.PostAsJsonAsync(_serviceEndpoint, course);
+        return await httpClient.PostAsJsonAsync(ServiceEndpoint, course);
     }
 
     public async Task<HttpResponseMessage> UpdateCourseAsync(int courseId, Course? course)
     {
-        return await _httpClient.PutAsJsonAsync($"{_serviceEndpoint}/{courseId}", course);
+        return await httpClient.PutAsJsonAsync($"{ServiceEndpoint}/{courseId}", course);
     }
 
     public async Task<HttpResponseMessage> DeleteCourseAsync(int courseId)
     {
-        return await _httpClient.DeleteAsync($"{_serviceEndpoint}/{courseId}");
+        return await httpClient.DeleteAsync($"{ServiceEndpoint}/{courseId}");
     }
 }

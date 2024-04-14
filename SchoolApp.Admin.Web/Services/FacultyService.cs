@@ -1,48 +1,40 @@
-﻿using Admin.Web.Models;
-using SchoolApp.Admin.Web.Services;
-
-namespace Admin.Web.Services;
+﻿namespace SchoolApp.Admin.Web.Services;
 
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-public class FacultyService
+using Models;
+
+public class FacultyService(HttpClient httpClient)
 {
-    private readonly HttpClient _httpClient;
-    private readonly string? _serviceEndpoint;
+    private const string ServiceEndpoint = "/api/v1/admin/Faculty";
 
 
-    public FacultyService(HttpClient httpClient, IConfiguration config)
+    public async Task<List<Faculty>?> GetAllFacultiesAsync()
     {
-        _httpClient = httpClient;
-        _serviceEndpoint = $"{config.GetValue<string>("BackendUrl")}/Faculty";
+        var faculties = await httpClient.GetFromJsonAsync<List<Faculty>>(ServiceEndpoint);
+        return faculties ?? [];
     }
 
-    public async Task<IEnumerable<Faculty>?> GetAllFacultiesAsync()
+    public async Task<Faculty?> GetFacultyByIdAsync(string facultyId)
     {
-        var response = await _httpClient.GetFromJsonAsync<ListFacultiesResponse>(_serviceEndpoint);
-        return response?.Faculties ?? Enumerable.Empty<Faculty>();
-    }
-
-    public async Task<Faculty?> GetFacultyByIdAsync(int facultyId)
-    {
-        return await _httpClient.GetFromJsonAsync<Faculty>($"{_serviceEndpoint}/{facultyId}");
+        return await httpClient.GetFromJsonAsync<Faculty>($"{ServiceEndpoint}/{facultyId}");
     }
 
     public async Task<HttpResponseMessage> AddFacultyAsync(Faculty? faculty)
     {
-        return await _httpClient.PostAsJsonAsync(_serviceEndpoint, faculty);
+        return await httpClient.PostAsJsonAsync(ServiceEndpoint, faculty);
     }
 
-    public async Task<HttpResponseMessage> UpdateFacultyAsync(int facultyId, Faculty? faculty)
+    public async Task<HttpResponseMessage> UpdateFacultyAsync(string facultyId, Faculty? faculty)
     {
-        return await _httpClient.PutAsJsonAsync($"{_serviceEndpoint}/{facultyId}", faculty);
+        return await httpClient.PutAsJsonAsync($"{ServiceEndpoint}/{facultyId}", faculty);
     }
 
-    public async Task<HttpResponseMessage> DeleteFacultyAsync(int facultyId)
+    public async Task<HttpResponseMessage> DeleteFacultyAsync(string facultyId)
     {
-        return await _httpClient.DeleteAsync($"{_serviceEndpoint}/{facultyId}");
+        return await httpClient.DeleteAsync($"{ServiceEndpoint}/{facultyId}");
     }
 }

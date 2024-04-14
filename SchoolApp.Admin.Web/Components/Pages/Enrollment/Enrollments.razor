@@ -1,0 +1,68 @@
+﻿@page "/enrollments"
+@using SchoolApp.Admin.Web.Models
+@using SchoolApp.Admin.Web.Services
+
+@inject EnrollmentService EnrollmentService
+@inject NavigationManager NavigationManager
+
+<h3>Enrollments</h3>
+
+@if (_enrollments == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="AddEnrollment">Add New Enrollment</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Enrollment ID</th>
+            <th>Student ID</th>
+            <th>Course ID</th>
+            <th>Enrollment Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var enrollment in _enrollments)
+        {
+            <tr>
+                <td>@enrollment.EnrollmentId</td>
+                <td>@enrollment.StudentId</td>
+                <td>@enrollment.CourseId</td>
+                <td>@enrollment.EnrollmentDate?.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <button class="btn btn-info" @onclick="() => EditEnrollment(enrollment.EnrollmentId)">Edit</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteEnrollment(enrollment.EnrollmentId)">Delete</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Enrollment>? _enrollments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _enrollments = await EnrollmentService.GetAllEnrollmentsAsync();
+    }
+
+    void AddEnrollment()
+    {
+        NavigationManager.NavigateTo("/enrollment/add");
+    }
+
+    void EditEnrollment(string? enrollmentId)
+    {
+        NavigationManager.NavigateTo($"/enrollment/edit/{enrollmentId}");
+    }
+
+    async Task DeleteEnrollment(string? enrollmentId)
+    {
+        await EnrollmentService.DeleteEnrollmentAsync(enrollmentId);
+        _enrollments = await EnrollmentService.GetAllEnrollmentsAsync(); // Refresh the list
+    }
+}

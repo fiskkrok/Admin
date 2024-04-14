@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/Teacher/" />
+  <Folder Name="/Student/" />
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/SchoolApp/">
+    <Project Path="SchoolApp.AppHost\SchoolApp.AppHost.csproj" />
+    <Project Path="SchoolApp.EventBusRabbitMQ\SchoolApp.EventBusRabbitMQ.csproj" />
+    <Project Path="SchoolApp.EventBus\SchoolApp.EventBus.csproj" />
+    <Project Path="SchoolApp.IntegrationEventLogEF\SchoolApp.IntegrationEventLogEF.csproj" />
+    <Project Path="SchoolApp.ServiceDefaults\SchoolApp.ServiceDefaults.csproj" />
+    <Project Path="SchoolApp.Shared\SchoolApp.Shared.csproj" />
+    <Project Path="SchoolApp.Webhook.Web\SchoolApp.Webhook.Web.csproj" />
+    <Project Path="SchoolApp.Webhooks.API\SchoolApp.Webhooks.API.csproj" />
+  </Folder>
+  <Folder Name="/Admin/">
+    <Project Path="SchoolApp.Admin.Application\SchoolApp.Admin.Application.csproj" />
+    <Project Path="SchoolApp.Admin.Domain\SchoolApp.Admin.Domain.csproj" />
+    <Project Path="SchoolApp.Admin.Infrastructure\SchoolApp.Admin.Infrastructure.csproj" />
+    <Project Path="SchoolApp.Admin.Services\SchoolApp.Admin.Services.csproj" />
+    <Project Path="SchoolApp.Admin.WebAPI\SchoolApp.Admin.WebAPI.csproj" />
+    <Project Path="SchoolApp.Admin.Web\SchoolApp.Admin.Web.csproj" />
+  </Folder>
+</Solution>

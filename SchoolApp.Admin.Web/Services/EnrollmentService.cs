@@ -1,49 +1,41 @@
-﻿using SchoolApp.Admin.Web.Services;
-
-namespace Admin.Web.Services;
+﻿namespace SchoolApp.Admin.Web.Services;
 
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Models; // Ensure this matches the namespace of your models
 using System.Collections.Generic;
+using SchoolApp.Admin.Web.Models;
 
-public class EnrollmentService
+public class EnrollmentService(HttpClient httpClient)
 {
-    private readonly HttpClient _httpClient;
-    private readonly string? _serviceEndpoint;
+    private const string ServiceEndpoint = "/api/v1/admin/Enrollment";
 
 
-    public EnrollmentService(HttpClient httpClient, IConfiguration config)
+    public async Task<List<Enrollment>?> GetAllEnrollmentsAsync()
     {
-        _httpClient = httpClient;
-        _serviceEndpoint = $"{config.GetValue<string>("BackendUrl")}/Enrollment";
+        var enrollments = await httpClient.GetFromJsonAsync<List<Enrollment>>(ServiceEndpoint);
+        return enrollments ?? [];
     }
 
-    public async Task<IEnumerable<Enrollment>?> GetAllEnrollmentsAsync()
+    public async Task<Enrollment?> GetEnrollmentByIdAsync(string enrollmentId)
     {
-        var response = await _httpClient.GetFromJsonAsync<ListEnrollmentsResponse>(_serviceEndpoint);
-        return response?.Enrollments ?? Enumerable.Empty<Enrollment>();
-    }
-
-    public async Task<Enrollment?> GetEnrollmentByIdAsync(int enrollmentId)
-    {
-        return await _httpClient.GetFromJsonAsync<Enrollment>($"{_serviceEndpoint}/{enrollmentId}");
+        return await httpClient.GetFromJsonAsync<Enrollment>($"{ServiceEndpoint}/{enrollmentId}");
     }
 
     public async Task<HttpResponseMessage> AddEnrollmentAsync(Enrollment? enrollment)
     {
-        return await _httpClient.PostAsJsonAsync(_serviceEndpoint, enrollment);
+        return await httpClient.PostAsJsonAsync(ServiceEndpoint, enrollment);
     }
 
-    public async Task<HttpResponseMessage> UpdateEnrollmentAsync(int enrollmentId, Enrollment? enrollment)
+    public async Task<HttpResponseMessage> UpdateEnrollmentAsync(string enrollmentId, Enrollment? enrollment)
     {
-        return await _httpClient.PutAsJsonAsync($"{_serviceEndpoint}/{enrollmentId}", enrollment);
+        return await httpClient.PutAsJsonAsync($"{ServiceEndpoint}/{enrollmentId}", enrollment);
     }
 
-    public async Task<HttpResponseMessage> DeleteEnrollmentAsync(int enrollmentId)
+    public async Task<HttpResponseMessage> DeleteEnrollmentAsync(string? enrollmentId)
     {
-        return await _httpClient.DeleteAsync($"{_serviceEndpoint}/{enrollmentId}");
+        return await httpClient.DeleteAsync($"{ServiceEndpoint}/{enrollmentId}");
     }
 }
 

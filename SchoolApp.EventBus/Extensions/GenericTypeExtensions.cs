@@ -1,4 +1,7 @@
-﻿namespace SchoolApp.EventBus.Extensions;
+﻿using System;
+using System.Linq;
+
+namespace SchoolApp.EventBus.Extensions;
 
 public static class GenericTypeExtensions
 {

@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
 
+using Polly;
+
 public class RabbitMQEventBus(
     ILogger<RabbitMQEventBus> logger,
     IServiceProvider serviceProvider,
@@ -242,6 +244,7 @@ public class RabbitMQEventBus(
                 _rabbitMQConnection = serviceProvider.GetRequiredService<IConnection>();
                 if (!_rabbitMQConnection.IsOpen)
                 {
+                    logger.LogError("Unable to open RabbitMQ connection");
                     return;
                 }
 

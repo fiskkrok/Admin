@@ -6,20 +6,23 @@ namespace Microsoft.Extensions.Hosting;
 
 public static class RabbitMqDependencyInjectionExtensions
 {
-    // {
-    //   "EventBus": {
-    //     "SubscriptionClientName": "...",
-    //     "RetryCount": 10
-    //   }
-    // }
+
+#pragma warning disable S125 // Sections of code should not be commented out
+                            // {
+                            //   "EventBus": {
+                            //     "SubscriptionClientName": "...",
+                            //     "RetryCount": 10
+                            //   }
+                            // }
 
     private const string SectionName = "EventBus";
+#pragma warning restore S125 // Sections of code should not be commented out
 
     public static IEventBusBuilder AddRabbitMqEventBus(this IHostApplicationBuilder builder, string connectionName)
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.AddRabbitMQ(connectionName, configureConnectionFactory: factory =>
+        builder.AddRabbitMQClient(connectionName, configureConnectionFactory: factory =>
         {
             ((ConnectionFactory)factory).DispatchConsumersAsync = true;
         });

@@ -8,15 +8,15 @@ namespace SchoolApp.Admin.Application.Commands.CourseAssignment;
 public class CreateCourseAssignmentCommand:IRequest<bool>
 {
     [DataMember] 
-    public int AssignmentId { get; set; }
+    public string AssignmentId { get; set; }
     [DataMember]
-    public int? FacultyId { get; set; }
+    public string FacultyId { get; set; }
     [DataMember]
-    public int? CourseId { get; set; }
+    public string CourseId { get; set; }
     [DataMember]
     public string? AssignmentType { get; set; }
 
-    public CreateCourseAssignmentCommand(int assignmentId, int facultyId, string assignmentType, int courseId)
+    public CreateCourseAssignmentCommand(string assignmentId, string facultyId, string assignmentType, string courseId)
     {
         AssignmentId = assignmentId;
         FacultyId = facultyId;

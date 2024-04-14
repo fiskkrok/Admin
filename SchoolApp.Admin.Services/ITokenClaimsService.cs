@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Microsoft.eShopWeb.ApplicationCore.Interfaces;
+namespace SchoolApp.Admin.Services;
 
 public interface ITokenClaimsService
 {

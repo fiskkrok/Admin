@@ -2,7 +2,7 @@
 using Admin.Application.Commands;
 using Admin.ServiceDefaults;
 using FluentValidation;
-using SchoolApp.Admin.Services.IntegrationEvents.EventHandling;
+
 
 using Microsoft.Data.SqlClient; // SqlConnectionStringBuilder
 // UseSqlServer
@@ -15,6 +15,8 @@ using SchoolApp.Admin.Application.Commands.CourseAssignment;
 using SchoolApp.Admin.Application.Commands.Enrollment;
 using SchoolApp.Admin.Application.Commands.Faculty;
 using SchoolApp.Admin.Application.Commands.Student;
+using SchoolApp.Admin.Application.IntegrationEvents;
+
 using SchoolApp.Admin.Application.Queries.CourseAssignments;
 using SchoolApp.Admin.Application.Queries.Courses;
 using SchoolApp.Admin.Application.Queries.CoursesAssignment;
@@ -26,10 +28,11 @@ using SchoolApp.Admin.Domain.SeedWork;
 using SchoolApp.Admin.Infrastructure;
 using SchoolApp.Admin.Infrastructure.Idempotency;
 using SchoolApp.Admin.Infrastructure.Repositories;
-using SchoolApp.Admin.Services.IntegrationEvents;
+using SchoolApp.Admin.Services.Services;
 using SchoolApp.IntegrationEventLogEF.Services; // IServiceCollection
 
 namespace SchoolApp.Admin.Services.Extensions;
+
 public static class Extensions
 {
     public static void AddApplicationServices(this IHostApplicationBuilder builder,
@@ -37,41 +40,44 @@ public static class Extensions
     {
         var services = builder.Services;
         builder.AddDefaultAuthentication();
-                if (connectionString == null)
-                {
-                    SqlConnectionStringBuilder sqlBuilder = new();
-                    sqlBuilder.DataSource = "FISKKROK\\SQLEXPRESS";
-                    sqlBuilder.InitialCatalog = "AdminSystem";
-                    sqlBuilder.TrustServerCertificate = true;
-                    sqlBuilder.MultipleActiveResultSets = true;
-                    sqlBuilder.IntegratedSecurity = true;
-                    connectionString = sqlBuilder.ConnectionString;
-                }
+        if (connectionString == null)
+        {
+            SqlConnectionStringBuilder sqlBuilder = new();
+            sqlBuilder.DataSource = "FISKKROK\\SQLEXPRESS";
+            //sqlBuilder.DataSource = "localhost";
+            sqlBuilder.InitialCatalog = "AdminSystem";
+            sqlBuilder.TrustServerCertificate = true;
+            sqlBuilder.MultipleActiveResultSets = true;
+            sqlBuilder.IntegratedSecurity = true;
+            connectionString = sqlBuilder.ConnectionString;
+        }
 
-                builder.Services.AddDbContext<AdminDbContext>(options =>
+        builder.Services.AddDbContext<AdminDbContext>(options =>
+        {
+            options.UseSqlServer(connectionString)
+                .EnableSensitiveDataLogging();
+            // Log to console when executing EF Core commands.
+            options.LogTo(Console.WriteLine,
+                new[]
                 {
-                    options.UseSqlServer(connectionString)
-                        .EnableSensitiveDataLogging();
-                    // Log to console when executing EF Core commands.
-                    options.LogTo(Console.WriteLine,
-                        new[]
-                        {
-                            Microsoft.EntityFrameworkCore
-                                .Diagnostics.RelationalEventId.CommandExecuting
-                        });
+                    Microsoft.EntityFrameworkCore
+                        .Diagnostics.RelationalEventId.CommandExecuting
                 });
+        });
         // Uncomment för att köra migrations
         builder.Services.AddMigration<AdminDbContext, AdminDbContextSeed>();
         builder.Services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService<AdminDbContext>>();
         builder.Services.AddTransient<IAdminIntegrationEventService, AdminIntegrationEventService>();
         services.AddHttpContextAccessor();
+        services.AddTransient<IIdentityService, IdentityService>();
+        builder.AddRabbitMqEventBus("eventbus").AddEventBusSubscriptions();
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining(typeof(Program));
 
             cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
             cfg.AddOpenBehavior(typeof(ValidatorBehavior<,>));
-            //cfg.AddOpenBehavior(typeof(TransactionBehavior<,>));
+            cfg.AddOpenBehavior(typeof(TransactionBehavior<,>));
         });
         services.AddSingleton<IValidator<CancelEnrollmentCommand>, CancelEnrollmentCommandValidator>();
         services.AddSingleton<IValidator<DeleteStudentCommand>, DeleteStudentCommandValidator>();
@@ -95,19 +101,16 @@ public static class Extensions
         services.AddScoped<IFacultyRepository, FacultyRepository>();
         services.AddScoped<IStudentRepository, StudentRepository>();
         services.AddScoped<IRequestManager, RequestManager>();
-        builder.AddRabbitMqEventBus("eventbus").AddEventBusSubscriptions();
 
 
 
-        builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-        builder.Services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+        //builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+        //builder.Services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
 
     }
-        private static void AddEventBusSubscriptions(this IEventBusBuilder eventBus)
-        {
-            eventBus
-                .AddSubscription<OrderStatusChangedToAwaitingValidationIntegrationEvent,
-                    OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
-        eventBus.AddSubscription<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
+
+    private static void AddEventBusSubscriptions(this IEventBusBuilder eventBus)
+    {
+
     }
 }

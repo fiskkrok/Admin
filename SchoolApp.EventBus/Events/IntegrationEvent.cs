@@ -1,4 +1,6 @@
-﻿namespace SchoolApp.EventBus.Events;
+﻿using System;
+
+namespace SchoolApp.EventBus.Events;
 
 public record IntegrationEvent
 {

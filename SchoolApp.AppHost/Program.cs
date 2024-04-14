@@ -1,37 +1,64 @@
+
+
 using SchoolApp.AppHost;
+
+using static System.Net.WebRequestMethods;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddForwardedHeaders();
 //var redis = builder.AddRedis("redis");
-//    .WithReference(redis)
 var rabbitMq = builder.AddRabbitMQ("eventbus");
 var sqlserver = builder.AddSqlServer("sqlserver");
-
+var webhooksDb = sqlserver.AddDatabase("webhooksdb");
 var adminDb = sqlserver.AddDatabase("adminDb");
 var identityDb = sqlserver.AddDatabase("identityDb");
-var webhooksDb = sqlserver.AddDatabase("webhooksdb");
 
+
+var launchProfileName = ShouldUseHttpForEndpoints() ? "http" : "https";
 // Services
+var identityApi = builder.AddProject<Projects.SchoolApp_Identity_API>("identity-api", launchProfileName)
+    .WithReference(identityDb);
+var identityEndpoint = identityApi.GetEndpoint(launchProfileName);
 
 var adminApi = builder.AddProject<Projects.SchoolApp_Admin_WebAPI>("admin-webapi")
+    //.WithReference(redis)
     .WithReference(adminDb)
-    .WithReference(identityDb)
-    .WithLaunchProfile("http");
+    .WithReference(rabbitMq)
+    .WithEnvironment("Identity__Url", identityEndpoint);
+
 var webHooksApi = builder.AddProject<Projects.SchoolApp_Webhooks_API>("webhooks-api")
     .WithReference(rabbitMq)
     .WithReference(webhooksDb)
-    .WithLaunchProfile("http");
+    .WithEnvironment("Identity__Url", identityEndpoint);
+
+//apps
 var webhooksClient = builder.AddProject<Projects.SchoolApp_Webhook_Web>("webhooksclient")
     .WithReference(webHooksApi)
-    .WithLaunchProfile("https");
-var adminWeb = builder.AddProject<Projects.SchoolApp_Admin_Web>("admin-web")
+    .WithEnvironment("IdentityUrl", identityEndpoint);
+
+var adminWeb = builder.AddProject<Projects.SchoolApp_Admin_Web>("webapp", launchProfileName)
     .WithReference(rabbitMq)
     .WithReference(adminApi)
-    .WithLaunchProfile("https");
-webhooksClient.WithEnvironment("CallBackUrl", webhooksClient.GetEndpoint("https"));
-adminWeb.WithEnvironment("CallBackUrl", adminWeb.GetEndpoint("https"));
+    .WithEnvironment("IdentityUrl", launchProfileName);
 
 
+
+webhooksClient.WithEnvironment("CallBackUrl", webhooksClient.GetEndpoint(launchProfileName));
+adminWeb.WithEnvironment("CallBackUrl", adminWeb.GetEndpoint(launchProfileName));
+
+
+identityApi.WithEnvironment("AdminApiClient", adminApi.GetEndpoint(launchProfileName))
+    .WithEnvironment("WebhooksApiClient", webHooksApi.GetEndpoint(launchProfileName))
+    .WithEnvironment("WebhooksWebClient", webhooksClient.GetEndpoint(launchProfileName))
+    .WithEnvironment("WebAppClient", adminWeb.GetEndpoint(launchProfileName));
 builder.Build().Run();
 
+static bool ShouldUseHttpForEndpoints()
+{
+    const string EnvVarName = "SchoolApp_USE_HTTP_ENDPOINTS";
+    var envValue = Environment.GetEnvironmentVariable(EnvVarName);
+
+    // Attempt to parse the environment variable value; return true if it's exactly "1".
+    return int.TryParse(envValue, out int result) && result == 1;
+}

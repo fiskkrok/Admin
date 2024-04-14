@@ -18,13 +18,13 @@ public static partial class Extensions
 
         builder.Services.AddServiceDiscovery();
 
-        builder.Services.ConfigureHttpClientDefaults(http =>
+        builder.Services.ConfigureHttpClientDefaults(https =>
         {
             // Turn on resilience by default
-            http.AddStandardResilienceHandler();
+            https.AddStandardResilienceHandler();
 
             // Turn on service discovery by default
-            http.UseServiceDiscovery();
+            https.Services.AddServiceDiscovery();
         });
 
         return builder;
@@ -57,8 +57,9 @@ public static partial class Extensions
         builder.Services.AddOpenTelemetry()
             .WithMetrics(metrics =>
             {
-                metrics.AddRuntimeInstrumentation()
-                       .AddBuiltInMeters();
+                metrics.AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation();
             })
             .WithTracing(tracing =>
             {
@@ -69,7 +70,6 @@ public static partial class Extensions
                 }
 
                 tracing.AddAspNetCoreInstrumentation()
-                       .AddGrpcClientInstrumentation()
                        .AddHttpClientInstrumentation();
             });
 
@@ -100,11 +100,6 @@ public static partial class Extensions
         return builder;
     }
 
-    private static MeterProviderBuilder AddBuiltInMeters(this MeterProviderBuilder meterProviderBuilder) =>
-        meterProviderBuilder.AddMeter(
-            "Microsoft.AspNetCore.Hosting",
-            "Microsoft.AspNetCore.Server.Kestrel",
-            "System.Net.Http");
 
     public static IHostApplicationBuilder AddDefaultHealthChecks(this IHostApplicationBuilder builder)
     {

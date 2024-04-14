@@ -53,8 +53,7 @@ public class Student : BaseEntity, IAggregateRoot
     // Parameterless constructor for EF and deserialization
     public Student()
     {
-        //_enrollment = new List<Enrollment>();
-        //  // Initialize Address with default non-null values
+
         Address = new Address("123 Main St", "Anytown", "WA", "USA", "12345");
 
     }

@@ -28,14 +28,14 @@ public static class StudentEndpoints
         return app;
     }
 
-    public static async Task<Ok<IEnumerable<Application.Queries.Students.Student>>> GetAllStudentsAsync([FromServices] StudentServices services)
+    public static async Task<Ok<IEnumerable<Application.Queries.Students.Student>>> GetAllStudentsAsync([AsParameters] StudentServices services)
     {
         var students = await services.Queries.GetAllStudentsAsync();
         return TypedResults.Ok(students);
 
     }
 
-    public static async Task<Results<Ok<Application.Queries.Students.Student>, NotFound<string>>> GetStudentByIdAsync(int studentId, [FromServices] StudentServices services)
+    public static async Task<Results<Ok<Application.Queries.Students.Student>, NotFound<string>>> GetStudentByIdAsync(int studentId, [AsParameters] StudentServices services)
     {
         services.Logger.LogInformation("Fetching student with ID {StudentId}", studentId);
 
@@ -44,7 +44,7 @@ public static class StudentEndpoints
     }
 
     public static async Task<Results<Ok, BadRequest<string>>> CreateStudentAsync(
-       [FromBody] CreateStudentRequest request, [FromHeader(Name = "x-requestid")] Guid requestId, [FromServices] StudentServices services)
+       [FromBody] CreateStudentRequest request, [FromHeader(Name = "x-requestid")] Guid requestId, [AsParameters] StudentServices services)
     {
         if (requestId == Guid.Empty)
         {
@@ -90,7 +90,7 @@ public static class StudentEndpoints
     }
 
     public static async Task<Results<Ok, NotFound>> DeleteStudentAsync(int studentId,
-        [FromHeader(Name = "x-requestid")] Guid requestId, [FromServices] StudentServices services)
+        [FromHeader(Name = "x-requestid")] Guid requestId, [AsParameters] StudentServices services)
     {
         var command = new DeleteStudentCommand(studentId);
         var success = await services.Mediator.Send(new IdentifiedCommand<DeleteStudentCommand ,bool>(command, requestId));

@@ -25,15 +25,16 @@ public static class CourseEndpoints
     {
         try
         {
-            var courses = await services.Queries.GetAllCourses();
-
+            var courses = await services.Queries.GetAllCoursesAsync();
         services.Logger.LogInformation("Fetching all courses");
         return TypedResults.Ok(courses);
+
         }
-        catch
+        catch 
         {
-            return TypedResults.NotFound();
+           return TypedResults.NotFound();
         }
+
 
     }
 
@@ -52,7 +53,8 @@ public static class CourseEndpoints
 
 
     public static async Task<Results<Ok, BadRequest<string>>> CreateCourseAsync(
-        [FromHeader(Name = "x-requestid")] Guid requestId, CreateCourseRequest request,
+        [FromHeader(Name = "x-requestid")] Guid requestId, [FromBody]CreateCourseRequest request
+        ,
         [AsParameters] CourseServices services)
     {
         services.Logger.LogInformation(
@@ -100,7 +102,7 @@ public static class CourseEndpoints
 
     public static async Task<Results<Ok, NotFound, BadRequest<string>>> UpdateCourseAsync(
         [FromHeader(Name = "x-requestid")] Guid requestId,
-        UpdateCourseRequest request,
+        [FromBody]UpdateCourseRequest request,
         [AsParameters] CourseServices services)
     {
         services.Logger.LogInformation("Attempting to update course with ID {requestId}", requestId);

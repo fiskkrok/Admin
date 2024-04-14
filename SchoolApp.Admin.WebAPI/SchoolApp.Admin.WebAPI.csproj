@@ -4,7 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>063626e4-0f51-4fc1-ad2b-0d1ebe6e8d6a</UserSecretsId>
+	  <UserSecretsId>7161b768-033d-41c7-bc5d-37528275e1f3</UserSecretsId>
 	  </PropertyGroup>
 
   <ItemGroup>
@@ -16,22 +16,20 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="FastEndpoints" Version="5.23.0.9-beta" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.0-preview.2.24128.4" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0-preview.2.24128.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.2.24128.4">
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.0-preview.3.24172.13" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0-preview.3.24172.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.3.24172.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-	    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
-	    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.2.24128.4" />
-	    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0-preview.2.24128.4" />
-	    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0-preview.2.24128.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.2.24128.4">
+	    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.0-preview.3.24172.13" />
+	    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0-preview.3.24172.13" />
+	    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0-preview.3.24172.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.3.24172.4">
 	    <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0-preview.2.24158.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0-preview.3.24207.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 </ItemGroup>
 
