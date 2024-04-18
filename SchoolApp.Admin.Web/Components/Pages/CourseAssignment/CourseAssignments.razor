@@ -3,7 +3,7 @@
 @using SchoolApp.Admin.Web.Services
 @inject CourseAssignmentService CourseAssignmentService
 @inject NavigationManager NavigationManager
-
+@attribute [StreamRendering]
 <h3>Course Assignments</h3>
 
 @if (courseAssignments == null)

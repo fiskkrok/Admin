@@ -1,14 +1,16 @@
 
 
+using System;
 using SchoolApp.AppHost;
-
-using static System.Net.WebRequestMethods;
+using Microsoft.Extensions.Configuration;
+using System.Xml.Linq;
+using Aspire.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddForwardedHeaders();
 //var redis = builder.AddRedis("redis");
-var rabbitMq = builder.AddRabbitMQ("eventbus");
+var rabbitMq = builder.AddRabbitMQ("eventbus").WithManagementPlugin();
 var sqlserver = builder.AddSqlServer("sqlserver");
 var webhooksDb = sqlserver.AddDatabase("webhooksdb");
 var adminDb = sqlserver.AddDatabase("adminDb");

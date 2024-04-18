@@ -1,6 +1,7 @@
 using SchoolApp.Admin.Web.Components;
 using SchoolApp.Admin.Web.Extensions;
 using SchoolApp.Admin.Web.Services;
+using SchoolApp.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.AddApplicationServices();
 
 
 var app = builder.Build();
-
+app.MapDefaultEndpoints();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

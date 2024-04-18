@@ -1,4 +1,5 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Microsoft.AspNetCore.Components.Endpoints
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">SchoolApp.Admin.Web</a>
     </div>
@@ -38,7 +39,20 @@
             <NavLink class="nav-link" href="students">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Students
             </NavLink>
+        </div> 
+        <div class="nav-item px-3">
+            <nav>
+                <UserMenu/>
+            </nav>
         </div>
     </nav>
 </div>
 
+@code {
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+
+    // We can use Endpoint Metadata to determine the page currently being visited
+    private Type? PageComponentType => HttpContext?.GetEndpoint()?.Metadata.OfType<ComponentTypeMetadata>().FirstOrDefault()?.Type;
+  
+}

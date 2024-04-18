@@ -16,7 +16,7 @@ public static class Extensions
         builder.Services.AddSingleton<HooksRepository>();
 
         // HTTP client registrations
-        builder.Services.AddHttpClient<WebhooksClient>(o => o.BaseAddress = new("http://webhooks-api"))
+        builder.Services.AddHttpClient<WebhooksClient>(o => o.BaseAddress = new("http://localhost:5227"))
             .AddAuthToken();
     }
 

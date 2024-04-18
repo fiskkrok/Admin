@@ -16,21 +16,17 @@ public static class Extensions
 
         builder.AddRabbitMqEventBus("EventBus")
             .AddEventBusSubscriptions();
+       
+        //builder.Services.AddHttpForwarderWithServiceDiscovery();
 
-        builder.Services.AddHttpForwarderWithServiceDiscovery();
-
-        // Application services
-        //builder.Services.AddScoped(sp =>
-        //    new HttpClient { BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:5002") });
+        
         builder.Services.AddScoped<LogOutService>();
-        builder.Services.AddHttpClient<CourseService>(o => o.BaseAddress = new("http://admin-webapi")).AddAuthToken();
-        builder.Services.AddHttpClient<StudentService>(o => o.BaseAddress = new("http://admin-webapi")).AddAuthToken();
-        builder.Services.AddHttpClient<FacultyService>(o => o.BaseAddress = new("http://admin-webapi")).AddAuthToken();
-        builder.Services.AddHttpClient<CourseAssignmentService>(o => o.BaseAddress = new("http://admin-webapi")).AddAuthToken();
-        builder.Services.AddHttpClient<EnrollmentService>(o => o.BaseAddress = new("http://admin-webapi")).AddAuthToken();
+        builder.Services.AddHttpClient<CourseService>(o => o.BaseAddress = new("https://admin-webapi/")).AddAuthToken();
+        builder.Services.AddHttpClient<StudentService>(o => o.BaseAddress = new("https://admin-webapi/")).AddAuthToken();
+        builder.Services.AddHttpClient<FacultyService>(o => o.BaseAddress = new("https://admin-webapi/")).AddAuthToken();
+        builder.Services.AddHttpClient<CourseAssignmentService>(o => o.BaseAddress = new("https://admin-webapi/")).AddAuthToken();
+        builder.Services.AddHttpClient<EnrollmentService>(o => o.BaseAddress = new("https://admin-webapi/")).AddAuthToken();
 
-
-        // HTTP and GRPC client registrations
 
 
         //builder.Services.AddHttpClient<CatalogService>(o => o.BaseAddress = new("http://catalog-api"))
