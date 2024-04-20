@@ -289,3 +289,16 @@ h1:focus {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+    .table {
+        display: block;
+        color: aliceblue;
+    }
+
+    .pages-banner {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+
+    }

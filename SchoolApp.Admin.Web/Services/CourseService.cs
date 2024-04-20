@@ -9,33 +9,33 @@ using SchoolApp.Admin.Web.Models;
 
 public class CourseService(HttpClient httpClient)
 {
-    private const string? ServiceEndpoint = "/api/v1/admin//Course";
+    private readonly string remoteServiceBaseUrl = "/api/v1/admin/Course";
 
 
     public async Task<List<Course>?> GetAllCoursesAsync()
     {
 
-        var courses = await httpClient.GetFromJsonAsync<List<Course>>(ServiceEndpoint);
+        var courses = await httpClient.GetFromJsonAsync<List<Course>>(remoteServiceBaseUrl);
         return courses ?? [];
     }
 
     public async Task<Course?> GetCourseByIdAsync(int courseId)
     {
-        return await httpClient.GetFromJsonAsync<Course>($"{ServiceEndpoint}{courseId}");
+        return await httpClient.GetFromJsonAsync<Course>($"{remoteServiceBaseUrl}{courseId}");
     }
 
     public async Task<HttpResponseMessage> AddCourseAsync(Course? course)
     {
-        return await httpClient.PostAsJsonAsync(ServiceEndpoint, course);
+        return await httpClient.PostAsJsonAsync(remoteServiceBaseUrl, course);
     }
 
     public async Task<HttpResponseMessage> UpdateCourseAsync(int courseId, Course? course)
     {
-        return await httpClient.PutAsJsonAsync($"{ServiceEndpoint}/{courseId}", course);
+        return await httpClient.PutAsJsonAsync($"{remoteServiceBaseUrl}/{courseId}", course);
     }
 
     public async Task<HttpResponseMessage> DeleteCourseAsync(int courseId)
     {
-        return await httpClient.DeleteAsync($"{ServiceEndpoint}/{courseId}");
+        return await httpClient.DeleteAsync($"{remoteServiceBaseUrl}/{courseId}");
     }
 }

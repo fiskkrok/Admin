@@ -37,6 +37,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77A41AAE-7976-46D5-8EF9-4A093272AF73}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolApp.EventBusRabbitMQ", "SchoolApp.EventBusRabbitMQ\SchoolApp.EventBusRabbitMQ.csproj", "{AFC7BD44-4582-4EE6-97D5-847CC42CA401}"

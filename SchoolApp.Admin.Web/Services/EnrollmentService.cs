@@ -9,33 +9,33 @@ using SchoolApp.Admin.Web.Models;
 
 public class EnrollmentService(HttpClient httpClient)
 {
-    private const string ServiceEndpoint = "/api/v1/admin/Enrollment";
+    private const string remoteServiceBaseUrl = "/api/v1/admin/Enrollment";
 
 
     public async Task<List<Enrollment>?> GetAllEnrollmentsAsync()
     {
-        var enrollments = await httpClient.GetFromJsonAsync<List<Enrollment>>(ServiceEndpoint);
+        var enrollments = await httpClient.GetFromJsonAsync<List<Enrollment>>(remoteServiceBaseUrl);
         return enrollments ?? [];
     }
 
     public async Task<Enrollment?> GetEnrollmentByIdAsync(string enrollmentId)
     {
-        return await httpClient.GetFromJsonAsync<Enrollment>($"{ServiceEndpoint}/{enrollmentId}");
+        return await httpClient.GetFromJsonAsync<Enrollment>($"{remoteServiceBaseUrl}/{enrollmentId}");
     }
 
     public async Task<HttpResponseMessage> AddEnrollmentAsync(Enrollment? enrollment)
     {
-        return await httpClient.PostAsJsonAsync(ServiceEndpoint, enrollment);
+        return await httpClient.PostAsJsonAsync(remoteServiceBaseUrl, enrollment);
     }
 
     public async Task<HttpResponseMessage> UpdateEnrollmentAsync(string enrollmentId, Enrollment? enrollment)
     {
-        return await httpClient.PutAsJsonAsync($"{ServiceEndpoint}/{enrollmentId}", enrollment);
+        return await httpClient.PutAsJsonAsync($"{remoteServiceBaseUrl}/{enrollmentId}", enrollment);
     }
 
     public async Task<HttpResponseMessage> DeleteEnrollmentAsync(string? enrollmentId)
     {
-        return await httpClient.DeleteAsync($"{ServiceEndpoint}/{enrollmentId}");
+        return await httpClient.DeleteAsync($"{remoteServiceBaseUrl}/{enrollmentId}");
     }
 }
 

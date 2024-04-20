@@ -3,7 +3,6 @@
 using System;
 using SchoolApp.AppHost;
 using Microsoft.Extensions.Configuration;
-using System.Xml.Linq;
 using Aspire.Hosting;
 
 var builder = DistributedApplication.CreateBuilder(args);
@@ -17,14 +16,14 @@ var adminDb = sqlserver.AddDatabase("adminDb");
 var identityDb = sqlserver.AddDatabase("identityDb");
 
 
-var launchProfileName = ShouldUseHttpForEndpoints() ? "http" : "https";
+var launchProfileName = ShouldUseHttpForEndpoints() ? "http" : "http";
 // Services
 var identityApi = builder.AddProject<Projects.SchoolApp_Identity_API>("identity-api", launchProfileName)
+    .WithExternalHttpEndpoints()
     .WithReference(identityDb);
 var identityEndpoint = identityApi.GetEndpoint(launchProfileName);
 
 var adminApi = builder.AddProject<Projects.SchoolApp_Admin_WebAPI>("admin-webapi")
-    //.WithReference(redis)
     .WithReference(adminDb)
     .WithReference(rabbitMq)
     .WithEnvironment("Identity__Url", identityEndpoint);
@@ -40,9 +39,10 @@ var webhooksClient = builder.AddProject<Projects.SchoolApp_Webhook_Web>("webhook
     .WithEnvironment("IdentityUrl", identityEndpoint);
 
 var adminWeb = builder.AddProject<Projects.SchoolApp_Admin_Web>("webapp", launchProfileName)
+    .WithExternalHttpEndpoints()
     .WithReference(rabbitMq)
     .WithReference(adminApi)
-    .WithEnvironment("IdentityUrl", launchProfileName);
+    .WithEnvironment("IdentityUrl", identityEndpoint);
 
 
 
@@ -50,8 +50,8 @@ webhooksClient.WithEnvironment("CallBackUrl", webhooksClient.GetEndpoint(launchP
 adminWeb.WithEnvironment("CallBackUrl", adminWeb.GetEndpoint(launchProfileName));
 
 
-identityApi.WithEnvironment("AdminApiClient", adminApi.GetEndpoint(launchProfileName))
-    .WithEnvironment("WebhooksApiClient", webHooksApi.GetEndpoint(launchProfileName))
+identityApi.WithEnvironment("AdminApiClient", adminApi.GetEndpoint("http"))
+    .WithEnvironment("WebhooksApiClient", webHooksApi.GetEndpoint("http"))
     .WithEnvironment("WebhooksWebClient", webhooksClient.GetEndpoint(launchProfileName))
     .WithEnvironment("WebAppClient", adminWeb.GetEndpoint(launchProfileName));
 builder.Build().Run();
