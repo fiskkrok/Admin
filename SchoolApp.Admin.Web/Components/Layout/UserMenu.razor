@@ -15,7 +15,7 @@
                 <a class="dropdown-item" href="user/orders">My orders</a>
                 <form class="dropdown-item" method="post" action="user/logout" @formname="logout" @onsubmit="LogOutAsync">
                     <AntiforgeryToken />
-                    <button type="submit">Log out</button>
+                    <a type="submit">Log out</a>
                 </form>
             </div>
         </div>

@@ -58,7 +58,11 @@ public static class Extensions
         var sessionCookieLifetime = configuration.GetValue("SessionCookieLifetimeMinutes", 60);
 
         // Add Authentication services
-        services.AddAuthorization();
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Admin"));
+            options.AddPolicy("EditEntities", policy => policy.RequireClaim("Role", "Admin", "Principle", "TeacherTwo"));
+        });
         services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

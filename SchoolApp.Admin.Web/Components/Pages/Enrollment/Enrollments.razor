@@ -4,8 +4,8 @@
 @attribute [StreamRendering]
 @inject EnrollmentService EnrollmentService
 @inject NavigationManager NavigationManager
-
-<h3>Enrollments</h3>
+<div class="container">
+    <h3 class="pages-banner">Enrollments</h3>
 
 @if (_enrollments == null)
 {
@@ -13,8 +13,8 @@
 }
 else
 {
-    <button class="btn btn-primary" @onclick="AddEnrollment">Add New Enrollment</button>
-    <table class="table">
+    <a class="btn btn-primary shadow-none" @onclick="AddEnrollment">Add New Enrollment</a>
+        <table class="table content">
         <thead>
         <tr>
             <th>Enrollment ID</th>
@@ -33,14 +33,15 @@ else
                 <td>@enrollment.CourseId</td>
                 <td>@enrollment.EnrollmentDate?.ToString("yyyy-MM-dd")</td>
                 <td>
-                    <button class="btn btn-info" @onclick="() => EditEnrollment(enrollment.EnrollmentId)">Edit</button>
-                    <button class="btn btn-danger" @onclick="() => DeleteEnrollment(enrollment.EnrollmentId)">Delete</button>
+                    <a class="btn btn-info" @onclick="() => EditEnrollment(enrollment.EnrollmentId)">Edit</a>
+                    <a class="btn btn-danger" @onclick="() => DeleteEnrollment(enrollment.EnrollmentId)">Delete</a>
                 </td>
             </tr>
         }
         </tbody>
     </table>
 }
+</div>
 
 @code {
     private IEnumerable<Enrollment>? _enrollments;

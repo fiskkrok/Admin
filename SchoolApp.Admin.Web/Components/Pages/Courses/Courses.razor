@@ -1,11 +1,15 @@
 ﻿@page "/courses"
 @using SchoolApp.Admin.Web.Models
 @using SchoolApp.Admin.Web.Services
-@inject CourseService CourseService
-@inject NavigationManager NavigationManager
+@implements IDisposable
 @attribute [StreamRendering]
+@inject CourseService CourseService
+@inject ILogger<Courses> Logger
+@inject NavigationManager Nav
 
-<h3 class="pages-banner">Courses</h3>
+<div class="container">
+
+    <h3 class="pages-banner">Courses</h3>
 
 @if (_courses == null)
 {
@@ -13,8 +17,8 @@
 }
 else
 {
-    <button class="btn btn-primary" @onclick="AddCourse">Add New Course</button>
-    <table class="table">
+        <a class="btn btn-primary shadow-none" href="/course/add">Add New Course</a>
+    <table class="table content">
         <thead>
         <tr>
             <th>Course Code</th>
@@ -31,15 +35,15 @@ else
                 <td>@course.CourseName</td>
                 <td>@course.Credits</td>
                 <td>
-                    <button class="btn btn-info" @onclick="() => EditCourse(course.Id)">Edit</button>
-                    <button class="btn btn-danger" @onclick="() => DeleteCourse(course.Id)">Delete</button>
+                    <a class="btn btn-info" href="/course/edit/@course.Id">Edit</a>
+                    <button class="btn btn-danger" @onclick="@(() => DeleteCourse(course.Id))">Delete</button>
                 </td>
             </tr>
         }
         </tbody>
     </table>
 }
-
+</div>
 @code {
     private IEnumerable<Course>? _courses;
 
@@ -48,20 +52,22 @@ else
         _courses = await CourseService.GetAllCoursesAsync();
     }
 
-    void AddCourse()
-    {
-        NavigationManager.NavigateTo("/course/add");
-    }
-
-    void EditCourse(int courseId)
-    {
-        NavigationManager.NavigateTo($"/course/edit/{courseId}");
-    }
-
+    [JSInvokable]
     async Task DeleteCourse(int courseId)
     {
         await CourseService.DeleteCourseAsync(courseId);
         _courses = await CourseService.GetAllCoursesAsync(); // Refresh the list
     }
-
+    protected override void OnInitialized()
+    {
+        Nav.LocationChanged += HandleLocationChanged;
+    }
+    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        Logger.LogInformation("URL of new location: {Location}", e.Location);
+    }
+    public void Dispose()
+    {
+        Nav.LocationChanged -= HandleLocationChanged;
+    }
 }

@@ -4,7 +4,7 @@ using SchoolApp.Admin.Web.Services;
 using SchoolApp.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

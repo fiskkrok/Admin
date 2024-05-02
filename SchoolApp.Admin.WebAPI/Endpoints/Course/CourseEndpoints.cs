@@ -12,11 +12,11 @@ public static class CourseEndpoints
 {
     public static RouteGroupBuilder MapCourseEndpoints(this RouteGroupBuilder app)
     {
-        app.MapGet("/Course/", GetAllCoursesAsync);
-        app.MapGet("/Course/{courseId:int}", GetCourseByIdAsync);
-        app.MapPost("/Course/", CreateCourseAsync);
-        app.MapPut("/Course/{courseId:int}", UpdateCourseAsync);
-        app.MapDelete("/Course/{courseId:int}", DeleteCourseAsync);
+        app.MapGet("/Course/", GetAllCoursesAsync).RequireAuthorization("Admin", "EditEntities");
+        app.MapGet("/Course/{courseId:int}", GetCourseByIdAsync).RequireAuthorization("Admin", "EditEntities");
+        app.MapPost("/Course/", CreateCourseAsync).RequireAuthorization("Admin", "EditEntities");
+        app.MapPut("/Course/{courseId:int}", UpdateCourseAsync).RequireAuthorization("Admin", "EditEntities");
+        app.MapDelete("/Course/{courseId:int}", DeleteCourseAsync).RequireAuthorization("Admin", "EditEntities");
 
         return app;
     }

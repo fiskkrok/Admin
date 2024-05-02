@@ -4,8 +4,8 @@
 @attribute [StreamRendering]
 @inject StudentService StudentService
 @inject NavigationManager NavigationManager
-
-<h3>Students</h3>
+<div class="container">
+    <h3 class="pages-banner" >Students</h3>
 
 @if (_students == null)
 {
@@ -13,8 +13,8 @@
 }
 else
 {
-    <button class="btn btn-primary" @onclick="AddStudent">Add New Student</button>
-    <table class="table">
+    <a class="btn btn-primary shadow-none" @onclick="AddStudent">Add New Student</a>
+        <table class="table content">
         <thead>
         <tr>
             <th>First Name</th>
@@ -31,14 +31,15 @@ else
                 <td>@student.LastName</td>
                 <td>@student.Email</td>
                 <td>
-                    <button class="btn btn-info" @onclick="() => EditStudent(student.StudentId)">Edit</button>
-                    <button class="btn btn-danger" @onclick="() => DeleteStudent(student.StudentId)">Delete</button>
+                    <a class="btn btn-info" @onclick="() => EditStudent(student.StudentId)">Edit</a>
+                    <a class="btn btn-danger" @onclick="() => DeleteStudent(student.StudentId)">Delete</a>
                 </td>
             </tr>
         }
         </tbody>
     </table>
 }
+    </div>
 
 @code {
     private IEnumerable<Student>? _students;

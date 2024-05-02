@@ -39,6 +39,12 @@ public static class Extensions
         string? connectionString = null)
     {
         var services = builder.Services;
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Admin"));
+            options.AddPolicy("EditEntities",
+                policy => policy.RequireClaim("Role", "Admin", "Principle", "TeacherTwo"));
+        });
         builder.AddDefaultAuthentication();
         if (connectionString == null)
         {

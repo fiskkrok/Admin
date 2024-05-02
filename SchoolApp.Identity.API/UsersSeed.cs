@@ -1,20 +1,26 @@
-﻿
-namespace SchoolApp.Identity.API;
+﻿namespace SchoolApp.Identity.API;
 
-public class UsersSeed(ILogger<UsersSeed> logger, UserManager<ApplicationUser> userManager) : IDbSeeder<ApplicationDbContext>
+public class UsersSeed(ILogger<UsersSeed> logger, UserManager<ApplicationUser> userManager)
+    : IDbSeeder<ApplicationDbContext>
 {
     public async Task SeedAsync(ApplicationDbContext context)
     {
-        var alice = await userManager.FindByNameAsync("alice");
+        await EnsureUser("alice", "AliceSmith@email.com", "Pass123$", "Admin");
+        await EnsureUser("bob", "BobSmith@email.com", "Pass123$", "TeacherTwo");
+    }
 
-        if (alice == null)
+    private async Task EnsureUser(string userName, string email, string password, string role)
+    {
+        var user = await userManager.FindByNameAsync(userName);
+
+        if (user == null)
         {
-            alice = new ApplicationUser
+            user = new ApplicationUser
             {
-                UserName = "alice",
-                Email = "AliceSmith@email.com",
+                UserName = userName,
+                Email = email,
                 EmailConfirmed = true,
-                CardHolderName = "Alice Smith",
+                CardHolderName = $"{userName} Smith",
                 CardNumber = "4012888888881881",
                 CardType = 1,
                 City = "Redmond",
@@ -22,76 +28,37 @@ public class UsersSeed(ILogger<UsersSeed> logger, UserManager<ApplicationUser> u
                 Expiration = "12/24",
                 Id = Guid.NewGuid().ToString(),
                 LastName = "Smith",
-                Name = "Alice",
+                Name = userName,
                 PhoneNumber = "1234567890",
                 ZipCode = "98052",
                 State = "WA",
                 Street = "15703 NE 61st Ct",
-                SecurityNumber = "123"
+                SecurityNumber = "123",
             };
 
-            var result = userManager.CreateAsync(alice, "Pass123$").Result;
+            var result = await userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)
             {
                 throw new Exception(result.Errors.First().Description);
             }
 
+            var claimResult = await userManager.AddClaimAsync(user, new Claim("Role", role));
+            if (!claimResult.Succeeded)
+            {
+                throw new Exception(claimResult.Errors.First().Description);
+            }
+
             if (logger.IsEnabled(LogLevel.Debug))
             {
-                logger.LogDebug("alice created");
+                logger.LogDebug($"{userName} created with role {role}");
             }
         }
         else
         {
             if (logger.IsEnabled(LogLevel.Debug))
             {
-                logger.LogDebug("alice already exists");
-            }
-        }
-
-        var bob = await userManager.FindByNameAsync("bob");
-
-        if (bob == null)
-        {
-            bob = new ApplicationUser
-            {
-                UserName = "bob",
-                Email = "BobSmith@email.com",
-                EmailConfirmed = true,
-                CardHolderName = "Bob Smith",
-                CardNumber = "4012888888881881",
-                CardType = 1,
-                City = "Redmond",
-                Country = "U.S.",
-                Expiration = "12/24",
-                Id = Guid.NewGuid().ToString(),
-                LastName = "Smith",
-                Name = "Bob",
-                PhoneNumber = "1234567890",
-                ZipCode = "98052",
-                State = "WA",
-                Street = "15703 NE 61st Ct",
-                SecurityNumber = "456"
-            };
-
-            var result = await userManager.CreateAsync(bob, "Pass123$");
-
-            if (!result.Succeeded)
-            {
-                throw new Exception(result.Errors.First().Description);
-            }
-
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                logger.LogDebug("bob created");
-            }
-        }
-        else
-        {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                logger.LogDebug("bob already exists");
+                logger.LogDebug($"{userName} already exists");
             }
         }
     }

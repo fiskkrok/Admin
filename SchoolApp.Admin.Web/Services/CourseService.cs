@@ -1,4 +1,6 @@
-﻿namespace SchoolApp.Admin.Web.Services;
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace SchoolApp.Admin.Web.Services;
 
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -10,7 +12,6 @@ using SchoolApp.Admin.Web.Models;
 public class CourseService(HttpClient httpClient)
 {
     private readonly string remoteServiceBaseUrl = "/api/v1/admin/Course";
-
 
     public async Task<List<Course>?> GetAllCoursesAsync()
     {
